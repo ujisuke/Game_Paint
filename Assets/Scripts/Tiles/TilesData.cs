@@ -23,12 +23,18 @@ namespace Assets.Scripts.Tiles
                 {
                     Vector3Int position = new(x, y, 0);
                     TileBase tileBase = tilemap.GetTile(position);
-                    newTiles[x, y] = new(
-                        colorIdCorrect: 0, // Placeholder for correct color ID
-                        colorIdCurrent: 0, // Placeholder for current color ID
-                        hasBeenPaintedCorrectly: false // Placeholder for painted state
-                    );
-                    Debug.Log($"({x}, {y})");
+                    if (tileBase == null)
+                        newTiles[x, y] = new(
+                            colorIdCorrect: 0,
+                            colorIdCurrent: -1,
+                            hasBeenPaintedCorrectly: false
+                        );
+                    else
+                        newTiles[x, y] = new(
+                            colorIdCorrect: 0,
+                            colorIdCurrent: 0,
+                            hasBeenPaintedCorrectly: false
+                        );
                 }
             return newTiles;
         }
