@@ -14,7 +14,7 @@ namespace Assets.Scripts.Player
 
         public static PlayerFacade Initialize()
         {
-            return new PlayerFacade(new PlayerMove(new Vector2(10.5f,6.5f)));
+            return new PlayerFacade(PlayerMove.Initialize());
         }
 
         public void Move(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
