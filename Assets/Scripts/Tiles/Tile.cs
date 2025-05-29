@@ -14,5 +14,10 @@ namespace Assets.Scripts.Tiles
             this.colorIdCurrent = colorIdCurrent;
             this.hasBeenPaintedCorrectly = hasBeenPaintedCorrectly;
         }
+
+        public bool IsWall()
+        {
+            return colorIdCorrect == -1;
+        }
     }
 }
