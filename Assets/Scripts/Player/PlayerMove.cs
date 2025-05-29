@@ -10,6 +10,7 @@ namespace Assets.Scripts.Player
         public Vector2 Pos => pos;
         private Vector2 hitBoxVertexPos = new(0.3f, 0.3f);
         private const float moveSpeed = 0.1f;
+        private const float wallCollisionOffset = 0.02f;
 
         public PlayerMove(Vector2 pos)
         {
@@ -18,50 +19,63 @@ namespace Assets.Scripts.Player
 
         public PlayerMove Move(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
         {
+            Vector2 directionVector = ApplyInputToDirectionVector(isDirectingUp, isDirectingDown, isDirectingLeft, isDirectingRight);
+
+            Vector2[] playerVertexPoses = {
+                pos + hitBoxVertexPos,
+                pos + new Vector2(-hitBoxVertexPos.x, hitBoxVertexPos.y),
+                pos - hitBoxVertexPos,
+                pos - new Vector2(-hitBoxVertexPos.x, hitBoxVertexPos.y)
+            };
+
+            Vector2 minimalDirectionVector = new(
+                ApplyCollisionToDirectionVectorX(playerVertexPoses, directionVector.x),
+                ApplyCollisionToDirectionVectorY(playerVertexPoses, directionVector.y));
+            Vector2 minimumDirectionVector = AdjustDiagonalDirectionVector(playerVertexPoses, minimalDirectionVector);
+
+            return new PlayerMove(pos + minimumDirectionVector);
+        }
+
+        private static Vector2 ApplyInputToDirectionVector(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
+        {
             Vector2 directionVector = Vector2.zero;
 
             if (isDirectingUp) directionVector += Vector2.up;
             if (isDirectingDown) directionVector += Vector2.down;
             if (isDirectingLeft) directionVector += Vector2.left;
             if (isDirectingRight) directionVector += Vector2.right;
-            directionVector *= moveSpeed;
 
-            Vector2 fixedDirectionVector = Vector2.zero;
-
-            float[] fixedDirectionXs = {
-                ApplyCollisionToDirectionVectorX(pos + hitBoxVertexPos, directionVector.x),
-                ApplyCollisionToDirectionVectorX(pos + new Vector2(-hitBoxVertexPos.x, hitBoxVertexPos.y), directionVector.x),
-                ApplyCollisionToDirectionVectorX(pos - hitBoxVertexPos, directionVector.x),
-                ApplyCollisionToDirectionVectorX(pos - new Vector2(-hitBoxVertexPos.x, hitBoxVertexPos.y), directionVector.x)
-                };
-            fixedDirectionVector.x = PickShortestNumber(fixedDirectionXs);
-
-            float[] fixedDirectionYs = {
-                ApplyCollisionToDirectionVectorY(pos + hitBoxVertexPos, directionVector.y),
-                ApplyCollisionToDirectionVectorY(pos + new Vector2(-hitBoxVertexPos.x, hitBoxVertexPos.y), directionVector.y),
-                ApplyCollisionToDirectionVectorY(pos - hitBoxVertexPos, directionVector.y),
-                ApplyCollisionToDirectionVectorY(pos - new Vector2(-hitBoxVertexPos.x, hitBoxVertexPos.y), directionVector.y)
-                };
-            fixedDirectionVector.y = PickShortestNumber(fixedDirectionYs);
-
-            fixedDirectionVector = AdjustDiagonalDirectionVector(fixedDirectionVector);
-
-            return new PlayerMove(pos + fixedDirectionVector);
+            return directionVector * moveSpeed;
         }
 
-        private static float ApplyCollisionToDirectionVectorX(Vector2 playerVertexPos, float playerDirectionVectorX)
+        private static float ApplyCollisionToDirectionVectorX(Vector2[] playerVertexPoses, float playerDirectionVectorX)
         {
-            Debug.Log(math.clamp(0, 3, 1));
-            if (TilesFacade.Instance.Tiles[(int)(playerVertexPos.x + playerDirectionVectorX), (int)playerVertexPos.y].IsWall())
-                return math.clamp(playerVertexPos.x + playerDirectionVectorX, (int)playerVertexPos.x + 0.05f, (int)playerVertexPos.x + 1f - 0.05f) - playerVertexPos.x;
-            return playerDirectionVectorX;
+            float[] fixedDirectionXs = new float[playerVertexPoses.Length];
+            for (int i = 0; i < playerVertexPoses.Length; i++)
+            {
+                Vector2Int playerVertexTargetPosInt = Vector2Int.FloorToInt(playerVertexPoses[i] + new Vector2(playerDirectionVectorX, 0f));
+                if (TilesFacade.Instance.Tiles[playerVertexTargetPosInt.x, playerVertexTargetPosInt.y].IsWall())
+                    fixedDirectionXs[i] = math.clamp(playerVertexPoses[i].x + playerDirectionVectorX, (int)playerVertexPoses[i].x + wallCollisionOffset, (int)playerVertexPoses[i].x + 1f - wallCollisionOffset) - playerVertexPoses[i].x;
+                else
+                    fixedDirectionXs[i] = playerDirectionVectorX;
+            }
+
+            return PickShortestNumber(fixedDirectionXs);
         }
 
-        private static float ApplyCollisionToDirectionVectorY(Vector2 playerVertexPos, float playerDirectionVectorY)
+        private static float ApplyCollisionToDirectionVectorY(Vector2[] playerVertexPoses, float playerDirectionVectorY)
         {
-            if (TilesFacade.Instance.Tiles[(int)playerVertexPos.x, (int)(playerVertexPos.y + playerDirectionVectorY)].IsWall())
-                return math.clamp(playerVertexPos.y + playerDirectionVectorY, (int)playerVertexPos.y + 0.05f, (int)playerVertexPos.y + 1f - 0.05f) - playerVertexPos.y;
-            return playerDirectionVectorY;
+            float[] fixedDirectionYs = new float[playerVertexPoses.Length];
+            for (int i = 0; i < playerVertexPoses.Length; i++)
+            {
+                Vector2Int playerVertexTargetPosInt = Vector2Int.FloorToInt(playerVertexPoses[i] + new Vector2(0f, playerDirectionVectorY));
+                if (TilesFacade.Instance.Tiles[playerVertexTargetPosInt.x, playerVertexTargetPosInt.y].IsWall())
+                    fixedDirectionYs[i] = math.clamp(playerVertexPoses[i].y + playerDirectionVectorY, (int)playerVertexPoses[i].y + wallCollisionOffset, (int)playerVertexPoses[i].y + 1f - wallCollisionOffset) - playerVertexPoses[i].y;
+                else
+                    fixedDirectionYs[i] = playerDirectionVectorY;
+            }
+
+            return PickShortestNumber(fixedDirectionYs);
         }
 
         private static float PickShortestNumber(float[] numbers)
@@ -70,24 +84,20 @@ namespace Assets.Scripts.Player
             for (int i = 1; i < numbers.Length; i++)
                 if (math.abs(numbers[i]) < math.abs(pickedNumber))
                     pickedNumber = numbers[i];
+
             return pickedNumber;
         }
 
-        private Vector2 AdjustDiagonalDirectionVector(Vector2 playerDirectionVector)
+        private static Vector2 AdjustDiagonalDirectionVector(Vector2[] playerVertexPoses, Vector2 playerDirectionVector)
         {
-            Vector2[] playerVertexPoses = {
-                pos + hitBoxVertexPos,
-                pos + new Vector2(-hitBoxVertexPos.x, hitBoxVertexPos.y),
-                pos - hitBoxVertexPos,
-                pos - new Vector2(-hitBoxVertexPos.x, hitBoxVertexPos.y)
-            };
             for (int i = 0; i < playerVertexPoses.Length; i++)
             {
                 Vector2 playerVertexTargetPos = playerVertexPoses[i] + playerDirectionVector;
-                if (!TilesFacade.Instance.Tiles[(int)playerVertexTargetPos.x, (int)playerVertexTargetPos.y].IsWall())
+                Vector2Int playerVertexTargetPosInt = Vector2Int.FloorToInt(playerVertexTargetPos);
+                if (!TilesFacade.Instance.Tiles[playerVertexTargetPosInt.x, playerVertexTargetPosInt.y].IsWall())
                     continue;
-                if ((int)playerVertexPoses[i].x == (int)playerVertexTargetPos.x ||
-                (int)playerVertexPoses[i].y == (int)playerVertexTargetPos.y)
+                if ((int)playerVertexPoses[i].x == playerVertexTargetPosInt.x ||
+                (int)playerVertexPoses[i].y == playerVertexTargetPosInt.y)
                     continue;
                 Vector2 wallVertexPos = new(
                     math.clamp(playerVertexTargetPos.x, (int)playerVertexPoses[i].x, (int)playerVertexPoses[i].x + 1),
@@ -95,11 +105,12 @@ namespace Assets.Scripts.Player
                 Vector2 vertexToVertexVector = wallVertexPos - playerVertexPoses[i];
                 Vector2 updatedPlayerDirectionVector = playerDirectionVector;
                 if (vertexToVertexVector.x * playerDirectionVector.y < vertexToVertexVector.y * playerDirectionVector.x)
-                    updatedPlayerDirectionVector.y = math.clamp(playerVertexPoses[i].y + playerDirectionVector.y, (int)playerVertexPoses[i].y + 0.05f, (int)playerVertexPoses[i].y + 1f - 0.05f) - playerVertexPoses[i].y;
+                    updatedPlayerDirectionVector.y = math.clamp(playerVertexPoses[i].y + playerDirectionVector.y, (int)playerVertexPoses[i].y + wallCollisionOffset, (int)playerVertexPoses[i].y + 1f - wallCollisionOffset) - playerVertexPoses[i].y;
                 else
-                    updatedPlayerDirectionVector.x = math.clamp(playerVertexPoses[i].x + playerDirectionVector.x, (int)playerVertexPoses[i].x + 0.05f, (int)playerVertexPoses[i].x + 1f - 0.05f) - playerVertexPoses[i].x;
+                    updatedPlayerDirectionVector.x = math.clamp(playerVertexPoses[i].x + playerDirectionVector.x, (int)playerVertexPoses[i].x + wallCollisionOffset, (int)playerVertexPoses[i].x + 1f - wallCollisionOffset) - playerVertexPoses[i].x;
                 return updatedPlayerDirectionVector;
             }
+            
             return playerDirectionVector;
         }
     }

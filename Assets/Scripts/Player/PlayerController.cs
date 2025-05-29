@@ -13,12 +13,14 @@ namespace Assets.Scripts.Player
 
         private void FixedUpdate()
         {
-            playerFacade = playerFacade.Move(
+            playerFacade.Move(
                 isDirectingUp: Input.GetKey(KeyCode.W),
                 isDirectingDown: Input.GetKey(KeyCode.S),
                 isDirectingLeft: Input.GetKey(KeyCode.A),
                 isDirectingRight: Input.GetKey(KeyCode.D)
             );
+
+            //Viewクラスができたらそこに記述
             transform.position = playerFacade.Pos;
         }
     }

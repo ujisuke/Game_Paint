@@ -17,15 +17,14 @@ namespace Assets.Scripts.Player
             return new PlayerFacade(new PlayerMove(new Vector2(10.5f,6.5f)));
         }
 
-        public PlayerFacade Move(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
+        public void Move(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
         {
-            return new PlayerFacade(
-                playerMove.Move(
+            playerMove = playerMove.Move(
                 isDirectingUp: isDirectingUp,
                 isDirectingDown: isDirectingDown,
                 isDirectingLeft: isDirectingLeft,
                 isDirectingRight: isDirectingRight
-            ));
+            );
         }
     }
 }
