@@ -1,0 +1,25 @@
+using System;
+using UnityEngine;
+
+namespace Assets.Scripts.Datas
+{
+    [Serializable]
+    public class ColorData
+    {
+        [SerializeField] private Color color;
+        [SerializeField] private ColorName colorName;
+
+        public Color Color => color;
+        public ColorName Colorname => colorName;
+    }
+
+    public enum ColorName
+    {
+        red,
+        green,
+        blue,
+        white,
+        wallColor,
+        defaultColor,
+    }
+}

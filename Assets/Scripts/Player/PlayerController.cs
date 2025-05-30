@@ -22,6 +22,9 @@ namespace Assets.Scripts.Player
 
             //Viewクラスができたらそこに記述
             transform.position = playerFacade.Pos;
+
+            if (Input.GetMouseButton(0))
+                playerFacade.Paint();
         }
     }
 }
