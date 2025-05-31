@@ -14,5 +14,16 @@ namespace Assets.Scripts.Tiles
         {
             spriteRenderer.color = colorDataList.GetColor(newColorName);
         }
+
+        private void OnValidate()
+        {
+            Paint(colorNameCorrect);
+        }
+
+        //仮設
+        private void Awake()
+        {
+            Paint(colorNameCorrect == ColorName.wallColor ? ColorName.wallColor : ColorName.defaultColor);
+        }
     }
 }

@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3dd27d0c08d8a647a7099c4012646f9, type: 3}
   m_Name: ColorDataList
   m_EditorClassIdentifier: 
-  colorDataList: []
+  paintColorDataList:
+  - color: {r: 1, g: 0, b: 0, a: 1}
+    colorName: 0
+  - color: {r: 0, g: 1, b: 0, a: 1}
+    colorName: 1
+  - color: {r: 0, g: 0, b: 1, a: 1}
+    colorName: 2
+  - color: {r: 1, g: 1, b: 1, a: 1}
+    colorName: 5
+  - color: {r: 0, g: 0, b: 0, a: 1}
+    colorName: 4
