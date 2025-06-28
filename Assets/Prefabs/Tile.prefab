@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2822140737813326770}
   - component: {fileID: 6856847142384891553}
+  - component: {fileID: 4640236237246078883}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5104821, g: 1, b: 0.3066038, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,3 +88,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4640236237246078883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247274196641950088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7947eb27e11e4cc40a6fa0bc59559917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 6856847142384891553}
+  colorDataList: {fileID: 11400000, guid: 404fc0843b13aec4a8b10b90783510d4, type: 2}
+  colorNameCorrect: 1

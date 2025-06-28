@@ -5,7 +5,7 @@ namespace Assets.Scripts.Player
     public class PlayerFacade
     {
         private PlayerMove playerMove;
-        public Vector2 Pos => playerMove.Pos; 
+        public Vector2 Pos => playerMove.Pos;
 
         public PlayerFacade(PlayerMove playerMove)
         {
@@ -25,6 +25,11 @@ namespace Assets.Scripts.Player
                 isDirectingLeft: isDirectingLeft,
                 isDirectingRight: isDirectingRight
             );
+        }
+
+        public void Paint()
+        {
+            PlayerPaint.Paint(playerMove.Pos);
         }
     }
 }
