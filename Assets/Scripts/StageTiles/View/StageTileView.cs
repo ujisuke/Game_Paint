@@ -1,9 +1,9 @@
 using Assets.Scripts.Datas;
 using UnityEngine;
 
-namespace Assets.Scripts.Tiles.View
+namespace Assets.Scripts.StageTiles.View
 {
-    public class TileView : MonoBehaviour
+    public class StageTileView : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private ColorDataList colorDataList;

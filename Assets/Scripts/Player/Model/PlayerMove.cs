@@ -1,4 +1,4 @@
-using Assets.Scripts.Tiles.Model;
+using Assets.Scripts.StageTiles.Model;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -127,7 +127,7 @@ namespace Assets.Scripts.Player.Model
 
         private static bool IsWall(Vector2Int pos)
         {
-            return TilesFacade.Instance.Tiles[pos.x, pos.y].IsWall();
+            return StageTilesFacade.Instance.StageTiles[pos.x, pos.y].IsWall();
         }
 
         private static float ClampDirectionVector(float startPosXorY, float directionVectorXorY)

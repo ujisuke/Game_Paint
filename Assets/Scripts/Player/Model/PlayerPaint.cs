@@ -1,5 +1,5 @@
 using Assets.Scripts.Datas;
-using Assets.Scripts.Tiles.Model;
+using Assets.Scripts.StageTiles.Model;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.Model
@@ -9,7 +9,7 @@ namespace Assets.Scripts.Player.Model
         public static void Paint(Vector2 pos)
         {
             ColorName inputColorName = ColorName.green;
-            TilesFacade.Instance.PaintTile(pos, inputColorName);
+            StageTilesFacade.Instance.PaintTile(pos, inputColorName);
         }
     }
 }
