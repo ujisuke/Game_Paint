@@ -2,6 +2,7 @@ using Assets.Scripts.Datas;
 using UnityEngine;
 using Assets.Scripts.StageTiles.View;
 using Assets.Scripts.StageTiles.Controller;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.StageTiles.Model
 {
@@ -13,10 +14,12 @@ namespace Assets.Scripts.StageTiles.Model
         public static int TilesHeight => tilesHeight;
         private readonly StageTile[,] stageTiles;
         public StageTile[,] StageTiles => stageTiles;
+        private readonly List<Vector2Int> paintedPosInts;
 
         public StageTilesData(StageTileView[,] stageTileViews)
         {
             stageTiles = InitializeTiles(stageTileViews);
+            paintedPosInts = new();
         }
 
         private static StageTile[,] InitializeTiles(StageTileView[,] stageTileViews)
@@ -26,24 +29,34 @@ namespace Assets.Scripts.StageTiles.Model
             for (int x = 0; x < tilesWidth; x++)
                 for (int y = 0; y < tilesHeight; y++)
                     if (stageTileViews[x, y].ColorNameCorrect == ColorName.wallColor)
-                        newStageTiles[x, y] = new StageTile(
-                            colorNameCorrect: ColorName.wallColor,
-                            colorNameCurrent: ColorName.wallColor,
-                            colorNamePrev: ColorName.wallColor);
+                        newStageTiles[x, y] = StageTile.Initialize(ColorName.wallColor);
                     else
-                        newStageTiles[x, y] = new StageTile(
-                            colorNameCorrect: stageTileViews[x, y].ColorNameCorrect,
-                            colorNameCurrent: ColorName.defaultColor,
-                            colorNamePrev: ColorName.defaultColor);
+                        newStageTiles[x, y] = StageTile.Initialize(ColorName.defaultColor);
             return newStageTiles;
         }
 
         public void PaintTile(Vector2 pos, ColorName inputColorName)
         {
             Vector2Int posInt = Vector2Int.FloorToInt(pos);
-            stageTiles[posInt.x, posInt.y] = stageTiles[posInt.x, posInt.y].Paint(inputColorName);
-            if (stageTiles[posInt.x, posInt.y].IsUpdated())
-                StageTilesController.Instance.PaintTileView(pos, stageTiles[posInt.x, posInt.y].ColorNameCurrent);
+            StageTile targetStageTile = stageTiles[posInt.x, posInt.y];
+            StageTile newTargetStageTile = targetStageTile.Paint(inputColorName);
+            if (newTargetStageTile.ColorNameCurrent == targetStageTile.ColorNameCurrent)
+                return;
+            stageTiles[posInt.x, posInt.y] = newTargetStageTile;
+            StageTilesController.Instance.PaintTileView(posInt, newTargetStageTile.ColorNameCurrent);
+            paintedPosInts.Add(posInt);
+        }
+
+        public void CompletePaint()
+        {
+            Magic.Summon(paintedPosInts);
+            for (int i = 0; i < paintedPosInts.Count; i++)
+            {
+                StageTilesController.Instance.ResetTileView(paintedPosInts[i]);
+                StageTile targetStageTile = stageTiles[paintedPosInts[i].x, paintedPosInts[i].y];
+                stageTiles[paintedPosInts[i].x, paintedPosInts[i].y] = targetStageTile.ResetColor();
+            }
+            paintedPosInts.Clear();
         }
     }
 }

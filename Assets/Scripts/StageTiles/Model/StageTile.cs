@@ -1,41 +1,46 @@
 using Assets.Scripts.Datas;
-using UnityEngine;
 
 namespace Assets.Scripts.StageTiles.Model
 {
     public class StageTile
     {
-        private readonly ColorName colorNameCorrect;
         private readonly ColorName colorNameCurrent;
         public ColorName ColorNameCurrent => colorNameCurrent;
-        private readonly ColorName colorNamePrev;
+        private readonly ColorName colorNameInitial;
+        public ColorName ColorNameInitial => colorNameInitial;
 
-        public StageTile(ColorName colorNameCorrect, ColorName colorNameCurrent, ColorName colorNamePrev)
+
+        public StageTile(ColorName colorNameCurrent)
         {
-            this.colorNameCorrect = colorNameCorrect;
             this.colorNameCurrent = colorNameCurrent;
-            this.colorNamePrev = colorNamePrev;
+        }
+
+        private StageTile(ColorName colorNameCurrent, ColorName colorNameInitial)
+        {
+            this.colorNameCurrent = colorNameCurrent;
+            this.colorNameInitial = colorNameInitial;
+        }
+
+        public static StageTile Initialize(ColorName colorNameInitial)
+        {
+            return new StageTile(colorNameInitial, colorNameInitial);
         }
 
         public bool IsWall()
         {
-            return colorNameCorrect == ColorName.wallColor;
+            return colorNameCurrent == ColorName.wallColor;
         }
 
-        public StageTile Paint(ColorName inputColorName)
+        public StageTile Paint(ColorName colorNameInput)
         {
-            if (IsWall() ||
-                (colorNameCurrent == ColorName.defaultColor && colorNameCorrect != inputColorName))
+            if (IsWall())
                 return this;
-
-            return colorNameCorrect == inputColorName
-                ? new StageTile(colorNameCorrect, colorNameCorrect, colorNameCurrent)
-                : new StageTile(colorNameCorrect, ColorName.defaultColor, colorNameCurrent);
+            return new StageTile(colorNameInput);
         }
 
-        public bool IsUpdated()
+        public StageTile ResetColor()
         {
-            return colorNameCurrent != colorNamePrev;
+            return new StageTile(colorNameInitial);
         }
     }
 }

@@ -21,13 +21,16 @@ namespace Assets.Scripts.StageTiles.View
             for (int i = 0; i < tilemap.gameObject.transform.childCount; i++)
             {
                 Transform tileObject = tilemap.gameObject.transform.GetChild(i);
-                newTileViews[(int)tileObject.position.x, (int)tileObject.position.y] = 
+                newTileViews[(int)tileObject.position.x, (int)tileObject.position.y] =
                     tileObject.GetComponent<StageTileView>();
             }
             return newTileViews;
         }
 
-        public void PaintTile(Vector2 pos, ColorName newColorName) =>
-            stageTileViews[(int)pos.x, (int)pos.y].Paint(newColorName);
+        public void PaintTile(Vector2Int posInt, ColorName newColorName) =>
+            stageTileViews[posInt.x, posInt.y].Paint(newColorName);
+            
+        public void ResetTileView(Vector2Int posInt) =>
+            stageTileViews[posInt.x, posInt.y].Reset();
     }
 }

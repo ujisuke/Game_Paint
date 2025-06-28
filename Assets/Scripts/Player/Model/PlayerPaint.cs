@@ -11,5 +11,10 @@ namespace Assets.Scripts.Player.Model
             ColorName inputColorName = ColorName.green;
             StageTilesFacade.Instance.PaintTile(pos, inputColorName);
         }
+
+        public static void CompletePaint()
+        {
+            StageTilesFacade.Instance.CompletePaint();
+        }
     }
 }

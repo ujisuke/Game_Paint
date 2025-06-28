@@ -23,5 +23,10 @@ namespace Assets.Scripts.StageTiles.Model
         {
             stageTilesData.PaintTile(pos, inputColorName);
         }
+
+        public void CompletePaint()
+        {
+            stageTilesData.CompletePaint();
+        }
     }
 }

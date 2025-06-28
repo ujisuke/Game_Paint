@@ -20,7 +20,10 @@ namespace Assets.Scripts.StageTiles.Controller
             stageTilesFacade = new StageTilesFacade(stageTilesView.StageTileViews);
         }
 
-        public void PaintTileView(Vector2 playerPos, ColorName newColorName) =>
-            stageTilesView.PaintTile(playerPos, newColorName);
+        public void PaintTileView(Vector2Int playerPosInt, ColorName newColorName) =>
+            stageTilesView.PaintTile(playerPosInt, newColorName);
+        
+        public void ResetTileView(Vector2Int posInt) =>
+            stageTilesView.ResetTileView(posInt);
     }
 }

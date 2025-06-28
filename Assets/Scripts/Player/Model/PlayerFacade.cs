@@ -31,5 +31,10 @@ namespace Assets.Scripts.Player.Model
         {
             PlayerPaint.Paint(playerMove.Pos);
         }
+
+        public static void CompletePaint()
+        {
+            PlayerPaint.CompletePaint();
+        }
     }
 }
