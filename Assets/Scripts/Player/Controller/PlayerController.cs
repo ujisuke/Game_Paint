@@ -1,6 +1,7 @@
 using UnityEngine;
+using Assets.Scripts.Player.Model;
 
-namespace Assets.Scripts.Player
+namespace Assets.Scripts.Player.Controller
 {
     public class PlayerController : MonoBehaviour
     {

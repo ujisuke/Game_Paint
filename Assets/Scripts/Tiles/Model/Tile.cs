@@ -1,7 +1,7 @@
 using Assets.Scripts.Datas;
 using UnityEngine;
 
-namespace Assets.Scripts.Tiles
+namespace Assets.Scripts.Tiles.Model
 {
     public class Tile
     {

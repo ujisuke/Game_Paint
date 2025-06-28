@@ -2,7 +2,7 @@ using Assets.Scripts.Datas;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Assets.Scripts.Tiles
+namespace Assets.Scripts.Tiles.View
 {
     public class TilesView
     {

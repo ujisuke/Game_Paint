@@ -1,9 +1,9 @@
 using Assets.Scripts.Datas;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using Assets.Scripts.Tiles.View;
 
 
-namespace Assets.Scripts.Tiles
+namespace Assets.Scripts.Tiles.Model
 {
     public class TilesFacade
     {

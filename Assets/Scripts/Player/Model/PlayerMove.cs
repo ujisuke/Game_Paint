@@ -1,8 +1,8 @@
-using Assets.Scripts.Tiles;
+using Assets.Scripts.Tiles.Model;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Assets.Scripts.Player.Model
 {
     public class PlayerMove
     {

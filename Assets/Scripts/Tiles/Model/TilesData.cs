@@ -1,7 +1,9 @@
 using Assets.Scripts.Datas;
 using UnityEngine;
+using Assets.Scripts.Tiles.View;
+using Assets.Scripts.Tiles.Controller;
 
-namespace Assets.Scripts.Tiles
+namespace Assets.Scripts.Tiles.Model
 {
     public class TilesData
     {

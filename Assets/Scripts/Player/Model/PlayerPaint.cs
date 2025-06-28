@@ -1,8 +1,8 @@
 using Assets.Scripts.Datas;
-using Assets.Scripts.Tiles;
+using Assets.Scripts.Tiles.Model;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Assets.Scripts.Player.Model
 {
     public static class PlayerPaint
     {
