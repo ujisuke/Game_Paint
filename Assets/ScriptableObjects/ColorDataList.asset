@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: ColorDataList
   m_EditorClassIdentifier: 
   paintColorDataList:
-  - color: {r: 1, g: 0, b: 0, a: 1}
+  - color: {r: 1, g: 0.47026253, b: 0.4198113, a: 1}
     colorName: 0
-  - color: {r: 0, g: 1, b: 0, a: 1}
+  - color: {r: 0.5104821, g: 1, b: 0.3066038, a: 1}
     colorName: 1
-  - color: {r: 0, g: 0, b: 1, a: 1}
+  - color: {r: 0, g: 0.7043075, b: 0.99607843, a: 1}
     colorName: 2
-  - color: {r: 1, g: 1, b: 1, a: 1}
+  - color: {r: 1, g: 0.991067, b: 0.8066038, a: 1}
     colorName: 5
-  - color: {r: 0, g: 0, b: 0, a: 1}
+  - color: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
     colorName: 4
+  - color: {r: 1, g: 1, b: 1, a: 1}
+    colorName: 3
