@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Assets.Scripts.Player.Model
 {
     public class PlayerFacade
     {
@@ -30,6 +30,11 @@ namespace Assets.Scripts.Player
         public void Paint()
         {
             PlayerPaint.Paint(playerMove.Pos);
+        }
+
+        public static void CompletePaint()
+        {
+            PlayerPaint.CompletePaint();
         }
     }
 }

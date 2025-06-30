@@ -1,14 +1,17 @@
 using UnityEngine;
+using Assets.Scripts.Player.Model;
 
-namespace Assets.Scripts.Player
+namespace Assets.Scripts.Player.Controller
 {
     public class PlayerController : MonoBehaviour
     {
         private PlayerFacade playerFacade;
+        bool isGettingMouse0;
 
         private void Start()
         {
             playerFacade = PlayerFacade.Initialize();
+            isGettingMouse0 = false;
         }
 
         private void FixedUpdate()
@@ -24,7 +27,16 @@ namespace Assets.Scripts.Player
             transform.position = playerFacade.Pos;
 
             if (Input.GetMouseButton(0))
+            {
+                isGettingMouse0 = true;
                 playerFacade.Paint();
+            }
+
+            if (!Input.GetMouseButton(0) && isGettingMouse0)
+            {
+                PlayerFacade.CompletePaint();
+                isGettingMouse0 = false;
+            }
         }
     }
 }
