@@ -15,9 +15,11 @@ namespace Assets.Scripts.StageTiles.Model
         private readonly StageTile[,] stageTiles;
         public StageTile[,] StageTiles => stageTiles;
         private readonly List<Vector2Int> paintedPosInts;
+        private readonly SignDataList signDataList;
 
-        public StageTilesData(StageTileView[,] stageTileViews)
+        public StageTilesData(StageTileView[,] stageTileViews, SignDataList signDataList)
         {
+            this.signDataList = signDataList;
             stageTiles = InitializeTiles(stageTileViews);
             paintedPosInts = new();
         }
@@ -49,7 +51,7 @@ namespace Assets.Scripts.StageTiles.Model
 
         public void CompletePaint()
         {
-            Magic.Summon(paintedPosInts);
+            signDataList.Summon(paintedPosInts);
             for (int i = 0; i < paintedPosInts.Count; i++)
             {
                 StageTilesController.Instance.ResetTileView(paintedPosInts[i]);

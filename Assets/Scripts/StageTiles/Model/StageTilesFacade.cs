@@ -12,10 +12,11 @@ namespace Assets.Scripts.StageTiles.Model
         public StageTile[,] StageTiles => stageTilesData.StageTiles;
         public static int TilesWidth => StageTilesData.TilesWidth;
         public static int TilesHeight => StageTilesData.TilesHeight;
+        
 
-        public StageTilesFacade(StageTileView[,] stageTileViews)
+        public StageTilesFacade(StageTileView[,] stageTileViews, SignDataList signDataList)
         {
-            stageTilesData = new StageTilesData(stageTileViews);
+            stageTilesData = new StageTilesData(stageTileViews, signDataList);
             Instance = this;
         }
 
