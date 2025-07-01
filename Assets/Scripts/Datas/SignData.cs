@@ -8,8 +8,12 @@ namespace Assets.Scripts.Datas
     {
         [SerializeField][TextArea(5,5)] private string signShape;
         public string SignShape => signShape;
-        [SerializeField] private string testName;
-        public string TestName => testName;
+        [SerializeField] private GameObject familiar;
+
+        public void Summon()
+        {
+            GameObject.Instantiate(familiar);
+        }
 
         public static implicit operator SignData(UnityEngine.Object v)
         {

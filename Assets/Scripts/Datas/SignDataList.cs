@@ -8,19 +8,19 @@ namespace Assets.Scripts.Datas
     public class SignDataList : ScriptableObject
     {
         [SerializeField] private List<SignData> signDataList;
-        private Dictionary<string, string> signDictionary;
+        private Dictionary<string, SignData> signDictionary;
 
         private void Initialize()
         {
-            signDictionary = new Dictionary<string, string>();
+            signDictionary = new Dictionary<string, SignData>();
 
             for (int i = 0; i < signDataList.Count; i++)
                 signDictionary = AddToDictionary(signDataList[i], signDictionary);
         }
 
-        private static Dictionary<string, string> AddToDictionary(SignData signData, Dictionary<string, string> signDictionary)
+        private static Dictionary<string, SignData> AddToDictionary(SignData signData, Dictionary<string, SignData> signDictionary)
         {
-            Dictionary<string, string> updatedSignDictionary = new(signDictionary);
+            Dictionary<string, SignData> updatedSignDictionary = new(signDictionary);
 
             string[] originalStrings = signData.SignShape.Split('\n');
 
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Datas
             return flippedChars;
         }
 
-        private static Dictionary<string, string> AddCharsToDictionary(char[,] chars, SignData signData, Dictionary<string, string> signDictionary)
+        private static Dictionary<string, SignData> AddCharsToDictionary(char[,] chars, SignData signData, Dictionary<string, SignData> signDictionary)
         {
             string result = "";
             for (int y = chars.GetLength(0) - 1; y >= 0; y--)
@@ -76,9 +76,9 @@ namespace Assets.Scripts.Datas
                     result += "\n";
             }
 
-            Dictionary<string, string> updatedSignDictionary = new(signDictionary);
+            Dictionary<string, SignData> updatedSignDictionary = new(signDictionary);
             if (!updatedSignDictionary.ContainsKey(result))
-                updatedSignDictionary.Add(result, signData.TestName);
+                updatedSignDictionary.Add(result, signData);
             return updatedSignDictionary;
         }
 
@@ -87,8 +87,10 @@ namespace Assets.Scripts.Datas
             string signShape = ConvertToString(posInts);
             if (signDictionary == null)
                 Initialize();
-            try { Debug.Log(signDictionary[signShape]); }
-            catch (KeyNotFoundException) { Debug.Log("Fail"); }
+            try
+                { signDictionary[signShape].Summon(); }
+            catch (KeyNotFoundException)
+                { Debug.Log("Fail"); }
         }
 
         private static string ConvertToString(List<Vector2Int> posInts)
