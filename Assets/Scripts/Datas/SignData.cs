@@ -1,4 +1,6 @@
 using System;
+using Assets.Scripts.CommonObject.Model;
+using Assets.Scripts.Familiar.Base.Controller;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -10,14 +12,10 @@ namespace Assets.Scripts.Datas
         public string SignShape => signShape;
         [SerializeField] private GameObject familiar;
 
-        public void Summon()
+        public void Summon(Position position)
         {
-            GameObject.Instantiate(familiar);
-        }
-
-        public static implicit operator SignData(UnityEngine.Object v)
-        {
-            throw new NotImplementedException();
+            GameObject newfamiliar = GameObject.Instantiate(familiar);
+            newfamiliar.GetComponent<FamiliarController>().OnSummon(position);
         }
     }
 }

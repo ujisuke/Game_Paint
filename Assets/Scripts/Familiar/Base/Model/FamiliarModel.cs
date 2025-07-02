@@ -1,8 +1,7 @@
 using Assets.Scripts.CommonObject.Model;
 using Assets.Scripts.Datas;
-using UnityEngine;
 
-namespace Assets.Scripts.Familiar.Model
+namespace Assets.Scripts.Familiar.Base.Model
 {
     public class FamiliarModel
     {
@@ -12,13 +11,13 @@ namespace Assets.Scripts.Familiar.Model
         private HitBox hitBox;
         private FStateMachine fStateMachine;
 
-        public FamiliarModel(FamiliarData familiarData)
+        public FamiliarModel(FamiliarData familiarData, IFStateAfterBorn fStateAfterBorn, Position position)
         {
-            power = new Power(familiarData.DefaultPower);
-            position = new Position(Vector2.zero);
-            hP = new HP(familiarData.MaxHP);
-            hitBox = new HitBox(familiarData.HitBoxSize);
-            fStateMachine = new FStateMachine(this);
+            power = familiarData.DefaultPower;
+            this.position = position;
+            hP = familiarData.MaxHP;
+            hitBox = familiarData.HitBox;
+            fStateMachine = new FStateMachine(this, fStateAfterBorn);
         }
 
         public void FixedUpdate()

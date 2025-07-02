@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Familiar.Model
+namespace Assets.Scripts.Familiar.Base.Model
 {
     public interface IFState
     {

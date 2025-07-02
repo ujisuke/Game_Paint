@@ -12,6 +12,7 @@ namespace Assets.Scripts.CommonObject.Model
         public Position(Vector2 pos)
         {
             this.pos = pos;
+            Debug.Log("Initial Position: " + pos);
         }
 
         public Position Move(Vector2 directionVector)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.CommonObject.Model;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -88,9 +89,12 @@ namespace Assets.Scripts.Datas
             if (signDictionary == null)
                 Initialize();
             try
-                { signDictionary[signShape].Summon(); }
+            {
+                Vector2 centerPos = new Vector2((float)posInts.Average(p => p.x), (float)posInts.Average(p => p.y));
+                signDictionary[signShape].Summon(new Position(centerPos));
+            }
             catch (KeyNotFoundException)
-                { Debug.Log("Fail"); }
+            { Debug.Log("Fail"); }
         }
 
         private static string ConvertToString(List<Vector2Int> posInts)

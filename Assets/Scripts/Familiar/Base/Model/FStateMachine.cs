@@ -1,12 +1,12 @@
-namespace Assets.Scripts.Familiar.Model
+namespace Assets.Scripts.Familiar.Base.Model
 {
     public class FStateMachine
     {
         private IFState currentState;
 
-        public FStateMachine(FamiliarModel familiarModel)
+        public FStateMachine(FamiliarModel familiarModel, IFStateAfterBorn fStateAfterBorn)
         {
-            currentState = new FStateBorn(this, familiarModel);
+            currentState = new FStateBorn(this, familiarModel, fStateAfterBorn);
             currentState.OnStateEnter();
         }
 

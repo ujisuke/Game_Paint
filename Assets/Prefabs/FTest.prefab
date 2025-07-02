@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6950007517489721335}
   - component: {fileID: 4719501435335199521}
-  - component: {fileID: -909191133350212374}
+  - component: {fileID: 382529604117157478}
   m_Layer: 0
-  m_Name: F1
+  m_Name: FTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-909191133350212374
+--- !u!114 &382529604117157478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3515165110105616261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf872f19e3136f45a0070aca21952d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e4ab9d1f8db8434baa1eebfc766b7c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   familiarData: {fileID: 11400000, guid: 7ea6efc1a068c344493aa6cf2e5d51dc, type: 2}

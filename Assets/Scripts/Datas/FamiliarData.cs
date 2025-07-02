@@ -1,3 +1,4 @@
+using Assets.Scripts.CommonObject.Model;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -11,8 +12,8 @@ namespace Assets.Scripts.Datas
         [SerializeField] private Vector2 hitBoxSize;
 
         public string FamiliarName => familiarName;
-        public int DefaultPower => defaultPower;
-        public int MaxHP => maxHP;
-        public Vector2 HitBoxSize => hitBoxSize;
+        public Power DefaultPower => new(defaultPower);
+        public HP MaxHP => new(maxHP);
+        public HitBox HitBox => new(hitBoxSize);
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Familiar.Model
+namespace Assets.Scripts.Familiar.Base.Model
 {
     public class FStateDead : IFState
     {
@@ -15,7 +15,7 @@ namespace Assets.Scripts.Familiar.Model
 
         public void OnStateEnter()
         {
-            Debug.Log("Familiar Dead");
+            Debug.Log("FStateDead");
         }
 
         public void OnStateFixedUpdate()

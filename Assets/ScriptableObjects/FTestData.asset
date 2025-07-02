@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 683373c2792c3874aa5344d24bc201b6, type: 3}
-  m_Name: F1Data
+  m_Name: FTestData
   m_EditorClassIdentifier: 
-  familiarName: F1
+  familiarName: FTest
   defaultPower: 1
   maxHP: 1
   hitBoxSize: {x: 1, y: 1}
