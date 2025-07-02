@@ -5,18 +5,16 @@ namespace Assets.Scripts.Familiar.Dog.Model
 {
     public class DogStateMove : IFStateAfterBorn
     {
-        private readonly FamiliarModel familiarModel;
-        private readonly FStateMachine fStateMachine;
+        private readonly FamiliarModel fM;
 
-        public DogStateMove(FStateMachine fStateMachine, FamiliarModel familiarModel)
+        public DogStateMove(FamiliarModel familiarModel)
         {
-            this.fStateMachine = fStateMachine;
-            this.familiarModel = familiarModel;
+            fM = familiarModel;
         }
 
-        public IFState Initialize(FStateMachine fStateMachine, FamiliarModel familiarModel)
+        public IFState Initialize(FamiliarModel familiarModel)
         {
-            return new DogStateMove(fStateMachine, familiarModel);
+            return new DogStateMove(fM);
         }
 
         public void OnStateEnter()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.CommonObject.Model
+namespace Assets.Scripts.Common
 {
     public class HitBox
     {

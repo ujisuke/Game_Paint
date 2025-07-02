@@ -6,7 +6,7 @@ namespace Assets.Scripts.Familiar.Base.Model
 
         public FStateMachine(FamiliarModel familiarModel, IFStateAfterBorn fStateAfterBorn)
         {
-            currentState = new FStateBorn(this, familiarModel, fStateAfterBorn);
+            currentState = new FStateBorn(familiarModel, fStateAfterBorn);
             currentState.OnStateEnter();
         }
 

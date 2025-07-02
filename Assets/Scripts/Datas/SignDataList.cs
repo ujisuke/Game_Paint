@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.CommonObject.Model;
+using Assets.Scripts.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -90,8 +90,10 @@ namespace Assets.Scripts.Datas
                 Initialize();
             try
             {
-                Vector2 centerPos = new Vector2((float)posInts.Average(p => p.x), (float)posInts.Average(p => p.y));
-                signDictionary[signShape].Summon(new Position(centerPos));
+                float averageX = (posInts.Min(p => p.x) + posInts.Max(p => p.x)) / 2f;
+                float averageY = (posInts.Min(p => p.y) + posInts.Max(p => p.y)) / 2f;
+                Vector2 centerPos = new(averageX + 0.5f, averageY + 0.5f);
+                signDictionary[signShape].Summon(centerPos);
             }
             catch (KeyNotFoundException)
             { Debug.Log("Fail"); }

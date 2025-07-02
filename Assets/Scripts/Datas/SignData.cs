@@ -1,5 +1,4 @@
 using System;
-using Assets.Scripts.CommonObject.Model;
 using Assets.Scripts.Familiar.Base.Controller;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ namespace Assets.Scripts.Datas
         public string SignShape => signShape;
         [SerializeField] private GameObject familiar;
 
-        public void Summon(Position position)
+        public void Summon(Vector2 position)
         {
             GameObject newfamiliar = GameObject.Instantiate(familiar);
             newfamiliar.GetComponent<FamiliarController>().OnSummon(position);

@@ -1,6 +1,6 @@
 using Unity.Mathematics;
 
-namespace Assets.Scripts.CommonObject.Model
+namespace Assets.Scripts.Common
 {
     public class Power
     {

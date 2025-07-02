@@ -5,19 +5,11 @@ namespace Assets.Scripts.Familiar.FTest.Model
 {
     public class FTestStateMove : IFStateAfterBorn
     {
-        private readonly FamiliarModel familiarModel;
-        private readonly FStateMachine fStateMachine;
+        private readonly FamiliarModel fM;
 
-        public FTestStateMove(FStateMachine fStateMachine, FamiliarModel familiarModel)
-        {
-            this.fStateMachine = fStateMachine;
-            this.familiarModel = familiarModel;
-        }
-
-        public IFState Initialize(FStateMachine fStateMachine, FamiliarModel familiarModel)
-        {
-            return new FTestStateMove(fStateMachine, familiarModel);
-        }
+        public FTestStateMove(FamiliarModel familiarModel) => fM = familiarModel;
+        
+        public IFState Initialize(FamiliarModel familiarModel) => new FTestStateMove(familiarModel);
 
         public void OnStateEnter()
         {
@@ -26,7 +18,9 @@ namespace Assets.Scripts.Familiar.FTest.Model
 
         public void OnStateFixedUpdate()
         {
-            fStateMachine.ChangeState(new FStateDead(fStateMachine, familiarModel));
+            fM.Move(fM.GetUP("Speed") * Vector2.right);
+            if (Input.GetKey(KeyCode.Space))
+                fM.ChangeState(new FStateDead(fM));
         }
 
         public void OnStateExit()

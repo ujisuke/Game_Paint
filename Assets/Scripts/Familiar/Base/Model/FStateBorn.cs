@@ -4,14 +4,12 @@ namespace Assets.Scripts.Familiar.Base.Model
 {
     public class FStateBorn : IFState
     {
-        private readonly FStateMachine fStateMachine;
-        private readonly FamiliarModel familiarModel;
+        private readonly FamiliarModel fM;
         private readonly IFStateAfterBorn fStateAfterBorn;
 
-        public FStateBorn(FStateMachine fStateMachine, FamiliarModel familiarModel, IFStateAfterBorn fStateAfterBorn)
+        public FStateBorn(FamiliarModel familiarModel, IFStateAfterBorn fStateAfterBorn)
         {
-            this.fStateMachine = fStateMachine;
-            this.familiarModel = familiarModel;
+            fM = familiarModel;
             this.fStateAfterBorn = fStateAfterBorn;
         }
 
@@ -22,7 +20,7 @@ namespace Assets.Scripts.Familiar.Base.Model
 
         public void OnStateFixedUpdate()
         {
-            fStateMachine.ChangeState(fStateAfterBorn.Initialize(fStateMachine, familiarModel));
+            fM.ChangeState(fStateAfterBorn.Initialize(fM));
         }
 
         public void OnStateExit()

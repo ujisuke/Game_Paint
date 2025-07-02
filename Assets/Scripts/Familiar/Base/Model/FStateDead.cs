@@ -4,18 +4,13 @@ namespace Assets.Scripts.Familiar.Base.Model
 {
     public class FStateDead : IFState
     {
-        private readonly FStateMachine fStateMachine;
-        private readonly FamiliarModel familiarModel;
+        private readonly FamiliarModel fM;
 
-        public FStateDead(FStateMachine fStateMachine, FamiliarModel familiarModel)
-        {
-            this.fStateMachine = fStateMachine;
-            this.familiarModel = familiarModel;
-        }
+        public FStateDead(FamiliarModel familiarModel) => fM = familiarModel;
 
         public void OnStateEnter()
         {
-            Debug.Log("FStateDead");
+            fM.Destroy();
         }
 
         public void OnStateFixedUpdate()
