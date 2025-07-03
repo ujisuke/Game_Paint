@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Familiar.Base.Controller;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -8,12 +9,12 @@ namespace Assets.Scripts.Datas
     {
         [SerializeField][TextArea(5,5)] private string signShape;
         public string SignShape => signShape;
-        [SerializeField] private string testName;
-        public string TestName => testName;
+        [SerializeField] private GameObject familiar;
 
-        public static implicit operator SignData(UnityEngine.Object v)
+        public void Summon(Vector2 position, ColorName colorNameInput)
         {
-            throw new NotImplementedException();
+            GameObject newfamiliar = GameObject.Instantiate(familiar);
+            newfamiliar.GetComponent<FamiliarController>().OnSummon(position, colorNameInput);
         }
     }
 }

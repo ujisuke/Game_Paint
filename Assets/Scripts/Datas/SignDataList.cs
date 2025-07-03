@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -8,19 +9,19 @@ namespace Assets.Scripts.Datas
     public class SignDataList : ScriptableObject
     {
         [SerializeField] private List<SignData> signDataList;
-        private Dictionary<string, string> signDictionary;
+        private Dictionary<string, SignData> signDictionary;
 
         private void Initialize()
         {
-            signDictionary = new Dictionary<string, string>();
+            signDictionary = new Dictionary<string, SignData>();
 
             for (int i = 0; i < signDataList.Count; i++)
                 signDictionary = AddToDictionary(signDataList[i], signDictionary);
         }
 
-        private static Dictionary<string, string> AddToDictionary(SignData signData, Dictionary<string, string> signDictionary)
+        private static Dictionary<string, SignData> AddToDictionary(SignData signData, Dictionary<string, SignData> signDictionary)
         {
-            Dictionary<string, string> updatedSignDictionary = new(signDictionary);
+            Dictionary<string, SignData> updatedSignDictionary = new(signDictionary);
 
             string[] originalStrings = signData.SignShape.Split('\n');
 
@@ -65,7 +66,7 @@ namespace Assets.Scripts.Datas
             return flippedChars;
         }
 
-        private static Dictionary<string, string> AddCharsToDictionary(char[,] chars, SignData signData, Dictionary<string, string> signDictionary)
+        private static Dictionary<string, SignData> AddCharsToDictionary(char[,] chars, SignData signData, Dictionary<string, SignData> signDictionary)
         {
             string result = "";
             for (int y = chars.GetLength(0) - 1; y >= 0; y--)
@@ -76,19 +77,26 @@ namespace Assets.Scripts.Datas
                     result += "\n";
             }
 
-            Dictionary<string, string> updatedSignDictionary = new(signDictionary);
+            Dictionary<string, SignData> updatedSignDictionary = new(signDictionary);
             if (!updatedSignDictionary.ContainsKey(result))
-                updatedSignDictionary.Add(result, signData.TestName);
+                updatedSignDictionary.Add(result, signData);
             return updatedSignDictionary;
         }
 
-        public void Summon(List<Vector2Int> posInts)
+        public void Summon(List<Vector2Int> posInts, ColorName colorNameInput)
         {
             string signShape = ConvertToString(posInts);
             if (signDictionary == null)
                 Initialize();
-            try { Debug.Log(signDictionary[signShape]); }
-            catch (KeyNotFoundException) { Debug.Log("Fail"); }
+            try
+            {
+                float averageX = (posInts.Min(p => p.x) + posInts.Max(p => p.x)) / 2f;
+                float averageY = (posInts.Min(p => p.y) + posInts.Max(p => p.y)) / 2f;
+                Vector2 centerPos = new(averageX + 0.5f, averageY + 0.5f);
+                signDictionary[signShape].Summon(centerPos, colorNameInput);
+            }
+            catch (KeyNotFoundException)
+            { Debug.Log("Fail"); }
         }
 
         private static string ConvertToString(List<Vector2Int> posInts)

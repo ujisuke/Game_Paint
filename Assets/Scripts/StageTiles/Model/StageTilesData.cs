@@ -37,11 +37,11 @@ namespace Assets.Scripts.StageTiles.Model
             return newStageTiles;
         }
 
-        public void PaintTile(Vector2 pos, ColorName inputColorName)
+        public void PaintTile(Vector2 pos, ColorName colorNameInput)
         {
             Vector2Int posInt = Vector2Int.FloorToInt(pos);
             StageTile targetStageTile = stageTiles[posInt.x, posInt.y];
-            StageTile newTargetStageTile = targetStageTile.Paint(inputColorName);
+            StageTile newTargetStageTile = targetStageTile.Paint(colorNameInput);
             if (newTargetStageTile.ColorNameCurrent == targetStageTile.ColorNameCurrent)
                 return;
             stageTiles[posInt.x, posInt.y] = newTargetStageTile;
@@ -49,9 +49,9 @@ namespace Assets.Scripts.StageTiles.Model
             paintedPosInts.Add(posInt);
         }
 
-        public void CompletePaint()
+        public void CompletePaint(ColorName colorNameInput)
         {
-            signDataList.Summon(paintedPosInts);
+            signDataList.Summon(paintedPosInts, colorNameInput);
             for (int i = 0; i < paintedPosInts.Count; i++)
             {
                 StageTilesController.Instance.ResetTileView(paintedPosInts[i]);

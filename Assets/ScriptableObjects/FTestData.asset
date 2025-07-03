@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 115a3362ced311d4f8857d4558e1dd09, type: 3}
-  m_Name: SignDataList
+  m_Script: {fileID: 11500000, guid: 683373c2792c3874aa5344d24bc201b6, type: 3}
+  m_Name: FTestData
   m_EditorClassIdentifier: 
-  signDataList:
-  - signShape: '^^^
-
-      ^--'
-    familiar: {fileID: 3515165110105616261, guid: f3e62d3acde3b974383e475087e98679, type: 3}
+  familiarName: FTest
+  defaultPower: 1
+  maxHP: 1
+  hitBoxSize: {x: 1, y: 1}
+  scale: {x: 1, y: 1}
+  uniqueParametersList:
+  - parameterName: Speed
+    value: 0.1

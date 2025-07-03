@@ -16,9 +16,11 @@ namespace Assets.Scripts.Datas
     public enum ColorName
     {
         red,
-        green,
         blue,
-        white,
+        yellow,
+        purple,
+        green,
+        orange,
         wallColor,
         defaultColor,
     }
