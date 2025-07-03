@@ -15,8 +15,10 @@ namespace Assets.Scripts.Familiar.Base.Model
         private readonly FStateMachine fStateMachine;
         private readonly FamiliarData familiarData;
         private readonly FamiliarController familiarController;
+        private readonly ColorName colorName;
+        public ColorName ColorName => colorName;
 
-        public FamiliarModel(FamiliarData familiarData, IFStateAfterBorn fStateAfterBorn, Vector2 position, FamiliarController familiarController)
+        public FamiliarModel(FamiliarData familiarData, IFStateAfterBorn fStateAfterBorn, Vector2 position, FamiliarController familiarController, ColorName colorName)
         {
             this.familiarData = familiarData;
             power = familiarData.DefaultPower;
@@ -25,6 +27,7 @@ namespace Assets.Scripts.Familiar.Base.Model
             hitBox = familiarData.HitBox;
             fStateMachine = new FStateMachine(this, fStateAfterBorn);
             this.familiarController = familiarController;
+            this.colorName = colorName;
         }
 
         public void FixedUpdate() => fStateMachine.FixedUpdate();

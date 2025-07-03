@@ -4,17 +4,29 @@ using UnityEngine;
 
 namespace Assets.Scripts.Player.Model
 {
-    public static class PlayerPaint
+    public class PlayerPaint
     {
-        public static void Paint(Vector2 pos)
+        private bool isPainting;
+        public bool IsPainting => isPainting;
+
+        public PlayerPaint()
         {
-            ColorName inputColorName = ColorName.green;
-            StageTilesFacade.Instance.PaintTile(pos, inputColorName);
+            isPainting = false;
         }
 
-        public static void CompletePaint()
+        public void Paint(Vector2 pos, ColorName colorNameInput, bool isGettingMouse0)
         {
-            StageTilesFacade.Instance.CompletePaint();
+            if (isGettingMouse0)
+            {
+                isPainting = true;
+                StageTilesModel.Instance.PaintTile(pos, colorNameInput);
+            }
+
+            if (isPainting && !isGettingMouse0)
+            {
+                StageTilesModel.Instance.CompletePaint(colorNameInput);
+                isPainting = false;
+            }
         }
     }
 }

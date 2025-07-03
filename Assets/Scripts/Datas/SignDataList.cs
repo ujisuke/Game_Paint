@@ -83,7 +83,7 @@ namespace Assets.Scripts.Datas
             return updatedSignDictionary;
         }
 
-        public void Summon(List<Vector2Int> posInts)
+        public void Summon(List<Vector2Int> posInts, ColorName colorNameInput)
         {
             string signShape = ConvertToString(posInts);
             if (signDictionary == null)
@@ -93,7 +93,7 @@ namespace Assets.Scripts.Datas
                 float averageX = (posInts.Min(p => p.x) + posInts.Max(p => p.x)) / 2f;
                 float averageY = (posInts.Min(p => p.y) + posInts.Max(p => p.y)) / 2f;
                 Vector2 centerPos = new(averageX + 0.5f, averageY + 0.5f);
-                signDictionary[signShape].Summon(centerPos);
+                signDictionary[signShape].Summon(centerPos, colorNameInput);
             }
             catch (KeyNotFoundException)
             { Debug.Log("Fail"); }

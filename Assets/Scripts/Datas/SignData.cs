@@ -11,10 +11,10 @@ namespace Assets.Scripts.Datas
         public string SignShape => signShape;
         [SerializeField] private GameObject familiar;
 
-        public void Summon(Vector2 position)
+        public void Summon(Vector2 position, ColorName colorNameInput)
         {
             GameObject newfamiliar = GameObject.Instantiate(familiar);
-            newfamiliar.GetComponent<FamiliarController>().OnSummon(position);
+            newfamiliar.GetComponent<FamiliarController>().OnSummon(position, colorNameInput);
         }
     }
 }

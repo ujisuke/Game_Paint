@@ -5,38 +5,27 @@ namespace Assets.Scripts.Player.Controller
 {
     public class PlayerController : MonoBehaviour
     {
-        private PlayerFacade playerFacade;
-        bool isGettingMouse0;
+        private PlayerModel playerModel;
 
-        private void Start()
+        private void Awake()
         {
-            playerFacade = PlayerFacade.Initialize();
-            isGettingMouse0 = false;
+            playerModel = new();
         }
 
         private void FixedUpdate()
         {
-            playerFacade.Move(
-                isDirectingUp: Input.GetKey(KeyCode.W),
-                isDirectingDown: Input.GetKey(KeyCode.S),
-                isDirectingLeft: Input.GetKey(KeyCode.A),
-                isDirectingRight: Input.GetKey(KeyCode.D)
+            playerModel.Move(
+                Input.GetKey(KeyCode.W),
+                Input.GetKey(KeyCode.S),
+                Input.GetKey(KeyCode.A),
+                Input.GetKey(KeyCode.D)
             );
 
             //Viewクラスができたらそこに記述
-            transform.position = playerFacade.Pos;
-
-            if (Input.GetMouseButton(0))
-            {
-                isGettingMouse0 = true;
-                playerFacade.Paint();
-            }
-
-            if (!Input.GetMouseButton(0) && isGettingMouse0)
-            {
-                PlayerFacade.CompletePaint();
-                isGettingMouse0 = false;
-            }
+            transform.position = playerModel.Pos;
+            
+            playerModel.Paint(Input.GetMouseButton(0));
+            playerModel.SetColor(Input.mouseScrollDelta);
         }
     }
 }

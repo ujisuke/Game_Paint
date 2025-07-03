@@ -1,3 +1,4 @@
+using UnityEngine;
 using Assets.Scripts.Datas;
 
 namespace Assets.Scripts.StageTiles.Model
@@ -8,12 +9,6 @@ namespace Assets.Scripts.StageTiles.Model
         public ColorName ColorNameCurrent => colorNameCurrent;
         private readonly ColorName colorNameInitial;
         public ColorName ColorNameInitial => colorNameInitial;
-
-
-        public StageTile(ColorName colorNameCurrent)
-        {
-            this.colorNameCurrent = colorNameCurrent;
-        }
 
         private StageTile(ColorName colorNameCurrent, ColorName colorNameInitial)
         {
@@ -31,16 +26,22 @@ namespace Assets.Scripts.StageTiles.Model
             return colorNameCurrent == ColorName.wallColor;
         }
 
+        private bool IsDefaultColor()
+        {
+            return colorNameCurrent == ColorName.defaultColor;
+        }
+
         public StageTile Paint(ColorName colorNameInput)
         {
-            if (IsWall())
+            if (!IsDefaultColor())
                 return this;
-            return new StageTile(colorNameInput);
+            return new StageTile(colorNameInput, colorNameInitial);
         }
 
         public StageTile ResetColor()
         {
-            return new StageTile(colorNameInitial);
+            Debug.Log($"Resetting color from {colorNameCurrent} to {colorNameInitial}");
+            return new StageTile(colorNameInitial, colorNameInitial);
         }
     }
 }

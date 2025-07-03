@@ -11,11 +11,11 @@ namespace Assets.Scripts.Familiar.Base.Controller
         private FamiliarModel familiarModel;
         [SerializeField] private FamiliarView familiarView;
 
-        public abstract void OnSummon(Vector2 pos);
+        public abstract void OnSummon(Vector2 pos, ColorName colorNameInput);
 
-        protected void Initialize(IFStateAfterBorn fStateAfterBorn, Vector2 pos)
+        protected void Initialize(IFStateAfterBorn fStateAfterBorn, Vector2 pos, ColorName colorName)
         {
-            familiarModel = new FamiliarModel(familiarData, fStateAfterBorn, pos, this);
+            familiarModel = new FamiliarModel(familiarData, fStateAfterBorn, pos, this, colorName);
             familiarView.SetPSA(familiarModel.PSA);
         }
 
@@ -25,6 +25,7 @@ namespace Assets.Scripts.Familiar.Base.Controller
                 return;
             familiarModel.FixedUpdate();
             familiarView.SetPSA(familiarModel.PSA);
+            familiarView.SetColor(familiarModel.ColorName);
         }
     }
 

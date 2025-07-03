@@ -2,19 +2,18 @@ using UnityEngine;
 
 namespace Assets.Scripts.Player.Model
 {
-    public class PlayerFacade
+    public class PlayerModel
     {
         private PlayerMove playerMove;
         public Vector2 Pos => playerMove.Pos;
+        private PlayerColor playerColor;
+        private readonly PlayerPaint playerPaint;
 
-        public PlayerFacade(PlayerMove playerMove)
+        public PlayerModel()
         {
-            this.playerMove = playerMove;
-        }
-
-        public static PlayerFacade Initialize()
-        {
-            return new PlayerFacade(PlayerMove.Initialize());
+            playerMove = PlayerMove.Initialize();
+            playerColor = PlayerColor.Initialize();
+            playerPaint = new();
         }
 
         public void Move(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
@@ -27,14 +26,14 @@ namespace Assets.Scripts.Player.Model
             );
         }
 
-        public void Paint()
+        public void Paint(bool isGettingMouse0)
         {
-            PlayerPaint.Paint(playerMove.Pos);
+            playerPaint.Paint(playerMove.Pos, playerColor.ColorNameCurrent, isGettingMouse0);
         }
 
-        public static void CompletePaint()
+        public void SetColor(Vector2 mouseScrollDelta)
         {
-            PlayerPaint.CompletePaint();
+            playerColor = playerColor.SetColor(mouseScrollDelta, playerPaint);
         }
     }
 }

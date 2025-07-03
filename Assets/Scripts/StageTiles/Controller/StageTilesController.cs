@@ -8,7 +8,7 @@ namespace Assets.Scripts.StageTiles.Controller
 {
     public class StageTilesController : MonoBehaviour
     {
-        private StageTilesFacade stageTilesFacade;
+        private StageTilesModel stageTilesModel;
         [SerializeField] private Tilemap tilemap;
         private StageTilesView stageTilesView;
         public static StageTilesController Instance;
@@ -18,7 +18,7 @@ namespace Assets.Scripts.StageTiles.Controller
         {
             Instance = this;
             stageTilesView = new StageTilesView(tilemap, StageTilesData.TilesWidth, StageTilesData.TilesHeight);
-            stageTilesFacade = new StageTilesFacade(stageTilesView.StageTileViews, signDataList);
+            stageTilesModel = new StageTilesModel(stageTilesView.StageTileViews, signDataList);
         }
 
         public void PaintTileView(Vector2Int playerPosInt, ColorName newColorName) =>
