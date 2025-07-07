@@ -1,28 +1,22 @@
 using System.Collections.Generic;
 using Assets.Scripts.Common;
-using Assets.Scripts.ObjectAttacks.Base.Controller;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
 {
-    [CreateAssetMenu(fileName = "FamiliarData", menuName = "ScriptableObjects/FamiliarData")]
-    public class FamiliarData : ScriptableObject
+    [CreateAssetMenu(fileName = "ObjectAttackData", menuName = "ScriptableObjects/ObjectAttackData")]
+    public class ObjectAttackData : ScriptableObject
     {
-        [SerializeField] private string familiarName;
-        [SerializeField] private int defaultPower;
-        [SerializeField] private int maxHP;
-        [SerializeField] private Vector2 hurtBoxSize;
+        [SerializeField] private float defaultPower;
+        public Power DefaultPower => new(defaultPower);
+        [SerializeField] private Vector2 hitBoxSize;
         [SerializeField] private Vector2 scale;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
-        [SerializeField] private GameObject attackPrefab;
         private Dictionary<string, float> uniqueParameters;
-
-        public string FamiliarName => familiarName;
-        public Power DefaultPower => new(defaultPower);
-        public HP MaxHP => new(maxHP);
-        public HurtBox HurtBox => new(Vector2.zero, hurtBoxSize, false);
+        public HitBox HitBox => new(Vector2.zero, hitBoxSize);
         public Vector2 Scale => scale;
-        public GameObject AttackPrefab => attackPrefab;
+        [SerializeField] private bool isEnemyAttack;
+        public bool IsEnemyAttack => isEnemyAttack;
 
         public float GetUniqueParameter(string parameterName)
         {
@@ -36,7 +30,7 @@ namespace Assets.Scripts.Datas
         private Dictionary<string, float> InitializeUniqueParameters()
         {
             var parameters = new Dictionary<string, float>();
-            for(int i = 0; i < uniqueParametersList.Count; i++)
+            for (int i = 0; i < uniqueParametersList.Count; i++)
                 parameters.Add(uniqueParametersList[i].ParameterName, uniqueParametersList[i].Value);
             return parameters;
         }

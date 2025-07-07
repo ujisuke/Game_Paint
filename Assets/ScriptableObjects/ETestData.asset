@@ -9,15 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 683373c2792c3874aa5344d24bc201b6, type: 3}
-  m_Name: FTestData
+  m_Script: {fileID: 11500000, guid: 3c886000690a0af44a54dcc8ecff32ce, type: 3}
+  m_Name: ETestData
   m_EditorClassIdentifier: 
-  familiarName: FTest
-  defaultPower: 1
+  enemyName: ETest
   maxHP: 1
-  hurtBoxSize: {x: 0, y: 0}
+  hitBoxSize: {x: 1, y: 1}
   scale: {x: 1, y: 1}
-  uniqueParametersList:
-  - parameterName: Speed
-    value: 0.1
-  attackPrefab: {fileID: 3515165110105616261, guid: 8a366e048281775488a320641ce31adb, type: 3}
+  uniqueParametersList: []

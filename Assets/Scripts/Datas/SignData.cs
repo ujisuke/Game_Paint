@@ -1,5 +1,5 @@
 using System;
-using Assets.Scripts.Familiar.Base.Controller;
+using Assets.Scripts.Familiars.Base.Controller;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
