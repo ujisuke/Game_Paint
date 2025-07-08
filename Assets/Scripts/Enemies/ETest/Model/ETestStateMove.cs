@@ -18,8 +18,8 @@ namespace Assets.Scripts.Enemies.FTest.Model
 
         public void OnStateFixedUpdate()
         {
-            if (Input.GetKey(KeyCode.K))
-                eM.ChangeState(new EStateDead(eM));
+            if (eM.IsDead())
+                    eM.ChangeState(new EStateDead(eM));
         }
 
         public void OnStateExit()

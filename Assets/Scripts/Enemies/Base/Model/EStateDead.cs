@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Assets.Scripts.Enemies.Base.Model
 {
     public class EStateDead : IEState

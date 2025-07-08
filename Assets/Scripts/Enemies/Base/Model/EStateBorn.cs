@@ -15,7 +15,7 @@ namespace Assets.Scripts.Enemies.Base.Model
 
         public void OnStateEnter()
         {
-            Debug.Log("FStateBorn");
+            Debug.Log("EStateBorn");
         }
 
         public void OnStateFixedUpdate()

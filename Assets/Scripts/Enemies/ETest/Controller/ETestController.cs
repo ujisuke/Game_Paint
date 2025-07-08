@@ -9,7 +9,7 @@ namespace Assets.Scripts.Enemies.FTest.Controller
         public override void OnSummon(Vector2 pos) =>
             Initialize(new ETestStateMove(null), pos);
 
-        private void Awake()
+        private void Start()
         {
             OnSummon(transform.position);
         }

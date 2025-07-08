@@ -3,6 +3,7 @@ using Assets.Scripts.Enemies.Base.Model;
 using Assets.Scripts.Familiars.Base.Model;
 using Assets.Scripts.ObjectAttacks.Base.Model;
 using Assets.Scripts.Player.Model;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.GameSystems.Model
@@ -55,12 +56,12 @@ namespace Assets.Scripts.GameSystems.Model
             for (int i = 0; i < familiarAttacks.Count; i++)
                 for (int j = 0; j < enemies.Count; j++)
                     if (ObjectsHitDetector.IsAttacking(familiarAttacks[i].HitBox, enemies[j].HurtBox))
-                        Debug.Log($"Familiar attack hit enemy");
+                        enemies[j].TakeDamage(familiarAttacks[i].PowerValue).Forget();
         }
 
         public Vector2 GetNearestEnemyPos(Vector2 pos)
         {
-            Vector2 nearestPos = Vector2.zero;
+            Vector2 nearestPos = pos;
             float minDistance = float.MaxValue;
 
             for(int i = 0; i < enemies.Count; i++)

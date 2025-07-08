@@ -7,7 +7,7 @@ namespace Assets.Scripts.Datas
     [CreateAssetMenu(fileName = "ObjectAttackData", menuName = "ScriptableObjects/ObjectAttackData")]
     public class ObjectAttackData : ScriptableObject
     {
-        [SerializeField] private float defaultPower;
+        [SerializeField] private int defaultPower;
         public Power DefaultPower => new(defaultPower);
         [SerializeField] private Vector2 hitBoxSize;
         [SerializeField] private Vector2 scale;

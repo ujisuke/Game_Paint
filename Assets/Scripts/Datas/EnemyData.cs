@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Assets.Scripts.Common;
 using UnityEngine;
@@ -12,19 +13,21 @@ namespace Assets.Scripts.Datas
         [SerializeField] private Vector2 hurtBoxSize;
         [SerializeField] private Vector2 scale;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
+        [SerializeField] private float invincibleSecond = 0.3f;
         private Dictionary<string, float> uniqueParameters;
         public string FamiliarName => enemyName;
         public HP MaxHP => new(maxHP);
         public HurtBox HurtBox => new(Vector2.zero, hurtBoxSize, true);
         public Vector2 Scale => scale;
+        public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
 
         public float GetUP(string parameterName)
         {
             uniqueParameters ??= InitializeUniqueParameters();
             try
-                { return uniqueParameters[parameterName]; }
+            { return uniqueParameters[parameterName]; }
             catch (KeyNotFoundException)
-                { return 0f; }
+            { return 0f; }
         }
 
         private Dictionary<string, float> InitializeUniqueParameters()

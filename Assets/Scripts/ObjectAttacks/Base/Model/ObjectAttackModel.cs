@@ -9,7 +9,7 @@ namespace Assets.Scripts.ObjectAttacks.Base.Model
     public class ObjectAttackModel
     {
         private Power power;
-        public Power Power => power;
+        public int PowerValue => power.CurrentPower;
         private PSA pSA;
         public PSA PSA => pSA;
         private HitBox hitBox;

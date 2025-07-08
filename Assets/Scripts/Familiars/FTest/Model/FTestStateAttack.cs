@@ -8,7 +8,8 @@ namespace Assets.Scripts.Familiars.FTest.Model
     public class FTestStateAttack : IFStateAfterBorn
     {
         private readonly FamiliarModel fM;
-        ObjectAttackModel attack;
+        private ObjectAttackModel attack;
+        private int i;
 
         public FTestStateAttack(FamiliarModel familiarModel) => fM = familiarModel;
         
@@ -17,13 +18,19 @@ namespace Assets.Scripts.Familiars.FTest.Model
         public void OnStateEnter()
         {
             Debug.Log("FTestStateAttack");
+            i = 0;
         }
 
         public void OnStateFixedUpdate()
         {
-            var newAttack = GameObject.Instantiate(fM.FamiliarData.AttackPrefab, fM.PSA.Pos, Quaternion.identity);
-            attack = newAttack.GetComponent<ObjectAttackController>().ObjectAttackModel;
-            fM.ChangeState(new FStateDead(fM));
+            if (i == 0)
+            {
+                var newAttack = GameObject.Instantiate(fM.FamiliarData.AttackPrefab, fM.PSA.Pos, Quaternion.identity);
+                attack = newAttack.GetComponent<ObjectAttackController>().ObjectAttackModel;
+            }
+            if (i == 3)
+                fM.ChangeState(new FStateDead(fM));
+            i++;
         }
 
         public void OnStateExit()

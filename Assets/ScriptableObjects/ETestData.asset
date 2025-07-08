@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ETestData
   m_EditorClassIdentifier: 
   enemyName: ETest
-  maxHP: 1
-  hitBoxSize: {x: 1, y: 1}
+  maxHP: 5
+  hurtBoxSize: {x: 1, y: 1}
   scale: {x: 1, y: 1}
   uniqueParametersList: []
+  invincibleSecond: 0.3
