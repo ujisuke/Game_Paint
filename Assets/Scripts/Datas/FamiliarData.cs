@@ -11,7 +11,7 @@ namespace Assets.Scripts.Datas
         [SerializeField] private string familiarName;
         [SerializeField] private int defaultPower;
         [SerializeField] private int maxHP;
-        [SerializeField] private Vector2 hurtBoxSize;
+        [SerializeField] private Vector2 hurtBoxScale;
         [SerializeField] private Vector2 scale;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
         [SerializeField] private GameObject attackPrefab;
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Datas
         public string FamiliarName => familiarName;
         public Power DefaultPower => new(defaultPower);
         public HP MaxHP => new(maxHP);
-        public HurtBox HurtBox => new(Vector2.zero, hurtBoxSize, false);
+        public HurtBox HurtBox => new(Vector2.zero, hurtBoxScale, false);
         public Vector2 Scale => scale;
         public GameObject AttackPrefab => attackPrefab;
 

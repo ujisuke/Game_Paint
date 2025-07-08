@@ -12,7 +12,7 @@ namespace Assets.Scripts.ObjectAttacks.Base.Model
         public int PowerValue => power.CurrentPower;
         private PSA pSA;
         public PSA PSA => pSA;
-        private HitBox hitBox;
+        private readonly HitBox hitBox;
         public HitBox HitBox => hitBox;
         private readonly ObjectAttackData objectAttackData;
         private readonly ObjectAttackController objectAttackController;

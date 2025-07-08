@@ -19,7 +19,7 @@ namespace Assets.Scripts.Enemies.FTest.Model
         public void OnStateFixedUpdate()
         {
             if (eM.IsDead())
-                    eM.ChangeState(new EStateDead(eM));
+                eM.ChangeState(new EStateDead(eM));
         }
 
         public void OnStateExit()

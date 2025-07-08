@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c886000690a0af44a54dcc8ecff32ce, type: 3}
-  m_Name: ETestData
+  m_Script: {fileID: 11500000, guid: 7d13cfba8e2c0d94796044c6fd959d81, type: 3}
+  m_Name: PlayerData
   m_EditorClassIdentifier: 
-  enemyName: ETest
-  maxHP: 5
+  maxHP: 3
   hurtBoxScale: {x: 1, y: 1}
-  scale: {x: 1, y: 1}
+  scale: {x: 0.5, y: 0.5}
   invincibleSecond: 0.3
-  uniqueParametersList: []
+  moveSpeed: 0.1

@@ -9,11 +9,11 @@ namespace Assets.Scripts.Datas
     {
         [SerializeField] private int defaultPower;
         public Power DefaultPower => new(defaultPower);
-        [SerializeField] private Vector2 hitBoxSize;
+        [SerializeField] private Vector2 hitBoxScale;
         [SerializeField] private Vector2 scale;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
         private Dictionary<string, float> uniqueParameters;
-        public HitBox HitBox => new(Vector2.zero, hitBoxSize);
+        public HitBox HitBox => new(Vector2.zero, hitBoxScale);
         public Vector2 Scale => scale;
         [SerializeField] private bool isEnemyAttack;
         public bool IsEnemyAttack => isEnemyAttack;

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Assets.Scripts.Datas;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.Model
@@ -22,9 +23,9 @@ namespace Assets.Scripts.Player.Model
 
         public static PlayerColor Initialize() => new(ColorName.red);
 
-        public PlayerColor SetColor(Vector2 mouseScrollDelta, PlayerPaint playerPaint)
+        public PlayerColor SetColor(Vector2 mouseScrollDelta)
         {
-            if (mouseScrollDelta.y == 0f || playerPaint.IsPainting)
+            if (math.abs(mouseScrollDelta.y) < 0.1f)
                 return this;
 
             ColorName newColorName = mouseScrollDelta.y > 0f

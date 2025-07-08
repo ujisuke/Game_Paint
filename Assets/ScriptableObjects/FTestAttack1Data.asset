@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FTestAttack1Data
   m_EditorClassIdentifier: 
   defaultPower: 1
-  hitBoxSize: {x: 1, y: 1}
-  scale: {x: 0, y: 0}
+  hitBoxScale: {x: 0, y: 0}
+  scale: {x: 1, y: 1}
   uniqueParametersList: []
   isEnemyAttack: 0

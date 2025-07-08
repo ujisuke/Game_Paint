@@ -6,36 +6,36 @@ namespace Assets.Scripts.Player.Model
 {
     public class PlayerMove
     {
-        private readonly Vector2 pos;
-        public Vector2 Pos => pos;
         private readonly Vector2 directionVectorPrev;
-        private Vector2 hitBoxVertexPos = new(0.3f, 0.3f);
-        private const float moveSpeed = 0.1f;
+        private Vector2 hurtBoxVertexPos;
+        private readonly float moveSpeed;
         private const float wallCollisionOffset = 0.02f;
         private const float lerpFactor = 0.2f;
+        public Vector2 DirectionVector => directionVectorPrev;
 
 
-        public PlayerMove(Vector2 pos, Vector2 directionVectorPrev)
+        public PlayerMove(float moveSpeed, Vector2 directionVectorPrev, Vector2 hurtBoxVertexPos)
         {
-            this.pos = pos;
+            this.moveSpeed = moveSpeed;
             this.directionVectorPrev = directionVectorPrev;
+            this.hurtBoxVertexPos = hurtBoxVertexPos;
         }
 
-        public static PlayerMove Initialize()
+        public static PlayerMove Initialize(float moveSpeed, Vector2 hurtBoxScale)
         {
-            return new PlayerMove(new Vector2(10.5f, 6.5f), Vector2.zero);
+            return new PlayerMove(moveSpeed, Vector2.zero, hurtBoxScale * 0.5f);
         }
 
-        public PlayerMove Move(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
+        public PlayerMove Move(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight, Vector2 pos)
         {
             Vector2 inputVector = ApplyInputToDirectionVector(isDirectingUp, isDirectingDown, isDirectingLeft, isDirectingRight);
             Vector2 directionVector = Vector2.Lerp(directionVectorPrev, inputVector, lerpFactor);
 
             Vector2[] playerVertexPoses = {
-                pos + hitBoxVertexPos,
-                pos + new Vector2(-hitBoxVertexPos.x, hitBoxVertexPos.y),
-                pos - hitBoxVertexPos,
-                pos - new Vector2(-hitBoxVertexPos.x, hitBoxVertexPos.y)
+                pos + hurtBoxVertexPos,
+                pos + new Vector2(-hurtBoxVertexPos.x, hurtBoxVertexPos.y),
+                pos - hurtBoxVertexPos,
+                pos - new Vector2(-hurtBoxVertexPos.x, hurtBoxVertexPos.y)
             };
 
             Vector2 minimalDirectionVector = new(
@@ -43,10 +43,10 @@ namespace Assets.Scripts.Player.Model
                 ApplyCollisionToDirectionVectorY(playerVertexPoses, directionVector.y));
             Vector2 minimumDirectionVector = AdjustDiagonalDirectionVector(playerVertexPoses, minimalDirectionVector);
 
-            return new PlayerMove(pos + minimumDirectionVector, minimumDirectionVector);
+            return new PlayerMove(moveSpeed, minimumDirectionVector, hurtBoxVertexPos);
         }
 
-        private static Vector2 ApplyInputToDirectionVector(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
+        private Vector2 ApplyInputToDirectionVector(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
         {
             Vector2 directionVector = Vector2.zero;
 
