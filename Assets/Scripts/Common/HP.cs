@@ -10,7 +10,7 @@ namespace Assets.Scripts.Common
         public HP(int currentHP, int maxHP)
         {
             this.maxHP = maxHP;
-            math.clamp(currentHP, 0, maxHP);
+            this.currentHP = math.clamp(currentHP, 0, maxHP);
         }
 
         public HP(int maxHP)
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Common
 
         public bool IsDead()
         {
-            return currentHP <= 0;
+            return currentHP == 0;
         }
     }
 }

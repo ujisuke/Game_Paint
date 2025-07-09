@@ -15,8 +15,9 @@ MonoBehaviour:
   familiarName: FTest
   defaultPower: 1
   maxHP: 1
-  hitBoxSize: {x: 1, y: 1}
+  hurtBoxSize: {x: 0, y: 0}
   scale: {x: 1, y: 1}
   uniqueParametersList:
   - parameterName: Speed
     value: 0.1
+  attackPrefab: {fileID: 3515165110105616261, guid: 8a366e048281775488a320641ce31adb, type: 3}

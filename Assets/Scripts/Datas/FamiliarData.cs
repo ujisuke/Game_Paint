@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Assets.Scripts.Common;
 using UnityEngine;
@@ -8,26 +9,28 @@ namespace Assets.Scripts.Datas
     public class FamiliarData : ScriptableObject
     {
         [SerializeField] private string familiarName;
-        [SerializeField] private int defaultPower;
         [SerializeField] private int maxHP;
-        [SerializeField] private Vector2 hitBoxSize;
+        [SerializeField] private Vector2 hurtBoxScale;
         [SerializeField] private Vector2 scale;
+        [SerializeField] private float invincibleSecond;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
+        [SerializeField] private GameObject attackPrefab;
         private Dictionary<string, float> uniqueParameters;
 
         public string FamiliarName => familiarName;
-        public Power DefaultPower => new(defaultPower);
         public HP MaxHP => new(maxHP);
-        public HitBox HitBox => new(hitBoxSize);
+        public Vector2 HurtBoxScale => hurtBoxScale;
         public Vector2 Scale => scale;
+        public GameObject AttackPrefab => attackPrefab;
+        public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
 
-        public float GetUP(string parameterName)
+        public float GetUniqueParameter(string parameterName)
         {
             uniqueParameters ??= InitializeUniqueParameters();
             try
-                { return uniqueParameters[parameterName]; }
+            { return uniqueParameters[parameterName]; }
             catch (KeyNotFoundException)
-                { return 0f; }
+            { return 0f; }
         }
 
         private Dictionary<string, float> InitializeUniqueParameters()

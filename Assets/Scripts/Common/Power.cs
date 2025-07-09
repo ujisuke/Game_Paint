@@ -4,18 +4,18 @@ namespace Assets.Scripts.Common
 {
     public class Power
     {
-        private readonly float currentPower;
-        public float CurrentPower => currentPower;
-        private readonly float defaultPower;
-        public float DefaultPower => defaultPower;
+        private readonly int currentPower;
+        public int CurrentPower => currentPower;
+        private readonly int defaultPower;
+        public int DefaultPower => defaultPower;
 
-        public Power(float currentPower, float defaultPower)
+        public Power(int currentPower, int defaultPower)
         {
             this.defaultPower = defaultPower;
             this.currentPower = math.max(currentPower, 0);
         }
 
-        public Power(float defaultPower)
+        public Power(int defaultPower)
         {
             this.defaultPower = defaultPower;
             currentPower = defaultPower;
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Common
 
         public Power PowerUp(float ratio)
         {
-            return new Power(currentPower * ratio, defaultPower);
+            return new Power((int)(currentPower * ratio), defaultPower);
         }
     }
 }
