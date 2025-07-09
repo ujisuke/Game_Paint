@@ -22,10 +22,15 @@ namespace Assets.Scripts.Common
         {
             return new HurtBox(pos, size, true);
         }
-        
+
         public HurtBox Inactivate()
         {
             return new HurtBox(pos, size, false);
+        }
+        
+        public HurtBox Move(Vector2 pos)
+        {
+            return new HurtBox(pos, size, isActive);
         }
     }
 }

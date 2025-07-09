@@ -1,4 +1,5 @@
 using Assets.Scripts.Enemies.Base.Model;
+using Assets.Scripts.Enemies.ETest.Model;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemies.FTest.Model
@@ -13,13 +14,12 @@ namespace Assets.Scripts.Enemies.FTest.Model
 
         public void OnStateEnter()
         {
-            Debug.Log("FTestStateMove");
+            Debug.Log("ETestStateMove");
         }
 
         public void OnStateFixedUpdate()
         {
-            if (eM.IsDead())
-                eM.ChangeState(new EStateDead(eM));
+            eM.ChangeState(new ETestStateAttack(eM));
         }
 
         public void OnStateExit()

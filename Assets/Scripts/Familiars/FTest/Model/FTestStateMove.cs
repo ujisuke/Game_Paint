@@ -22,7 +22,9 @@ namespace Assets.Scripts.Familiars.FTest.Model
         public void OnStateFixedUpdate()
         {
             fM.Move(fM.FamiliarData.GetUniqueParameter("Speed") * (targetPos - fM.PSA.Pos).normalized);
-            if (Vector2.Distance(targetPos, fM.PSA.Pos) < 0.1f)
+            if (fM.IsDead())
+                fM.ChangeState(new FStateDead(fM));
+            else if (Vector2.Distance(targetPos, fM.PSA.Pos) < 0.1f)
                 fM.ChangeState(new FTestStateAttack(fM));
         }
 

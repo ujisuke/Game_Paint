@@ -29,7 +29,7 @@ namespace Assets.Scripts.Player.Model
             this.playerData = playerData;
             pSA = new PSA(position, playerData.Scale, 0f);
             hP = playerData.MaxHP;
-            hurtBox = playerData.HurtBox;
+            hurtBox = new HurtBox(pSA.Pos, playerData.HurtBoxScale, true);
             pStateMachine = new PStateMachine(this);
             this.playerController = playerController;
             playerMove = PlayerMove.Initialize(playerData.MoveSpeed, playerData.HurtBoxScale);
@@ -44,7 +44,11 @@ namespace Assets.Scripts.Player.Model
             playerColor = playerColor.SetColor(mouseScrollDelta);
         }
 
-        public void FixedUpdate() => pStateMachine.FixedUpdate();
+        public void FixedUpdate()
+        {
+            pStateMachine.FixedUpdate();
+            hurtBox = hurtBox.Move(pSA.Pos);
+        }
 
         public void MoveInput()
         {

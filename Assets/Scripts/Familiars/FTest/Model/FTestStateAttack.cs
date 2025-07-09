@@ -9,7 +9,6 @@ namespace Assets.Scripts.Familiars.FTest.Model
     {
         private readonly FamiliarModel fM;
         private ObjectAttackModel attack;
-        private int i;
 
         public FTestStateAttack(FamiliarModel familiarModel) => fM = familiarModel;
         
@@ -18,19 +17,14 @@ namespace Assets.Scripts.Familiars.FTest.Model
         public void OnStateEnter()
         {
             Debug.Log("FTestStateAttack");
-            i = 0;
+            var newAttack = GameObject.Instantiate(fM.FamiliarData.AttackPrefab, fM.PSA.Pos, Quaternion.identity);
+            attack = newAttack.GetComponent<ObjectAttackController>().ObjectAttackModel;
         }
 
         public void OnStateFixedUpdate()
         {
-            if (i == 0)
-            {
-                var newAttack = GameObject.Instantiate(fM.FamiliarData.AttackPrefab, fM.PSA.Pos, Quaternion.identity);
-                attack = newAttack.GetComponent<ObjectAttackController>().ObjectAttackModel;
-            }
-            if (i == 3)
+            if(fM.IsDead())
                 fM.ChangeState(new FStateDead(fM));
-            i++;
         }
 
         public void OnStateExit()

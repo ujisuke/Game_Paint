@@ -14,12 +14,15 @@ namespace Assets.Scripts.Datas
         [SerializeField] private Vector2 scale;
         [SerializeField] private float invincibleSecond;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
+        [SerializeField] private GameObject attackPrefab;
         private Dictionary<string, float> uniqueParameters;
-        public string FamiliarName => enemyName;
+        public string EnemyName => enemyName;
         public HP MaxHP => new(maxHP);
-        public HurtBox HurtBox => new(Vector2.zero, hurtBoxScale, true);
+        public Vector2 HurtBoxScale => hurtBoxScale;
         public Vector2 Scale => scale;
         public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
+        public GameObject AttackPrefab => attackPrefab;
+
 
         public float GetUP(string parameterName)
         {

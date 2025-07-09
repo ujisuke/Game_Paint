@@ -14,5 +14,10 @@ namespace Assets.Scripts.Common
             this.pos = pos;
             this.size = size;
         }
+
+        public HitBox Move(Vector2 newPos)
+        {
+            return new HitBox(newPos, size);
+        }
     }
 }

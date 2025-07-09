@@ -12,7 +12,7 @@ namespace Assets.Scripts.ObjectAttacks.Base.Model
         public int PowerValue => power.CurrentPower;
         private PSA pSA;
         public PSA PSA => pSA;
-        private readonly HitBox hitBox;
+        private HitBox hitBox;
         public HitBox HitBox => hitBox;
         private readonly ObjectAttackData objectAttackData;
         private readonly ObjectAttackController objectAttackController;
@@ -21,13 +21,18 @@ namespace Assets.Scripts.ObjectAttacks.Base.Model
         {
             this.objectAttackData = objectAttackData;
             power = objectAttackData.DefaultPower;
-            pSA = new PSA(position, objectAttackData.Scale, 0f);
-            hitBox = objectAttackData.HitBox;
+            pSA = new PSA(position, objectAttackData.HitBoxScale, 0f);
+            hitBox = new(pSA.Pos, objectAttackData.HitBoxScale);
             this.objectAttackController = objectAttackController;
             ObjectStorageModel.Instance.AddObjectAttack(this, objectAttackData.IsEnemyAttack);
         }
 
         public void Move(Vector2 dir) => pSA = pSA.Move(dir);
+
+        public void FixedUpdate()
+        {
+            hitBox = hitBox.Move(pSA.Pos);
+        }
 
         public float GetUniqueParameter(string key) => objectAttackData.GetUniqueParameter(key);
 

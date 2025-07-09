@@ -14,7 +14,6 @@ namespace Assets.Scripts.Datas
         [SerializeField] private float invincibleSecond;
         [SerializeField] private float moveSpeed;
         public HP MaxHP => new(maxHP);
-        public HurtBox HurtBox => new(Vector2.zero, hurtBoxScale, true);
         public Vector2 HurtBoxScale => hurtBoxScale;
         public Vector2 Scale => scale;
         public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -620872844726676241}
   - component: {fileID: -1987596967000065661}
   m_Layer: 0
-  m_Name: FTestAttack
+  m_Name: ETestAttack1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.0179291, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb8625be47633e4fa632dd0b695e6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectAttackData: {fileID: 11400000, guid: 3e2a6edc0eb0d494893c46af988a5fe6, type: 2}
+  objectAttackData: {fileID: 11400000, guid: 2882e11b0c2e0914c98bd34ebda66d20, type: 2}
   objectAttackView: {fileID: -1987596967000065661}
 --- !u!114 &-1987596967000065661
 MonoBehaviour:

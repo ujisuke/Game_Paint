@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using Assets.Scripts.Common;
-using Assets.Scripts.ObjectAttacks.Base.Controller;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -9,20 +9,20 @@ namespace Assets.Scripts.Datas
     public class FamiliarData : ScriptableObject
     {
         [SerializeField] private string familiarName;
-        [SerializeField] private int defaultPower;
         [SerializeField] private int maxHP;
         [SerializeField] private Vector2 hurtBoxScale;
         [SerializeField] private Vector2 scale;
+        [SerializeField] private float invincibleSecond;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
         [SerializeField] private GameObject attackPrefab;
         private Dictionary<string, float> uniqueParameters;
 
         public string FamiliarName => familiarName;
-        public Power DefaultPower => new(defaultPower);
         public HP MaxHP => new(maxHP);
-        public HurtBox HurtBox => new(Vector2.zero, hurtBoxScale, false);
+        public Vector2 HurtBoxScale => hurtBoxScale;
         public Vector2 Scale => scale;
         public GameObject AttackPrefab => attackPrefab;
+        public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
 
         public float GetUniqueParameter(string parameterName)
         {

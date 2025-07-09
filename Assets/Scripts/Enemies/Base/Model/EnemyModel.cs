@@ -11,22 +11,23 @@ namespace Assets.Scripts.Enemies.Base.Model
     public class EnemyModel
     {
         private PSA pSA;
-        public PSA PSA => pSA;
         private HP hP;
         private HurtBox hurtBox;
-        public HurtBox HurtBox => hurtBox;
         private readonly EStateMachine eStateMachine;
         private readonly EnemyData enemyData;
         private readonly EnemyController enemyController;
         private readonly CancellationTokenSource cts;
         private readonly CancellationToken token;
+        public PSA PSA => pSA;
+        public HurtBox HurtBox => hurtBox;
+        public EnemyData EnemyData => enemyData;
 
         public EnemyModel(EnemyData enemyData, IEStateAfterBorn eStateAfterBorn, Vector2 position, EnemyController enemyController)
         {
             this.enemyData = enemyData;
             pSA = new PSA(position, enemyData.Scale, 0f);
             hP = enemyData.MaxHP;
-            hurtBox = enemyData.HurtBox;
+            hurtBox = new HurtBox(pSA.Pos, enemyData.HurtBoxScale, true);
             eStateMachine = new EStateMachine(this, eStateAfterBorn);
             this.enemyController = enemyController;
             ObjectStorageModel.Instance.AddEnemy(this);
@@ -34,7 +35,12 @@ namespace Assets.Scripts.Enemies.Base.Model
             token = cts.Token;
         }
 
-        public void FixedUpdate() => eStateMachine.FixedUpdate();
+
+        public void FixedUpdate()
+        {
+            eStateMachine.FixedUpdate();
+            hurtBox = hurtBox.Move(pSA.Pos);
+        }
 
         public void Move(Vector2 dir) => pSA = pSA.Move(dir);
 

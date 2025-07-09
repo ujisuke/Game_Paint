@@ -57,6 +57,17 @@ namespace Assets.Scripts.GameSystems.Model
                 for (int j = 0; j < enemies.Count; j++)
                     if (ObjectsHitDetector.IsAttacking(familiarAttacks[i].HitBox, enemies[j].HurtBox))
                         enemies[j].TakeDamage(familiarAttacks[i].PowerValue).Forget();
+
+            for (int i = 0; i < enemyAttacks.Count; i++)
+                for (int j = 0; j < familiars.Count; j++)
+                    if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, familiars[j].HurtBox))
+                        familiars[j].TakeDamage(enemyAttacks[i].PowerValue).Forget();
+
+            if (player == null)
+                        return;
+            for (int i = 0; i < enemyAttacks.Count; i++)
+                if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, player.HurtBox))
+                    player.TakeDamage(enemyAttacks[i].PowerValue).Forget();
         }
 
         public Vector2 GetNearestEnemyPos(Vector2 pos)

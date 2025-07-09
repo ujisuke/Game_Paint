@@ -22,6 +22,7 @@ namespace Assets.Scripts.ObjectAttacks.Base.Controller
         {
             if (objectAttackModel == null)
                 return;
+            objectAttackModel.FixedUpdate();
             objectAttackView.SetPSA(objectAttackModel.PSA);
         }
     }

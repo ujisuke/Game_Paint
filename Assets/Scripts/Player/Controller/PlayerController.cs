@@ -11,7 +11,7 @@ namespace Assets.Scripts.Player.Controller
         private PlayerModel playerModel;
         [SerializeField] private PlayerView playerView;
 
-        private void Awake()
+        private void Start()
         {
             playerModel = new(playerData, transform.position, this);
             playerView.SetPSA(playerModel.PSA);
