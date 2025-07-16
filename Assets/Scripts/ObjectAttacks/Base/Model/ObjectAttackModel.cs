@@ -1,6 +1,6 @@
 using Assets.Scripts.Common;
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.Model;
+using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.ObjectAttacks.Base.Controller;
 using UnityEngine;
 
@@ -24,7 +24,7 @@ namespace Assets.Scripts.ObjectAttacks.Base.Model
             pSA = new PSA(position, objectAttackData.HitBoxScale, 0f);
             hitBox = new(pSA.Pos, objectAttackData.HitBoxScale);
             this.objectAttackController = objectAttackController;
-            ObjectStorageModel.Instance.AddObjectAttack(this, objectAttackData.IsEnemyAttack);
+            ObjectsStorageModel.Instance.AddObjectAttack(this, objectAttackData.IsEnemyAttack);
         }
 
         public void Move(Vector2 dir) => pSA = pSA.Move(dir);
@@ -38,7 +38,7 @@ namespace Assets.Scripts.ObjectAttacks.Base.Model
 
         public void Destroy()
         {
-            ObjectStorageModel.Instance.RemoveObjectAttack(this);
+            ObjectsStorageModel.Instance.RemoveObjectAttack(this);
             Object.Destroy(objectAttackController.gameObject);
         }
     }

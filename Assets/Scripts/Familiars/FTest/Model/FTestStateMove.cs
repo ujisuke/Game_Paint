@@ -1,5 +1,5 @@
 using Assets.Scripts.Familiars.Base.Model;
-using Assets.Scripts.GameSystems.Model;
+using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using UnityEngine;
 
 namespace Assets.Scripts.Familiars.FTest.Model
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Familiars.FTest.Model
         public void OnStateEnter()
         {
             Debug.Log("FTestStateMove");
-            targetPos = ObjectStorageModel.Instance.GetNearestEnemyPos(fM.PSA.Pos);
+            targetPos = ObjectsStorageModel.Instance.GetNearestEnemyPos(fM.PSA.Pos);
         }
 
         public void OnStateFixedUpdate()

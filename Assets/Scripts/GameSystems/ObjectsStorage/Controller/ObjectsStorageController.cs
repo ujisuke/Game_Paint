@@ -1,11 +1,11 @@
-using Assets.Scripts.GameSystems.Model;
+using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using UnityEngine;
 
-namespace Assets.Scripts.GameSystems.Controller
+namespace Assets.Scripts.GameSystems.ObjectsStorage.Controller
 {
     public class ObjectStorageController : MonoBehaviour
     {
-        ObjectStorageModel objectStorageModel;
+        ObjectsStorageModel objectStorageModel;
 
         private void Awake()
         {

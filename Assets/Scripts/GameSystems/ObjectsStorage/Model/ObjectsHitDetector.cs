@@ -1,7 +1,7 @@
 using Assets.Scripts.Common;
 using UnityEngine;
 
-namespace Assets.Scripts.GameSystems.Model
+namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
 {
     public class ObjectsHitDetector
     {

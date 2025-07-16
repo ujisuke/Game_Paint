@@ -6,19 +6,19 @@ using Assets.Scripts.Player.Model;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.GameSystems.Model
+namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
 {
-    public class ObjectStorageModel
+    public class ObjectsStorageModel
     {
-        private List<EnemyModel> enemies;
+        private readonly List<EnemyModel> enemies;
         private PlayerModel player;
-        private List<FamiliarModel> familiars;
-        private List<ObjectAttackModel> enemyAttacks;
-        private List<ObjectAttackModel> familiarAttacks;
-        private static ObjectStorageModel instance = new();
-        public static ObjectStorageModel Instance => instance;
+        private readonly List<FamiliarModel> familiars;
+        private readonly List<ObjectAttackModel> enemyAttacks;
+        private readonly List<ObjectAttackModel> familiarAttacks;
+        private static ObjectsStorageModel instance = new();
+        public static ObjectsStorageModel Instance => instance;
 
-        public ObjectStorageModel()
+        public ObjectsStorageModel()
         {
             enemies = new List<EnemyModel>();
             player = null;
@@ -53,18 +53,31 @@ namespace Assets.Scripts.GameSystems.Model
 
         public void DetectHit()
         {
+            DetectHitFToE();
+            DetectHitEToF();
+            DetectHitEToP();
+        }
+
+        private void DetectHitFToE()
+        {
             for (int i = 0; i < familiarAttacks.Count; i++)
                 for (int j = 0; j < enemies.Count; j++)
                     if (ObjectsHitDetector.IsAttacking(familiarAttacks[i].HitBox, enemies[j].HurtBox))
                         enemies[j].TakeDamage(familiarAttacks[i].PowerValue).Forget();
+        }
 
+        private void DetectHitEToF()
+        {
             for (int i = 0; i < enemyAttacks.Count; i++)
                 for (int j = 0; j < familiars.Count; j++)
                     if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, familiars[j].HurtBox))
                         familiars[j].TakeDamage(enemyAttacks[i].PowerValue).Forget();
+        }
 
+        private void DetectHitEToP()
+        {
             if (player == null)
-                        return;
+                return;
             for (int i = 0; i < enemyAttacks.Count; i++)
                 if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, player.HurtBox))
                     player.TakeDamage(enemyAttacks[i].PowerValue).Forget();
@@ -75,7 +88,7 @@ namespace Assets.Scripts.GameSystems.Model
             Vector2 nearestPos = pos;
             float minDistance = float.MaxValue;
 
-            for(int i = 0; i < enemies.Count; i++)
+            for (int i = 0; i < enemies.Count; i++)
             {
                 float distance = Vector2.Distance(pos, enemies[i].PSA.Pos);
                 if (distance < minDistance)
@@ -86,6 +99,16 @@ namespace Assets.Scripts.GameSystems.Model
             }
 
             return nearestPos;
+        }
+
+        public bool DoesEnemyExist()
+        {
+            return enemies.Count > 0;
+        }
+
+        public bool DoesPlayerExist()
+        {
+            return player != null;
         }
     }
 }

@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Assets.Scripts.Common;
 using Assets.Scripts.Datas;
 using Assets.Scripts.Enemies.Base.Controller;
-using Assets.Scripts.GameSystems.Model;
+using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using UnityEngine;
 using System.Threading;
 
@@ -30,19 +30,19 @@ namespace Assets.Scripts.Enemies.Base.Model
             hurtBox = new HurtBox(pSA.Pos, enemyData.HurtBoxScale, true);
             eStateMachine = new EStateMachine(this, eStateAfterBorn);
             this.enemyController = enemyController;
-            ObjectStorageModel.Instance.AddEnemy(this);
+            ObjectsStorageModel.Instance.AddEnemy(this);
             cts = new CancellationTokenSource();
             token = cts.Token;
         }
 
 
-        public void FixedUpdate()
+        public void FixedUpdate() => eStateMachine.FixedUpdate();
+
+        public void Move(Vector2 dir)
         {
-            eStateMachine.FixedUpdate();
+            pSA = pSA.Move(dir);
             hurtBox = hurtBox.Move(pSA.Pos);
         }
-
-        public void Move(Vector2 dir) => pSA = pSA.Move(dir);
 
         public void ChangeState(IEState state) => eStateMachine.ChangeState(state);
 
@@ -62,7 +62,7 @@ namespace Assets.Scripts.Enemies.Base.Model
         {
             cts?.Cancel();
             cts?.Dispose();
-            ObjectStorageModel.Instance.RemoveEnemy(this);
+            ObjectsStorageModel.Instance.RemoveEnemy(this);
             GameObject.Destroy(enemyController.gameObject);
         }
     }

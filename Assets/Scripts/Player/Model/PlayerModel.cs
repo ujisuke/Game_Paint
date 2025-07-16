@@ -1,7 +1,7 @@
 using System.Threading;
 using Assets.Scripts.Common;
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.Model;
+using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Player.Controller;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Player.Model
             this.playerController = playerController;
             playerMove = PlayerMove.Initialize(playerData.MoveSpeed, playerData.HurtBoxScale);
             playerColor = PlayerColor.Initialize();
-            ObjectStorageModel.Instance.AddPlayer(this);
+            ObjectsStorageModel.Instance.AddPlayer(this);
             cts = new CancellationTokenSource();
             token = cts.Token;
         }
@@ -44,9 +44,11 @@ namespace Assets.Scripts.Player.Model
             playerColor = playerColor.SetColor(mouseScrollDelta);
         }
 
-        public void FixedUpdate()
+        public void FixedUpdate() => pStateMachine.FixedUpdate();
+
+        public void Move(Vector2 dir)
         {
-            pStateMachine.FixedUpdate();
+            pSA = pSA.Move(dir);
             hurtBox = hurtBox.Move(pSA.Pos);
         }
 
@@ -59,7 +61,7 @@ namespace Assets.Scripts.Player.Model
                 Input.GetKey(KeyCode.D),
                 pSA.Pos
             );
-            pSA = pSA.Move(playerMove.DirectionVector);
+            Move(playerMove.DirectionVector);
         }
 
         public void ChangeState(IPState state) => pStateMachine.ChangeState(state);
@@ -78,7 +80,7 @@ namespace Assets.Scripts.Player.Model
         {
             cts?.Cancel();
             cts?.Dispose();
-            ObjectStorageModel.Instance.RemovePlayer(this);
+            ObjectsStorageModel.Instance.RemovePlayer(this);
             GameObject.Destroy(playerController.gameObject);
         }
     }
