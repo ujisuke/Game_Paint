@@ -1,3 +1,4 @@
+using Assets.Scripts.GameSystems.InputSystem.Controller;
 using Assets.Scripts.GameSystems.MapSystem.Model;
 using UnityEngine;
 
@@ -21,8 +22,8 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
 
         public void HandleInput()
         {
-            if (Input.GetKey(KeyCode.Q))
-                mSM.ChangeState(new MStateChooseBattle(mM, mSM));
+            if (CustomInputSystem.Instance.DoesSelectKeyUp())
+                mSM.ChangeState(new MStateChooseStage(mM, mSM));
         }
 
         public void OnStateExit()

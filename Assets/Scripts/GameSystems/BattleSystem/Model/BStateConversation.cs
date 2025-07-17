@@ -14,8 +14,8 @@ namespace Assets.Scripts.GameSystems.BattleSystem.Model
         public void OnStateEnter()
         {
             Debug.Log("BStateConversation");
-            for(int i = 0;  i < BattleSystemModel.Instance.BattlePEData.EDataList.Count; i++)
-                GameObject.Instantiate(BattleSystemModel.Instance.BattlePEData.EDataList[i].EnemyPrefab, BattleSystemModel.Instance.BattlePEData.EDataList[i].EnemyInitPos, Quaternion.identity);
+            for(int i = 0;  i < bSM.BattlePEData.EDataList.Count; i++)
+                GameObject.Instantiate(bSM.BattlePEData.EDataList[i].EnemyPrefab, bSM.BattlePEData.EDataList[i].EnemyInitPos, Quaternion.identity);
             bSM.ChangeState(new BStateBattle(bSM));
         }
 

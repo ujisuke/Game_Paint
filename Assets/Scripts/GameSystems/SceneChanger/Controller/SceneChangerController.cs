@@ -5,16 +5,12 @@ namespace Assets.Scripts.GameSystems.SceneChanger.Controller
 {
     public class SceneChangerController : MonoBehaviour
     {
-        [SerializeField] private string sceneNameBattle;
-        private bool isPushed = false;
+        [SerializeField] private string sceneNameTitle;
+        [SerializeField] private string sceneNameMap;
 
-        private void FixedUpdate()
+        private void Awake()
         {
-            if (Input.GetKey(KeyCode.Space) && !isPushed)
-            {
-                SceneChangerModel.Instance.LoadSceneBattle(sceneNameBattle, false);
-                isPushed = true;
-            }
+            SceneChangerModel.Initialize(sceneNameTitle, sceneNameMap);
         }
     }
 }

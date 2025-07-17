@@ -1,14 +1,15 @@
+using Assets.Scripts.GameSystems.InputSystem.Controller;
 using Assets.Scripts.GameSystems.MapSystem.Model;
 using UnityEngine;
 
 namespace Assets.Scripts.GameSystems.MapSystem.Controller
 {
-    public class MStateChooseBattle : IMState
+    public class MStateChooseStage : IMState
     {
         private readonly MapSystemModel mM;
         private readonly MapSystemStateMachine mSM;
 
-        public MStateChooseBattle(MapSystemModel mapSystemModel, MapSystemStateMachine stateMachine)
+        public MStateChooseStage(MapSystemModel mapSystemModel, MapSystemStateMachine stateMachine)
         {
             mM = mapSystemModel;
             mSM = stateMachine;
@@ -30,7 +31,7 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
             else if (Input.GetKey(KeyCode.DownArrow))
                 mM.ChangeStageToDown();
                 
-            if (Input.GetKey(KeyCode.W))
+            if (CustomInputSystem.Instance.DoesSelectKeyUp())
                 mSM.ChangeState(new MStateSetParameter(mM, mSM));
         }
 

@@ -15,7 +15,7 @@ namespace Assets.Scripts.GameSystems.BattleSystem.Model
         public void OnStateEnter()
         {
             Debug.Log("BStateLose");
-            SceneChangerModel.Instance.LoadSceneBattle(bSM.SceneNameBattle, true);
+            SceneChangerModel.Instance.LoadSceneRetry();
         }
 
         public void OnStateFixedUpdate()
