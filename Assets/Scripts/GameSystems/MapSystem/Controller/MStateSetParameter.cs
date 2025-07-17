@@ -22,7 +22,9 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
 
         public void HandleInput()
         {
-            if (CustomInputSystem.Instance.DoesBackKeyUp())
+            if (CustomInputSystem.Instance.DoesSelectKeyUp())
+                mSM.ChangeState(new MStateLoadStage(mM, mSM));
+            else if (CustomInputSystem.Instance.DoesBackKeyUp())
                 mSM.ChangeState(new MStateChooseStage(mM, mSM));
         }
 

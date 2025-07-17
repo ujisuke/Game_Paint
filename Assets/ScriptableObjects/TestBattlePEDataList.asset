@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 6412475687881785497, guid: 4bf09112d4ab0d54aad2aa2b5e16d414, type: 3}
   battlePEDataList:
-  - stageName: TestBattleScene
+  - sceneName: TestBattleScene
     playerInitPos: {x: 5, y: 5}
     eDataList:
     - enemyPrefab: {fileID: 3515165110105616261, guid: 4eb91b55d8963554cba80505ac66e49b, type: 3}

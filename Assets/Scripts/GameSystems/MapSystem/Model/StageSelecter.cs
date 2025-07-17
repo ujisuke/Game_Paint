@@ -13,9 +13,10 @@ namespace Assets.Scripts.GameSystems.MapSystem.Model
         private readonly CancellationTokenSource cancellationTokenSource;
 
 
-        public StageSelecter(StageOnMapDataList mapDataList)
+        public StageSelecter(StageOnMapDataList stageOnMapDataList)
         {
-            currentStageData = mapDataList.GetMapData(CurrentStageSceneName);
+            CurrentStageSceneName ??= stageOnMapDataList.FirstStageName;
+            currentStageData = stageOnMapDataList.GetMapData(CurrentStageSceneName);
             isProcessing = false;
             cancellationTokenSource = new();
         }

@@ -6922,6 +6922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffa201f5c997ed4f8ff0c2156e88166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battlePEDataList: {fileID: 11400000, guid: 780f3ff6004bd6145843bd0153019a3c, type: 2}
 --- !u!4 &919423485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2822140737813326770, guid: 8193bf4e840247a48b67e6614ee03d61, type: 3}

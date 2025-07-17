@@ -1,5 +1,5 @@
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.SceneChanger.Model;
+using Assets.Scripts.GameSystems.MapSystem.Model;
 
 namespace Assets.Scripts.GameSystems.BattleSystem.Model
 {
@@ -11,7 +11,7 @@ namespace Assets.Scripts.GameSystems.BattleSystem.Model
 
         public BattleSystemModel(BattlePEDataList battlePEDataList)
         {
-            battlePEData = battlePEDataList.GetBattlePEData(SceneChangerModel.Instance.SceneNameCurrent);
+            battlePEData = battlePEDataList.GetBattlePEData(StageSelecter.CurrentStageSceneName);
             bStateMachine = new BStateMachine(this);
         }
 

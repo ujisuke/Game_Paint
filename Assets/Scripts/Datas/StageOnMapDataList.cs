@@ -12,7 +12,7 @@ namespace Assets.Scripts.Datas
         private void Initialize()
         {
             stageOnMapDataDictionary = new Dictionary<string, StageOnMapData>();
-            for(int i = 0; i < stageOnMapDataList.Count; i++)
+            for (int i = 0; i < stageOnMapDataList.Count; i++)
             {
                 StageOnMapData stageOnMapData = stageOnMapDataList[i];
                 stageOnMapData.PrevStageData = i == 0 ? null : stageOnMapDataList[i - 1];
@@ -37,5 +37,8 @@ namespace Assets.Scripts.Datas
                 Initialize();
             return stageOnMapDataDictionary[stageSceneName];
         }
+        
+        public string FirstStageName => stageOnMapDataList[0].StageSceneName;
+
     }
 }

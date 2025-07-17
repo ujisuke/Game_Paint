@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36749259e5efa244f84a28ed3f31b445, type: 3}
   m_Name: TestOnMapDataList
   m_EditorClassIdentifier: 
-  stageOnMapDataList: []
+  stageOnMapDataList:
+  - stageSceneName: TestBattleScene
+    moveToNext: 4

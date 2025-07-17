@@ -12,9 +12,6 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
 
         private void Awake()
         {
-            //テスト用
-            StageSelecter.CurrentStageSceneName = "1";
-            //
             mapSystemModel = new MapSystemModel(mapDataList);
             stateMachine = new MapSystemStateMachine(mapSystemModel);
         }
