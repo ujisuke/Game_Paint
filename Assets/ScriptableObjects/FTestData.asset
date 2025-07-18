@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: FTestData
   m_EditorClassIdentifier: 
   familiarName: FTest
-  defaultPower: 1
-  maxHP: 1
-  hurtBoxSize: {x: 0, y: 0}
+  maxHP: 2
+  hurtBoxScale: {x: 1, y: 1}
   scale: {x: 1, y: 1}
+  invincibleSecond: 0.3
   uniqueParametersList:
   - parameterName: Speed
     value: 0.1

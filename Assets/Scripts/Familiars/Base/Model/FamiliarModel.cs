@@ -2,7 +2,7 @@ using System.Threading;
 using Assets.Scripts.Common;
 using Assets.Scripts.Datas;
 using Assets.Scripts.Familiars.Base.Controller;
-using Assets.Scripts.GameSystems.Model;
+using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -33,18 +33,18 @@ namespace Assets.Scripts.Familiars.Base.Model
             fStateMachine = new FStateMachine(this, fStateAfterBorn);
             this.familiarController = familiarController;
             this.colorName = colorName;
-            ObjectStorageModel.Instance.AddFamiliar(this);
+            ObjectsStorageModel.Instance.AddFamiliar(this);
             cts = new CancellationTokenSource();
             token = cts.Token;
         }
 
-        public void FixedUpdate()
+        public void FixedUpdate() => fStateMachine.FixedUpdate();
+
+        public void Move(Vector2 dir)
         {
-            fStateMachine.FixedUpdate();
+            pSA = pSA.Move(dir);
             hurtBox = hurtBox.Move(pSA.Pos);
         }
-
-        public void Move(Vector2 dir) => pSA = pSA.Move(dir);
         
         public void ChangeState(IFState state) => fStateMachine.ChangeState(state);
 
@@ -62,7 +62,7 @@ namespace Assets.Scripts.Familiars.Base.Model
         {
             cts?.Cancel();
             cts?.Dispose();
-            ObjectStorageModel.Instance.RemoveFamiliar(this);
+            ObjectsStorageModel.Instance.RemoveFamiliar(this);
             GameObject.Destroy(familiarController.gameObject);
         }
     }

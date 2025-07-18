@@ -9,7 +9,7 @@ namespace Assets.Scripts.Datas
         [SerializeField] private List<ColorData> paintColorDataList;
         private Dictionary<ColorName, Color> colorDictionary;
 
-        public void Initialize()
+        private void Initialize()
         {
             colorDictionary = new Dictionary<ColorName, Color>();
 
