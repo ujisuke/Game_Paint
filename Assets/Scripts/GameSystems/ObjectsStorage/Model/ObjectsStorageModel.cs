@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Assets.Scripts.Enemies.Base.Model;
-using Assets.Scripts.Familiars.Base.Model;
-using Assets.Scripts.ObjectAttacks.Base.Model;
-using Assets.Scripts.Player.Model;
+using Assets.Scripts.Objects.Enemies.Base.Model;
+using Assets.Scripts.Objects.Familiars.Base.Model;
+using Assets.Scripts.Objects.ObjectAttacks.Base.Model;
+using Assets.Scripts.Objects.Player.Model;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 

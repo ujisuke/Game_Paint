@@ -506,7 +506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d080dfe610644f34d937f15334c27c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageSceneName: TestBattleScene
+  stageSceneName: TestStageScene
   stageSpriteRenderer: {fileID: 776920842}
 --- !u!1 &789675415
 GameObject:

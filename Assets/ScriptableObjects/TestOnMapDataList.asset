@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestOnMapDataList
   m_EditorClassIdentifier: 
   stageOnMapDataList:
-  - stageSceneName: TestBattleScene
+  - stageSceneName: TestStageScene
     moveToNext: 3
   - stageSceneName: Dummy
     moveToNext: 4
