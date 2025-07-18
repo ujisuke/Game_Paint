@@ -15,9 +15,6 @@ namespace Assets.Scripts.GameSystems.MapSystem.Model
             stageSelecter?.Dispose();
         }
 
-        public void ChangeStageToUp() => stageSelecter.ChangeStageToUp();
-        public void ChangeStageToDown() => stageSelecter.ChangeStageToDown();
-        public void ChangeStageToLeft() => stageSelecter.ChangeStageToLeft();
-        public void ChangeStageToRight() => stageSelecter.ChangeStageToRight();
+        public void ChangeStageTo(MoveDirOnMap moveDir) => stageSelecter.ChangeStageTo(moveDir);
     }
 }

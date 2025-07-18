@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageOnMapDataList:
   - stageSceneName: TestBattleScene
+    moveToNext: 3
+  - stageSceneName: Dummy
     moveToNext: 4

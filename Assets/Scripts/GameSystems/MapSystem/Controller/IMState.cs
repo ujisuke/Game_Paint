@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Assets.Scripts.GameSystems.MapSystem.Controller
 {
     public interface IMState

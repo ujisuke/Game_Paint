@@ -9,11 +9,13 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
     {
         private readonly MapSystemModel mM;
         private readonly MapSystemStateMachine mSM;
+        private MapSystemController mC;
 
-        public MStateLoadStage(MapSystemModel mapSystemModel, MapSystemStateMachine stateMachine)
+        public MStateLoadStage(MapSystemModel mapSystemModel, MapSystemStateMachine stateMachine, MapSystemController controller)
         {
             mM = mapSystemModel;
             mSM = stateMachine;
+            mC = controller;
         }
 
         public void OnStateEnter()

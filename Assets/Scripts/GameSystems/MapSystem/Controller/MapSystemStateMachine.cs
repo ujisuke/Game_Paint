@@ -6,9 +6,9 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
     {
         private IMState currentState;
 
-        public MapSystemStateMachine(MapSystemModel mapSystemModel)
+        public MapSystemStateMachine(MapSystemModel mapSystemModel, MapSystemController mapSystemController)
         {
-            currentState = new MStateInitial(mapSystemModel, this);
+            currentState = new MStateInitial(mapSystemModel, this, mapSystemController);
             currentState.OnStateEnter();
         }
 

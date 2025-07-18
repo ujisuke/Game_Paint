@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using Assets.Scripts.Datas;
 using Cysharp.Threading.Tasks;
@@ -11,6 +12,13 @@ namespace Assets.Scripts.GameSystems.MapSystem.Model
         public static string CurrentStageSceneName;
         private bool isProcessing;
         private readonly CancellationTokenSource cancellationTokenSource;
+        private static Dictionary<MoveDirOnMap, MoveDirOnMap> oppositeDirDictionary = new()
+        {
+            { MoveDirOnMap.Up, MoveDirOnMap.Down },
+            { MoveDirOnMap.Down, MoveDirOnMap.Up },
+            { MoveDirOnMap.Left, MoveDirOnMap.Right },
+            { MoveDirOnMap.Right, MoveDirOnMap.Left }
+        };
 
 
         public StageSelecter(StageOnMapDataList stageOnMapDataList)
@@ -34,52 +42,16 @@ namespace Assets.Scripts.GameSystems.MapSystem.Model
             cancellationTokenSource?.Dispose();
         }
 
-        public void ChangeStageToUp()
+        public void ChangeStageTo(MoveDirOnMap moveDirOnMap)
         {
             if (isProcessing)
                 return;
             Process().Forget();
-            if (currentStageData.MoveToNext == MoveDirOnMap.Up)
+            if (currentStageData.MoveToNext == moveDirOnMap)
                 currentStageData = currentStageData.NextStageData;
-            else if (currentStageData.PrevStageData?.MoveToNext == MoveDirOnMap.Down)
+            else if (currentStageData.PrevStageData?.MoveToNext == oppositeDirDictionary[moveDirOnMap])
                 currentStageData = currentStageData.PrevStageData;
-
-            Debug.Log($"Changed to stage: {currentStageData.StageSceneName}");
-        }
-
-        public void ChangeStageToDown()
-        {
-            if (isProcessing)
-                return;
-            Process().Forget();
-            if (currentStageData.MoveToNext == MoveDirOnMap.Down)
-                currentStageData = currentStageData.NextStageData;
-            else if (currentStageData.PrevStageData?.MoveToNext == MoveDirOnMap.Up)
-                currentStageData = currentStageData.PrevStageData;
-            Debug.Log($"Changed to stage: {currentStageData.StageSceneName}");
-        }
-
-        public void ChangeStageToLeft()
-        {
-            if (isProcessing)
-                return;
-            Process().Forget();
-            if (currentStageData.MoveToNext == MoveDirOnMap.Left)
-                currentStageData = currentStageData.NextStageData;
-            else if (currentStageData.PrevStageData?.MoveToNext == MoveDirOnMap.Right)
-                currentStageData = currentStageData.PrevStageData;
-            Debug.Log($"Changed to stage: {currentStageData.StageSceneName}");    
-        }
-
-        public void ChangeStageToRight()
-        {
-            if (isProcessing)
-                return;
-            Process().Forget();
-            if (currentStageData.MoveToNext == MoveDirOnMap.Right)
-                currentStageData = currentStageData.NextStageData;
-            else if (currentStageData.PrevStageData?.MoveToNext == MoveDirOnMap.Left)
-                currentStageData = currentStageData.PrevStageData;
+            CurrentStageSceneName = currentStageData.StageSceneName;
             Debug.Log($"Changed to stage: {currentStageData.StageSceneName}");            
         }
     }
