@@ -10,61 +10,38 @@ namespace Assets.Scripts.Objects.Player.Model
 {
     public class PlayerModel
     {
-        private PSA pSA;
-        public PSA PSA => pSA;
         private HP hP;
         private HurtBox hurtBox;
-        public HurtBox HurtBox => hurtBox;
-        private readonly PStateMachine pStateMachine;
         private readonly PlayerData playerData;
         private readonly PlayerController playerController;
         private readonly CancellationTokenSource cts;
         private readonly CancellationToken token;
-        private PlayerMove playerMove;
-        private PlayerColor playerColor;
+        private readonly PlayerMove playerMove;
+        private readonly PlayerColor playerColor;
+        public PSA PSA => playerMove.PSA;
+        public HurtBox HurtBox => hurtBox;
         public ColorName ColorNameCurrent => playerColor.ColorNameCurrent;
 
-        public PlayerModel(PlayerData playerData, Vector2 position, PlayerController playerController)
+        public PlayerModel(PlayerData playerData, Vector2 position, PlayerController playerController, ColorDataList colorDataList)
         {
             this.playerData = playerData;
-            pSA = new PSA(position, playerData.Scale, 0f);
             hP = playerData.MaxHP;
-            hurtBox = new HurtBox(pSA.Pos, playerData.HurtBoxScale, true);
-            pStateMachine = new PStateMachine(this);
             this.playerController = playerController;
-            playerMove = PlayerMove.Initialize(playerData.MoveSpeed, playerData.HurtBoxScale);
-            playerColor = PlayerColor.Initialize();
+            playerMove = new PlayerMove(playerData.MoveSpeed, playerData.HurtBoxScale, position, playerData.Scale, 0f);
+            hurtBox = new HurtBox(playerMove.PSA.Pos, playerData.HurtBoxScale, true);
+            playerColor = new PlayerColor(colorDataList);
             ObjectsStorageModel.Instance.AddPlayer(this);
             cts = new CancellationTokenSource();
             token = cts.Token;
         }
 
-        public void SetColor(Vector2 mouseScrollDelta)
+        public void SetColor(float mouseScrollDelta) => playerColor.SetColor(mouseScrollDelta);
+        
+        public void MoveInput(bool isUp, bool isDown, bool isLeft, bool isRight)
         {
-            playerColor = playerColor.SetColor(mouseScrollDelta);
+            playerMove.Move(isUp, isDown, isLeft, isRight);
+            hurtBox = hurtBox.Move(playerMove.PSA.Pos);
         }
-
-        public void FixedUpdate() => pStateMachine.FixedUpdate();
-
-        public void Move(Vector2 dir)
-        {
-            pSA = pSA.Move(dir);
-            hurtBox = hurtBox.Move(pSA.Pos);
-        }
-
-        public void MoveInput()
-        {
-            playerMove = playerMove.Move(
-                Input.GetKey(KeyCode.W),
-                Input.GetKey(KeyCode.S),
-                Input.GetKey(KeyCode.A),
-                Input.GetKey(KeyCode.D),
-                pSA.Pos
-            );
-            Move(playerMove.DirectionVector);
-        }
-
-        public void ChangeState(IPState state) => pStateMachine.ChangeState(state);
 
         public async UniTask TakeDamage(int damageValue)
         {

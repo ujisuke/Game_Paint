@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9091147061094297199}
   - component: {fileID: 6895226702818029937}
   m_Layer: 0
-  m_Name: PlayerTest
+  m_Name: PTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: c5db8a34ddd44dd4f9d1fdb7f7119663, type: 2}
   playerView: {fileID: 6895226702818029937}
+  colorDataList: {fileID: 11400000, guid: 404fc0843b13aec4a8b10b90783510d4, type: 2}
 --- !u!114 &6895226702818029937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,4 +117,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1206914736466417928}
-  colorDataList: {fileID: 11400000, guid: 404fc0843b13aec4a8b10b90783510d4, type: 2}

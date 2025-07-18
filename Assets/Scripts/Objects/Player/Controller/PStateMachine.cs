@@ -1,12 +1,14 @@
-namespace Assets.Scripts.Objects.Player.Model
+using Assets.Scripts.Objects.Player.Model;
+
+namespace Assets.Scripts.Objects.Player.Controller
 {
     public class PStateMachine
     {
         private IPState currentState;
 
-        public PStateMachine(PlayerModel playerModel)
+        public PStateMachine(PlayerModel playerModel, PlayerController playerController)
         {
-            currentState = new PStateBorn(playerModel);
+            currentState = new PStateBorn(playerModel, this, playerController);
             currentState.OnStateEnter();
         }
 
@@ -17,9 +19,9 @@ namespace Assets.Scripts.Objects.Player.Model
             currentState.OnStateEnter();
         }
 
-        public void FixedUpdate()
+        public void HandleInput()
         {
-            currentState.OnStateFixedUpdate();
+            currentState.HandleInput();
         }
     }
 }

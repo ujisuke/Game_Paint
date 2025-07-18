@@ -9,7 +9,7 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
     public class MapSystemController : MonoBehaviour
     {
         [SerializeField] private StageOnMapDataList mapDataList;
-        private MapSystemStateMachine stateMachine;
+        private MStateMachine mStateMachine;
         private MapSystemModel mapSystemModel;
         [SerializeField] private List<StageOnMap> stageOnMapList;
         private StageOnMapStorage stageOnMapStorage;
@@ -18,13 +18,13 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
         private void Awake()
         {
             mapSystemModel = new MapSystemModel(mapDataList);
-            stateMachine = new MapSystemStateMachine(mapSystemModel, this);
+            mStateMachine = new MStateMachine(mapSystemModel, this);
             stageOnMapStorage = new StageOnMapStorage(stageOnMapList);
         }
 
         private void FixedUpdate()
         {
-            stateMachine.HandleInput();
+            mStateMachine.HandleInput();
         }
     }
 }

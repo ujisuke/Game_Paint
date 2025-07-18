@@ -8,10 +8,10 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
     public class MStateChooseStage : IMState
     {
         private readonly MapSystemModel mM;
-        private readonly MapSystemStateMachine mSM;
+        private readonly MStateMachine mSM;
         private MapSystemController mC;
 
-        public MStateChooseStage(MapSystemModel mapSystemModel, MapSystemStateMachine stateMachine, MapSystemController controller)
+        public MStateChooseStage(MapSystemModel mapSystemModel, MStateMachine stateMachine, MapSystemController controller)
         {
             mM = mapSystemModel;
             mSM = stateMachine;

@@ -1,9 +1,9 @@
-namespace Assets.Scripts.Objects.Player.Model
+namespace Assets.Scripts.Objects.Player.Controller
 {
     public interface IPState
     {
         void OnStateEnter();
-        void OnStateFixedUpdate();
+        void HandleInput();
         void OnStateExit();
     }
 }

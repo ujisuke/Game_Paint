@@ -8,10 +8,10 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
     public class MStateLoadStage : IMState
     {
         private readonly MapSystemModel mM;
-        private readonly MapSystemStateMachine mSM;
+        private readonly MStateMachine mSM;
         private MapSystemController mC;
 
-        public MStateLoadStage(MapSystemModel mapSystemModel, MapSystemStateMachine stateMachine, MapSystemController controller)
+        public MStateLoadStage(MapSystemModel mapSystemModel, MStateMachine stateMachine, MapSystemController controller)
         {
             mM = mapSystemModel;
             mSM = stateMachine;

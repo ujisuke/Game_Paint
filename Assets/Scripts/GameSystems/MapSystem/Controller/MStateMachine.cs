@@ -2,11 +2,11 @@ using Assets.Scripts.GameSystems.MapSystem.Model;
 
 namespace Assets.Scripts.GameSystems.MapSystem.Controller
 {
-    public class MapSystemStateMachine
+    public class MStateMachine
     {
         private IMState currentState;
 
-        public MapSystemStateMachine(MapSystemModel mapSystemModel, MapSystemController mapSystemController)
+        public MStateMachine(MapSystemModel mapSystemModel, MapSystemController mapSystemController)
         {
             currentState = new MStateInitial(mapSystemModel, this, mapSystemController);
             currentState.OnStateEnter();

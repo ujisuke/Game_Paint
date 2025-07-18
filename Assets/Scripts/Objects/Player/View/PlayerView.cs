@@ -1,13 +1,14 @@
 using UnityEngine;
 using Assets.Scripts.Objects.Common;
 using Assets.Scripts.Datas;
+using System;
 
 namespace Assets.Scripts.Objects.Player.View
 {
     public class PlayerView : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private ColorDataList colorDataList;
+        [NonSerialized] public ColorDataList ColorDataList;
         
         public void SetPSA(PSA pSA)
         {
@@ -18,7 +19,8 @@ namespace Assets.Scripts.Objects.Player.View
 
         public void SetColor(ColorName colorNameInput)
         {
-            spriteRenderer.color = colorDataList.GetColor(colorNameInput);
+            spriteRenderer.color = ColorDataList.GetColor(colorNameInput);
+            PlayerColorIndicator.Instance?.SetColor(colorNameInput);
         }
     }
 }

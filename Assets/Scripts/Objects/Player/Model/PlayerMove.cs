@@ -1,3 +1,4 @@
+using Assets.Scripts.Objects.Common;
 using Assets.Scripts.StageTiles.Model;
 using Unity.Mathematics;
 using UnityEngine;
@@ -6,44 +7,41 @@ namespace Assets.Scripts.Objects.Player.Model
 {
     public class PlayerMove
     {
-        private readonly Vector2 directionVectorPrev;
+        private Vector2 directionVectorPrev;
         private Vector2 hurtBoxVertexPos;
         private readonly float moveSpeed;
-        private const float wallCollisionOffset = 0.02f;
-        private const float lerpFactor = 0.2f;
+        private const float wallCollisionOffset = 0.001f;
+        private const float lerpFactor = 0.1f;
+        private PSA pSA;
         public Vector2 DirectionVector => directionVectorPrev;
+        public PSA PSA => pSA;
 
-
-        public PlayerMove(float moveSpeed, Vector2 directionVectorPrev, Vector2 hurtBoxVertexPos)
+        public PlayerMove(float moveSpeed, Vector2 hurtBoxScale, Vector2 position, Vector2 Scale, float angle)
         {
             this.moveSpeed = moveSpeed;
-            this.directionVectorPrev = directionVectorPrev;
-            this.hurtBoxVertexPos = hurtBoxVertexPos;
+            directionVectorPrev = Vector2.zero;
+            hurtBoxVertexPos = hurtBoxScale * 0.5f;
+            pSA = new PSA(position, Scale, angle);
         }
 
-        public static PlayerMove Initialize(float moveSpeed, Vector2 hurtBoxScale)
-        {
-            return new PlayerMove(moveSpeed, Vector2.zero, hurtBoxScale * 0.5f);
-        }
-
-        public PlayerMove Move(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight, Vector2 pos)
+        public void Move(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
         {
             Vector2 inputVector = ApplyInputToDirectionVector(isDirectingUp, isDirectingDown, isDirectingLeft, isDirectingRight);
             Vector2 directionVector = Vector2.Lerp(directionVectorPrev, inputVector, lerpFactor);
 
             Vector2[] playerVertexPoses = {
-                pos + hurtBoxVertexPos,
-                pos + new Vector2(-hurtBoxVertexPos.x, hurtBoxVertexPos.y),
-                pos - hurtBoxVertexPos,
-                pos - new Vector2(-hurtBoxVertexPos.x, hurtBoxVertexPos.y)
+                pSA.Pos + hurtBoxVertexPos,
+                pSA.Pos + new Vector2(-hurtBoxVertexPos.x, hurtBoxVertexPos.y),
+                pSA.Pos - hurtBoxVertexPos,
+                pSA.Pos - new Vector2(-hurtBoxVertexPos.x, hurtBoxVertexPos.y)
             };
 
             Vector2 minimalDirectionVector = new(
                 ApplyCollisionToDirectionVectorX(playerVertexPoses, directionVector.x),
                 ApplyCollisionToDirectionVectorY(playerVertexPoses, directionVector.y));
-            Vector2 minimumDirectionVector = AdjustDiagonalDirectionVector(playerVertexPoses, minimalDirectionVector);
 
-            return new PlayerMove(moveSpeed, minimumDirectionVector, hurtBoxVertexPos);
+            directionVectorPrev = AdjustDiagonalDirectionVector(playerVertexPoses, minimalDirectionVector);
+            pSA = pSA.Move(directionVectorPrev);
         }
 
         private Vector2 ApplyInputToDirectionVector(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
@@ -54,8 +52,7 @@ namespace Assets.Scripts.Objects.Player.Model
             if (isDirectingDown) directionVector += Vector2.down;
             if (isDirectingLeft) directionVector += Vector2.left;
             if (isDirectingRight) directionVector += Vector2.right;
-
-            return directionVector * moveSpeed;
+            return moveSpeed * Time.deltaTime * directionVector;
         }
 
         private static float ApplyCollisionToDirectionVectorX(Vector2[] playerVertexPoses, float playerDirectionVectorX)
