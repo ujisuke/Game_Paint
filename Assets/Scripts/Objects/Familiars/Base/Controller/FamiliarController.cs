@@ -19,11 +19,11 @@ namespace Assets.Scripts.Objects.Familiars.Base.Controller
             familiarView.SetPSA(familiarModel.PSA);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (familiarModel == null)
                 return;
-            familiarModel.FixedUpdate();
+            familiarModel.OnUpdate();
             familiarView.SetPSA(familiarModel.PSA);
             familiarView.SetColor(familiarModel.ColorName);
         }

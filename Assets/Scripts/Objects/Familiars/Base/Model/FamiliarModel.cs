@@ -38,7 +38,7 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
             token = cts.Token;
         }
 
-        public void FixedUpdate() => fStateMachine.FixedUpdate();
+        public void OnUpdate() => fStateMachine.OnUpdate();
 
         public void Move(Vector2 dir)
         {

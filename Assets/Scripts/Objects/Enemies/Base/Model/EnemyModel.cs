@@ -36,7 +36,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         }
 
 
-        public void FixedUpdate() => eStateMachine.FixedUpdate();
+        public void OnUpdate() => eStateMachine.OnUpdate();
 
         public void Move(Vector2 dir)
         {

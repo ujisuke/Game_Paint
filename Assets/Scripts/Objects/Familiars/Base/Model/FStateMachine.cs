@@ -17,9 +17,9 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
             currentState.OnStateEnter();
         }
 
-        public void FixedUpdate()
+        public void OnUpdate()
         {
-            currentState.OnStateFixedUpdate();
+            currentState.OnUpdate();
         }
     }
 }

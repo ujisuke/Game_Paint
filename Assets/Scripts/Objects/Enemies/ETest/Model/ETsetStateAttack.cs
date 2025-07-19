@@ -18,7 +18,7 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
             attack = newAttack.GetComponent<ObjectAttackController>().ObjectAttackModel;
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
             if (eM.IsDead())
                 eM.ChangeState(new EStateDead(eM));

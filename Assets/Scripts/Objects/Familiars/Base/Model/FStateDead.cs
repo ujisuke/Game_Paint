@@ -4,14 +4,14 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
     {
         private readonly FamiliarModel fM;
 
-        public FStateDead(FamiliarModel familiarModel) => fM = familiarModel;
+        public FStateDead(FamiliarModel fM) => this.fM = fM;
 
         public void OnStateEnter()
         {
             fM.Destroy();
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
 
         }

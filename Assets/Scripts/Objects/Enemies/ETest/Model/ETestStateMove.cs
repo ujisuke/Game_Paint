@@ -1,8 +1,7 @@
 using Assets.Scripts.Objects.Enemies.Base.Model;
-using Assets.Scripts.Objects.Enemies.ETest.Model;
 using UnityEngine;
 
-namespace Assets.Scripts.Objects.Enemies.FTest.Model
+namespace Assets.Scripts.Objects.Enemies.ETest.Model
 {
     public class ETestStateMove : IEStateAfterBorn
     {
@@ -17,7 +16,7 @@ namespace Assets.Scripts.Objects.Enemies.FTest.Model
             Debug.Log("ETestStateMove");
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
             eM.ChangeState(new ETestStateAttack(eM));
         }

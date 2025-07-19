@@ -21,7 +21,7 @@ namespace Assets.Scripts.Objects.Familiars.FTest.Model
             attack = newAttack.GetComponent<ObjectAttackController>().ObjectAttackModel;
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
             if(fM.IsDead())
                 fM.ChangeState(new FStateDead(fM));

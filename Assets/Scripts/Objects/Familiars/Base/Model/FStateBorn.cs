@@ -7,9 +7,9 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
         private readonly FamiliarModel fM;
         private readonly IFStateAfterBorn fStateAfterBorn;
 
-        public FStateBorn(FamiliarModel familiarModel, IFStateAfterBorn fStateAfterBorn)
+        public FStateBorn(FamiliarModel fM, IFStateAfterBorn fStateAfterBorn)
         {
-            fM = familiarModel;
+            this.fM = fM;
             this.fStateAfterBorn = fStateAfterBorn;
         }
 
@@ -18,7 +18,7 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
             Debug.Log("FStateBorn");
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
             fM.ChangeState(fStateAfterBorn.Initialize(fM));
         }

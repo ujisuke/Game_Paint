@@ -19,7 +19,7 @@ namespace Assets.Scripts.Objects.Familiars.FTest.Model
             targetPos = ObjectsStorageModel.Instance.GetNearestEnemyPos(fM.PSA.Pos);
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
             fM.Move(fM.FamiliarData.GetUniqueParameter("Speed") * (targetPos - fM.PSA.Pos).normalized);
             if (fM.IsDead())

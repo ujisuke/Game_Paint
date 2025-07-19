@@ -19,11 +19,11 @@ namespace Assets.Scripts.Objects.Enemies.Base.Controller
             enemyView.SetPSA(enemyModel.PSA);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (enemyModel == null)
                 return;
-            enemyModel.FixedUpdate();
+            enemyModel.OnUpdate();
             enemyView.SetPSA(enemyModel.PSA);
         }
     }

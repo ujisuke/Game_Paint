@@ -7,9 +7,9 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         private readonly EnemyModel eM;
         private readonly IEStateAfterBorn eStateAfterBorn;
 
-        public EStateBorn(EnemyModel enemyModel, IEStateAfterBorn eStateAfterBorn)
+        public EStateBorn(EnemyModel eM, IEStateAfterBorn eStateAfterBorn)
         {
-            eM = enemyModel;
+            this.eM = eM;
             this.eStateAfterBorn = eStateAfterBorn;
         }
 
@@ -18,7 +18,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
             Debug.Log("EStateBorn");
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
             eM.ChangeState(eStateAfterBorn.Initialize(eM));
         }

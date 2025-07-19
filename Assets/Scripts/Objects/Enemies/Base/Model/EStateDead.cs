@@ -4,14 +4,14 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
     {
         private readonly EnemyModel eM;
 
-        public EStateDead(EnemyModel enemyModel) => eM = enemyModel;
+        public EStateDead(EnemyModel eM) => this.eM = eM;
 
         public void OnStateEnter()
         {
             eM.Destroy();
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
 
         }
