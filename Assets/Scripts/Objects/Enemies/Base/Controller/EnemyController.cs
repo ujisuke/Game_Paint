@@ -10,12 +10,13 @@ namespace Assets.Scripts.Objects.Enemies.Base.Controller
         [SerializeField] private EnemyData enemyData;
         private EnemyModel enemyModel;
         [SerializeField] private EnemyView enemyView;
+        [SerializeField] private ColorEffectData colorEffectData;
 
         public abstract void OnSummon(Vector2 pos);
 
         protected void Initialize(IEStateAfterBorn eStateAfterBorn, Vector2 pos)
         {
-            enemyModel = new EnemyModel(enemyData, eStateAfterBorn, pos, this);
+            enemyModel = new EnemyModel(enemyData, eStateAfterBorn, pos, this, colorEffectData);
             enemyView.SetPA(enemyModel.PA);
         }
 

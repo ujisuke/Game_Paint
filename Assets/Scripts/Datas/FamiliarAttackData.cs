@@ -8,17 +8,15 @@ namespace Assets.Scripts.Datas
     {
         [SerializeField] private int power;
         [SerializeField] private Vector2 hitBoxScale;
-        [SerializeField] private List<UniqueParameter> uniqueParametersList;
-        [SerializeField] private float defendDecreaseSeconds;
+        [SerializeField] private float defenseDecreaseSeconds;
         [SerializeField] private float poisonSeconds;
-        [SerializeField] private float healValue;
         [SerializeField] private float attackSpeedDecreaseSeconds;
+        [SerializeField] private List<UniqueParameter> uniqueParametersList;
         private Dictionary<string, float> uniqueParameters;
         public int Power => power;
         public Vector2 HitBoxScale => hitBoxScale;
-        public float DefendDecreaseSeconds => defendDecreaseSeconds;
+        public float DefenseDecreaseSeconds => defenseDecreaseSeconds;
         public float PoisonSeconds => poisonSeconds;
-        public float HealValue => healValue;
         public float AttackSpeedDecreaseSeconds => attackSpeedDecreaseSeconds;
 
         public float GetUniqueParameter(string parameterName)

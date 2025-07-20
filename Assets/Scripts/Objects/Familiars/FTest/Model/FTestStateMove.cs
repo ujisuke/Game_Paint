@@ -1,6 +1,7 @@
 using Assets.Scripts.Objects.Familiars.Base.Model;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using UnityEngine;
+using Assets.Scripts.Objects.HealArea.Controller;
 
 namespace Assets.Scripts.Objects.Familiars.FTest.Model
 {
@@ -29,7 +30,8 @@ namespace Assets.Scripts.Objects.Familiars.FTest.Model
             else if (fM.ColorName == Datas.ColorName.green)
             {
                 i = 0;
-                GameObject.Instantiate(fM.FamiliarData.HealAreaPrefab, fM.PA.Pos, Quaternion.identity);
+                var newHealArea = GameObject.Instantiate(fM.FamiliarData.HealAreaPrefab, fM.PA.Pos, Quaternion.identity);
+                newHealArea.GetComponent<HealAreaController>().Initialize(fM.FamiliarData.HealRate);
             }
             if (fM.IsDead())
                 fM.ChangeState(new FStateDead(fM));

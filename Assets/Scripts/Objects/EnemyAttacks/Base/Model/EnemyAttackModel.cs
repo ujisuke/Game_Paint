@@ -10,23 +10,32 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
     public class EnemyAttackModel
     {
         private PA pA;
-        public PA PA => pA;
         private HitBox hitBox;
-        public HitBox HitBox => hitBox;
         private readonly EnemyAttackData enemyAttackData;
         private readonly EnemyAttackController enemyAttackController;
+        private readonly ColorEffectData colorEffectData;
+        private readonly bool isSpeedDecreased;
+        public PA PA => pA;
         public int Power => enemyAttackData.Power;
+        public HitBox HitBox => hitBox;
 
-        public EnemyAttackModel(EnemyAttackData enemyAttackData, Vector2 pos, EnemyAttackController enemyAttackController)
+        public EnemyAttackModel(EnemyAttackData enemyAttackData, Vector2 pos, EnemyAttackController enemyAttackController, bool isSpeedDecreased, ColorEffectData colorEffectData)
         {
             this.enemyAttackData = enemyAttackData;
             pA = new PA(pos, 0f);
             hitBox = new(pA.Pos, enemyAttackData.HitBoxScale);
             this.enemyAttackController = enemyAttackController;
+            this.colorEffectData = colorEffectData;
+            this.isSpeedDecreased = isSpeedDecreased;
             ObjectsStorageModel.Instance.AddEnemyAttack(this);
         }
 
-        public void Move(Vector2 dir) => pA = pA.Move(dir);
+        public void Move(Vector2 dir)
+        {
+            if (isSpeedDecreased)
+                dir *= colorEffectData.AttackSpeedMultiplier;
+            pA = pA.Move(dir);
+        }
 
         public void OnUpdate()
         {
@@ -35,9 +44,9 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
 
         public float GetUniqueParameter(string key) => enemyAttackData.GetUniqueParameter(key);
 
-        public void Break(FamiliarAttackModel familiarAttack)
+        public void Break(FamiliarAttackModel familiarAttackModel)
         {
-            if (familiarAttack.ColorName == ColorName.orange)
+            if (familiarAttackModel.ColorName == ColorName.yellow)
                 Destroy();
         }
 

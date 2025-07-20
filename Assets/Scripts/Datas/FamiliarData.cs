@@ -16,6 +16,7 @@ namespace Assets.Scripts.Datas
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
         [SerializeField] private GameObject attackPrefab;
         [SerializeField] private GameObject healAreaPrefab;
+        [SerializeField] private float healRate;
         private Dictionary<string, float> uniqueParameters;
 
         public string FamiliarName => familiarName;
@@ -24,6 +25,7 @@ namespace Assets.Scripts.Datas
         public Vector2 Scale => scale;
         public GameObject AttackPrefab => attackPrefab;
         public GameObject HealAreaPrefab => healAreaPrefab;
+        public float HealRate => healRate;
         public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
 
         public float GetUniqueParameter(string parameterName)

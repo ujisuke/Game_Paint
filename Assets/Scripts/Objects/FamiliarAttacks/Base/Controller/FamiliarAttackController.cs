@@ -11,10 +11,11 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Controller
         private FamiliarAttackModel familiarAttackModel;
         public FamiliarAttackModel FamiliarAttackModel => familiarAttackModel;
         [SerializeField] private FamiliarAttackView familiarAttackView;
+        [SerializeField] private ColorEffectData colorEffectData;
 
-        public void Initialize(bool isEnemy, ColorName colorName)
+        public void Initialize(bool isEnemy, ColorName colorName, bool isSpeedDecreased)
         {
-            familiarAttackModel = new FamiliarAttackModel(familiarAttackData, transform.position, this, isEnemy, colorName);
+            familiarAttackModel = new FamiliarAttackModel(familiarAttackData, transform.position, this, isSpeedDecreased, isEnemy, colorName, colorEffectData);
         }
 
         private void Update()

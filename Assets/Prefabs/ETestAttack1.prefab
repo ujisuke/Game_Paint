@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackData: {fileID: 11400000, guid: 2882e11b0c2e0914c98bd34ebda66d20, type: 2}
   enemyAttackView: {fileID: 578378016815631566}
+  colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}
 --- !u!114 &578378016815631566
 MonoBehaviour:
   m_ObjectHideFlags: 0

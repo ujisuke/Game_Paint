@@ -8,20 +8,27 @@ namespace Assets.Scripts.Objects.Common
     public class Status
     {
         private readonly HP hP;
-        private readonly float defendReducedSeconds;
-        private readonly float poisonSeconds;
-        private readonly float attackSpeedDecreaseSeconds;
+        private readonly float defenseDecreasedSeconds;
+        private readonly float poisonedSeconds;
+        private readonly float attackSpeedDecreasedSeconds;
+        private readonly float poisonedElapsedSeconds;
+        private readonly ColorEffectData colorEffectData;
         public HP HP => hP;
-        public float DefendReducedSeconds => defendReducedSeconds;
-        public float PoisonSeconds => poisonSeconds;
-        public float AttackSpeedDecreaseSeconds => attackSpeedDecreaseSeconds;
+        public float DefenseDecreasedSeconds => defenseDecreasedSeconds;
+        public float PoisonedSeconds => poisonedSeconds;
+        public float AttackSpeedDecreaseSeconds => attackSpeedDecreasedSeconds;
+        public bool IsDefenseDecreased => defenseDecreasedSeconds > 0f;
+        public bool IsPoisoned => poisonedSeconds > 0f;
+        public bool IsAttackSpeedDecreased => attackSpeedDecreasedSeconds > 0f;
 
-        public Status(HP hP, float defendReducedSeconds, float poisonSeconds, float attackSpeedDecreaseSeconds)
+        public Status(HP hP, float defenseDecreasedSeconds, float poisonedSeconds, float attackSpeedDecreasedSeconds, float poisonedElapsedSeconds, ColorEffectData colorEffectData)
         {
             this.hP = hP;
-            this.defendReducedSeconds = math.max(defendReducedSeconds, 0f);
-            this.poisonSeconds = math.max(poisonSeconds, 0f);
-            this.attackSpeedDecreaseSeconds = math.max(attackSpeedDecreaseSeconds, 0f);
+            this.defenseDecreasedSeconds = math.max(defenseDecreasedSeconds, 0f);
+            this.poisonedSeconds = math.max(poisonedSeconds, 0f);
+            this.attackSpeedDecreasedSeconds = math.max(attackSpeedDecreasedSeconds, 0f);
+            this.poisonedElapsedSeconds = poisonedElapsedSeconds;
+            this.colorEffectData = colorEffectData;
         }
 
         public Status TakeDamageFromFamiliar(FamiliarAttackModel familiarAttackModel)
@@ -30,44 +37,47 @@ namespace Assets.Scripts.Objects.Common
             FamiliarAttackData familiarAttackData = familiarAttackModel.FamiliarAttackData;
             float newDamageValue = familiarAttackData.Power;
             if (colorName == ColorName.red)
-                newDamageValue *= 2f;
-            if (defendReducedSeconds > 0f)
-                newDamageValue *= 2f;
+                newDamageValue *= colorEffectData.PowerMultiplier;
+            if (IsDefenseDecreased)
+                newDamageValue /= colorEffectData.DefenseMultiplier;
             HP newHP = hP.TakeDamage((int)newDamageValue);
 
-            float newDefendReducedSeconds = defendReducedSeconds;
+            float newDefenseDecreasedSeconds = defenseDecreasedSeconds;
             if (colorName == ColorName.blue)
-                newDefendReducedSeconds = familiarAttackData.DefendDecreaseSeconds;
+                newDefenseDecreasedSeconds = familiarAttackData.DefenseDecreaseSeconds;
 
-            float newPoisonSeconds = poisonSeconds;
+            float newPoisonedSeconds = poisonedSeconds;
             if (colorName == ColorName.purple)
-                newPoisonSeconds = familiarAttackData.PoisonSeconds;
+                newPoisonedSeconds = familiarAttackData.PoisonSeconds;
 
-            float newAttackSpeedDecreaseSeconds = attackSpeedDecreaseSeconds;
+            float newAttackSpeedDecreaseSeconds = attackSpeedDecreasedSeconds;
             if (colorName == ColorName.orange)
                 newAttackSpeedDecreaseSeconds = familiarAttackData.AttackSpeedDecreaseSeconds;
 
-            return new Status(newHP, newDefendReducedSeconds, newPoisonSeconds, newAttackSpeedDecreaseSeconds);
+            return new Status(newHP, newDefenseDecreasedSeconds, newPoisonedSeconds, newAttackSpeedDecreaseSeconds, poisonedElapsedSeconds, colorEffectData);
         }
 
         public Status TakeDamageFromEnemy(int damageValue)
         {
             HP newHP = hP.TakeDamage(damageValue);
-            return new Status(newHP, defendReducedSeconds, poisonSeconds, attackSpeedDecreaseSeconds);
-        }
-
-        public Status Heal(int healValue)
-        {
-            HP newHP = hP.Heal(healValue);
-            return new Status(newHP, defendReducedSeconds, poisonSeconds, attackSpeedDecreaseSeconds);
+            return new Status(newHP, defenseDecreasedSeconds, poisonedSeconds, attackSpeedDecreasedSeconds, poisonedElapsedSeconds, colorEffectData);
         }
         
-        public Status OnUpdate()
+        public Status CountDown()
         {
-            float newDefendReducedSeconds = defendReducedSeconds - Time.deltaTime;
-            float newPoisonSeconds = poisonSeconds - Time.deltaTime;
-            float newAttackSpeedDecreaseSeconds = attackSpeedDecreaseSeconds - Time.deltaTime;
-            return new Status(hP, newDefendReducedSeconds, newPoisonSeconds, newAttackSpeedDecreaseSeconds);
+            float newDefenseDecreasedSeconds = defenseDecreasedSeconds - Time.deltaTime;
+            float newPoisonedSeconds = poisonedSeconds - Time.deltaTime;
+            float newAttackSpeedDecreasedSeconds = attackSpeedDecreasedSeconds - Time.deltaTime;
+            if(!IsPoisoned)
+                return new Status(hP, newDefenseDecreasedSeconds, newPoisonedSeconds, newAttackSpeedDecreasedSeconds, poisonedElapsedSeconds, colorEffectData);
+
+            float newPoisonedElapsedSeconds = poisonedElapsedSeconds + Time.deltaTime;
+            if (newPoisonedElapsedSeconds < 1f)
+                return new Status(hP, newDefenseDecreasedSeconds, newPoisonedSeconds, newAttackSpeedDecreasedSeconds, newPoisonedElapsedSeconds, colorEffectData);
+
+            newPoisonedElapsedSeconds -= 1f;
+            HP newHP = hP.TakeDamage((int)(hP.MaxHP * colorEffectData.PoisonDamageRate));
+            return new Status(newHP, newDefenseDecreasedSeconds, newPoisonedSeconds, newAttackSpeedDecreasedSeconds, newPoisonedElapsedSeconds, colorEffectData);
         }
     }
 }

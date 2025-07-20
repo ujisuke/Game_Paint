@@ -11,10 +11,11 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
         private EnemyAttackModel enemyAttackModel;
         public EnemyAttackModel EnemyAttackModel => enemyAttackModel;
         [SerializeField] private EnemyAttackView enemyAttackView;
+        [SerializeField] private ColorEffectData colorEffectData;
 
-        private void Awake()
+        public void Initialize(bool isSpeedDecreased)
         {
-            enemyAttackModel = new EnemyAttackModel(enemyAttackData, transform.position, this);
+            enemyAttackModel = new EnemyAttackModel(enemyAttackData, transform.position, this, isSpeedDecreased, colorEffectData);
         }
 
         private void Update()

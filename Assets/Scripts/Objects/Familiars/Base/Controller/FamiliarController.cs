@@ -10,12 +10,13 @@ namespace Assets.Scripts.Objects.Familiars.Base.Controller
         [SerializeField] private FamiliarData familiarData;
         private FamiliarModel familiarModel;
         [SerializeField] private FamiliarView familiarView;
+        [SerializeField] private ColorEffectData colorEffectData;
 
         public abstract void OnSummon(Vector2 pos, ColorName colorNameInput, bool isEnemy);
 
         protected void Initialize(IFStateAfterBorn fStateAfterBorn, Vector2 pos, ColorName colorName, bool isEnemy)
         {
-            familiarModel = new FamiliarModel(familiarData, fStateAfterBorn, pos, this, colorName, isEnemy);
+            familiarModel = new FamiliarModel(familiarData, fStateAfterBorn, pos, this, colorName, isEnemy, colorEffectData);
             familiarView.SetPA(familiarModel.PA);
         }
 

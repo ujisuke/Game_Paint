@@ -86,6 +86,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
             DetectHitEFAToPF();
             DetectHitEFAToP();
             DetectHitPFAToEA();
+            DetectHitPFAToEFA();
             DetectHitPToHA();
         }
 
@@ -147,6 +148,14 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                         enemyAttacks[j].Break(pFamiliarAttacks[i]);
         }
 
+        private void DetectHitPFAToEFA()
+        {
+            for (int i = 0; i < pFamiliarAttacks.Count; i++)
+                for (int j = 0; j < eFamiliarAttacks.Count; j++)
+                    if (ObjectsHitDetector.IsHitting(pFamiliarAttacks[i].HitBox, eFamiliarAttacks[j].HitBox))
+                        eFamiliarAttacks[j].Break(pFamiliarAttacks[i]);
+        }
+
         private void DetectHitPToHA()
         {
             if (player == null)
@@ -154,7 +163,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
             for (int i = 0; i < healAreas.Count; i++)
                 if (ObjectsHitDetector.IsAttacking(healAreas[i].HitBox, player.HurtBox))
                 {
-                    player.Heal(healAreas[i].HealAmount);
+                    player.Heal(healAreas[i].HealRate);
                     healAreas[i].Destroy();
                 }
         }

@@ -26,12 +26,13 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
         public ColorName ColorName => colorName;
         public FamiliarData FamiliarData => familiarData;
         public bool IsEnemy => isEnemy;
+        public bool IsAttackSpeedDecreased => status.IsAttackSpeedDecreased;
 
-        public FamiliarModel(FamiliarData familiarData, IFStateAfterBorn fStateAfterBorn, Vector2 pos, FamiliarController familiarController, ColorName colorName, bool isEnemy)
+        public FamiliarModel(FamiliarData familiarData, IFStateAfterBorn fStateAfterBorn, Vector2 pos, FamiliarController familiarController, ColorName colorName, bool isEnemy, ColorEffectData colorEffectData)
         {
             this.familiarData = familiarData;
             pA = new PA(pos, 0f);
-            status = new Status(familiarData.MaxHP, 0f, 0f, 0f);
+            status = new Status(familiarData.MaxHP, 0f, 0f, 0f, 0f, colorEffectData);
             hurtBox = new HurtBox(pA.Pos, familiarData.HurtBoxScale, true);
             fStateMachine = new FStateMachine(this, fStateAfterBorn);
             this.familiarController = familiarController;
@@ -42,7 +43,11 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
             token = cts.Token;
         }
 
-        public void OnUpdate() => fStateMachine.OnUpdate();
+        public void OnUpdate()
+        {
+            fStateMachine.OnUpdate();
+            status = status.CountDown();
+        }
 
         public void Move(Vector2 dir)
         {

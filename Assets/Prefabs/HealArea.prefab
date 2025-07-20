@@ -100,4 +100,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819859452cc772147b08fdebd7c9581e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healAreaData: {fileID: 11400000, guid: b86cdeb7cbf47e14ca05f6f2aba832d2, type: 2}
+  colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}

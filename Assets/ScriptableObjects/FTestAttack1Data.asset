@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power: 1
   hitBoxScale: {x: 0.5, y: 0.5}
-  uniqueParametersList: []
-  defendDecreaseSeconds: 0
-  poisonSeconds: 0
-  healValue: 0
+  defenseDecreaseSeconds: 10
+  poisonSeconds: 10
   attackSpeedDecreaseSeconds: 0
+  uniqueParametersList: []

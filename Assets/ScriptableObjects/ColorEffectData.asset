@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 616484ce652ed444c9a4ecd41aee90ae, type: 3}
-  m_Name: HealAreaData
+  m_Script: {fileID: 11500000, guid: 8a58a6b4e53264441b1b9727210d375f, type: 3}
+  m_Name: ColorEffectData
   m_EditorClassIdentifier: 
-  hitBoxScale: {x: 0.5, y: 0.5}
-  healAmount: 10
+  powerMultiplier: 2
+  defenseMultiplier: 0.5
+  poisonDamageRate: 0.01
+  healAreaScale: {x: 0.5, y: 0.5}
+  attackSpeedMultiplier: 0.5

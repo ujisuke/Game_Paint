@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   familiarAttackData: {fileID: 11400000, guid: 2db7e9f7bc49200429c42a9e6a5a2ec4, type: 2}
   familiarAttackView: {fileID: 3573569991699939733}
+  colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}
 --- !u!114 &3573569991699939733
 MonoBehaviour:
   m_ObjectHideFlags: 0

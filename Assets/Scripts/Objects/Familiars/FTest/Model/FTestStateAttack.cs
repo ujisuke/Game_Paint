@@ -20,7 +20,7 @@ namespace Assets.Scripts.Objects.Familiars.FTest.Model
         {
             Debug.Log("FTestStateAttack");
             var newAttack = GameObject.Instantiate(fM.FamiliarData.AttackPrefab, fM.PA.Pos, Quaternion.identity);
-            newAttack.GetComponent<FamiliarAttackController>().Initialize(fM.IsEnemy, fM.ColorName);
+            newAttack.GetComponent<FamiliarAttackController>().Initialize(fM.IsEnemy, fM.ColorName, fM.IsAttackSpeedDecreased);
             attack = newAttack.GetComponent<FamiliarAttackController>().FamiliarAttackModel;
 
         }

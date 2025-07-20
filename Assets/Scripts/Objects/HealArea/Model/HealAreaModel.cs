@@ -9,16 +9,16 @@ namespace Assets.Scripts.Objects.HealArea.Model
     public class HealAreaModel
     {
         private readonly HitBox hitBox;
-        private readonly int healAmount;
+        private readonly float healRate;
         private readonly HealAreaController healAreaController;
         public HitBox HitBox => hitBox;
-        public int HealAmount => healAmount;
+        public float HealRate => healRate;
 
-        public HealAreaModel(HealAreaController healAreaController, Vector2 pos, HealAreaData healAreaData)
+        public HealAreaModel(HealAreaController healAreaController, Vector2 pos, ColorEffectData colorEffectData, float healRate)
         {
             this.healAreaController = healAreaController;
-            hitBox = new HitBox(pos, healAreaData.HitBoxScale);
-            healAmount = healAreaData.HealAmount;
+            hitBox = new HitBox(pos, colorEffectData.HealAreaScale);
+            this.healRate = healRate;
             ObjectsStorageModel.Instance.AddHealArea(this);
         }
 

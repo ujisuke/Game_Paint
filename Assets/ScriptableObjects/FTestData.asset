@@ -22,3 +22,4 @@ MonoBehaviour:
     value: 0.1
   attackPrefab: {fileID: 3515165110105616261, guid: 8a366e048281775488a320641ce31adb, type: 3}
   healAreaPrefab: {fileID: 6412475687881785497, guid: 8cfac30812b5f444d846c2782cc34687, type: 3}
+  healRate: 1

@@ -6,6 +6,8 @@ namespace Assets.Scripts.Objects.Common
     {
         private readonly int currentHP;
         private readonly int maxHP;
+        public int CurrentHP => currentHP;
+        public int MaxHP => maxHP;
 
         public HP(int currentHP, int maxHP)
         {
@@ -24,8 +26,9 @@ namespace Assets.Scripts.Objects.Common
             return new HP(currentHP - damageValue, maxHP);
         }
 
-        public HP Heal(int healValue)
+        public HP Heal(float healRate)
         {
+            int healValue = (int)(maxHP * healRate);
             return new HP(currentHP + healValue, maxHP);
         }
 

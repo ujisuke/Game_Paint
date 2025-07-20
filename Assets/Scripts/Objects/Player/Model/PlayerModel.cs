@@ -51,7 +51,7 @@ namespace Assets.Scripts.Objects.Player.Model
             hurtBox = hurtBox.Activate();
         }
 
-        public void Heal(int healValue) => hP = hP.Heal(healValue);
+        public void Heal(float healRate) => hP = hP.Heal(healRate);
 
         public bool IsDead() => hP.IsDead();
 

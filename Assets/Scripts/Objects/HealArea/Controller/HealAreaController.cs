@@ -6,12 +6,9 @@ namespace Assets.Scripts.Objects.HealArea.Controller
 {
     public class HealAreaController : MonoBehaviour
     {
-        [SerializeField] private HealAreaData healAreaData;
+        [SerializeField] private ColorEffectData colorEffectData;
         private HealAreaModel healAreaModel;
 
-        private void Awake()
-        {
-            healAreaModel = new HealAreaModel(this, transform.position, healAreaData);
-        }
+        public void Initialize(float healRate) => healAreaModel = new HealAreaModel(this, transform.position, colorEffectData, healRate);
     }
 }

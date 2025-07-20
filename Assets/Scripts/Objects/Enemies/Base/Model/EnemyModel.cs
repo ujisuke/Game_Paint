@@ -22,12 +22,13 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         public PA PA => pA;
         public HurtBox HurtBox => hurtBox;
         public EnemyData EnemyData => enemyData;
+        public bool IsAttackSpeedDecreased => status.IsAttackSpeedDecreased;
 
-        public EnemyModel(EnemyData enemyData, IEStateAfterBorn eStateAfterBorn, Vector2 pos, EnemyController enemyController)
+        public EnemyModel(EnemyData enemyData, IEStateAfterBorn eStateAfterBorn, Vector2 pos, EnemyController enemyController, ColorEffectData colorEffectData)
         {
             this.enemyData = enemyData;
             pA = new PA(pos, 0f);
-            status = new Status(new HP(enemyData.MaxHP), 0f, 0f, 0f);
+            status = new Status(new HP(enemyData.MaxHP), 0f, 0f, 0f, 0f, colorEffectData);
             hurtBox = new HurtBox(pA.Pos, enemyData.HurtBoxScale, true);
             eStateMachine = new EStateMachine(this, eStateAfterBorn);
             this.enemyController = enemyController;
@@ -36,9 +37,12 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
             token = cts.Token;
         }
 
-
-        public void OnUpdate() => eStateMachine.OnUpdate();
-
+        public void OnUpdate()
+        {
+            eStateMachine.OnUpdate();
+            status = status.CountDown();
+        }
+        
         public void Move(Vector2 dir)
         {
             pA = pA.Move(dir);
