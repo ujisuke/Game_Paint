@@ -9,30 +9,28 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
 {
     public class EnemyAttackModel
     {
-        private Power power;
-        public int PowerValue => power.CurrentPower;
-        private PSA pSA;
-        public PSA PSA => pSA;
+        private PA pA;
+        public PA PA => pA;
         private HitBox hitBox;
         public HitBox HitBox => hitBox;
         private readonly EnemyAttackData enemyAttackData;
         private readonly EnemyAttackController enemyAttackController;
+        public int Power => enemyAttackData.Power;
 
-        public EnemyAttackModel(EnemyAttackData enemyAttackData, Vector2 position, EnemyAttackController enemyAttackController)
+        public EnemyAttackModel(EnemyAttackData enemyAttackData, Vector2 pos, EnemyAttackController enemyAttackController)
         {
             this.enemyAttackData = enemyAttackData;
-            power = enemyAttackData.DefaultPower;
-            pSA = new PSA(position, enemyAttackData.HitBoxScale, 0f);
-            hitBox = new(pSA.Pos, enemyAttackData.HitBoxScale);
+            pA = new PA(pos, 0f);
+            hitBox = new(pA.Pos, enemyAttackData.HitBoxScale);
             this.enemyAttackController = enemyAttackController;
             ObjectsStorageModel.Instance.AddEnemyAttack(this);
         }
 
-        public void Move(Vector2 dir) => pSA = pSA.Move(dir);
+        public void Move(Vector2 dir) => pA = pA.Move(dir);
 
         public void OnUpdate()
         {
-            hitBox = hitBox.Move(pSA.Pos);
+            hitBox = hitBox.Move(pA.Pos);
         }
 
         public float GetUniqueParameter(string key) => enemyAttackData.GetUniqueParameter(key);

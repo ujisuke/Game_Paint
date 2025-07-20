@@ -17,9 +17,9 @@ namespace Assets.Scripts.GameSystems.StageSystem.Model
             currentState.OnStateEnter();
         }
 
-        public void FixedUpdate()
+        public void OnUpdate()
         {
-            currentState.OnStateFixedUpdate();
+            currentState.OnUpdate();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Controller
             if (familiarAttackModel == null)
                 return;
             familiarAttackModel.OnUpdate();
-            familiarAttackView.SetPSA(familiarAttackModel.PSA);
+            familiarAttackView.SetPA(familiarAttackModel.PA);
         }
     }
 }

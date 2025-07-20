@@ -25,8 +25,8 @@ namespace Assets.Scripts.Objects.Player.Controller
         public void HandleInput()
         {
             pM.MoveInput(Input.GetKey(KeyCode.W), Input.GetKey(KeyCode.S), Input.GetKey(KeyCode.A), Input.GetKey(KeyCode.D));
-            pC.PlayerView.SetPSA(pM.PSA);
-            StageTilesModel.Instance.PaintTile(pM.PSA.Pos, pM.ColorNameCurrent);
+            pC.PlayerView.SetPA(pM.PA);
+            StageTilesModel.Instance.PaintTile(pM.PA.Pos, pM.ColorNameCurrent);
             if (pM.IsDead())
                 pSM.ChangeState(new PStateDead(pM, pSM, pC));
             else if (!Input.GetMouseButton(0))

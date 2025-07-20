@@ -17,7 +17,7 @@ namespace Assets.Scripts.GameSystems.StageSystem.Model
             Debug.Log("SStateBattle");
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
             if (!ObjectsStorageModel.Instance.DoesEnemyExist() && ObjectsStorageModel.Instance.DoesPlayerExist())
                 sSM.ChangeState(new SStateWin(sSM));

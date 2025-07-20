@@ -19,7 +19,7 @@ namespace Assets.Scripts.GameSystems.StageSystem.Model
             sSM.ChangeState(new SStateBattle(sSM));
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
 
         }

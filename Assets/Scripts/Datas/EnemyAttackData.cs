@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Assets.Scripts.Objects.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -7,11 +6,11 @@ namespace Assets.Scripts.Datas
     [CreateAssetMenu(fileName = "EnemyAttackData", menuName = "ScriptableObjects/EnemyAttackData")]
     public class EnemyAttackData : ScriptableObject
     {
-        [SerializeField] private int defaultPower;
-        public Power DefaultPower => new(defaultPower);
+        [SerializeField] private int power;
         [SerializeField] private Vector2 hitBoxScale;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
         private Dictionary<string, float> uniqueParameters;
+        public int Power => power;
         public Vector2 HitBoxScale => hitBoxScale;
 
         public float GetUniqueParameter(string parameterName)

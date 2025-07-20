@@ -18,7 +18,7 @@ namespace Assets.Scripts.GameSystems.StageSystem.Model
             SceneChangerModel.Instance.LoadSceneRetry();
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
 
         }

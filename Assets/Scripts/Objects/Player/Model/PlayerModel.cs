@@ -18,17 +18,17 @@ namespace Assets.Scripts.Objects.Player.Model
         private readonly CancellationToken token;
         private readonly PlayerMove playerMove;
         private readonly PlayerColor playerColor;
-        public PSA PSA => playerMove.PSA;
+        public PA PA => playerMove.PA;
         public HurtBox HurtBox => hurtBox;
         public ColorName ColorNameCurrent => playerColor.ColorNameCurrent;
 
-        public PlayerModel(PlayerData playerData, Vector2 position, PlayerController playerController, ColorDataList colorDataList)
+        public PlayerModel(PlayerData playerData, Vector2 pos, PlayerController playerController, ColorDataList colorDataList)
         {
             this.playerData = playerData;
             hP = playerData.MaxHP;
             this.playerController = playerController;
-            playerMove = new PlayerMove(playerData.MoveSpeed, playerData.HurtBoxScale, position, playerData.Scale, 0f);
-            hurtBox = new HurtBox(playerMove.PSA.Pos, playerData.HurtBoxScale, true);
+            playerMove = new PlayerMove(playerData.MoveSpeed, playerData.Scale, pos, 0f);
+            hurtBox = new HurtBox(playerMove.PA.Pos, playerData.HurtBoxScale, true);
             playerColor = new PlayerColor(colorDataList);
             ObjectsStorageModel.Instance.AddPlayer(this);
             cts = new CancellationTokenSource();
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Objects.Player.Model
         public void MoveInput(bool isUp, bool isDown, bool isLeft, bool isRight)
         {
             playerMove.Move(isUp, isDown, isLeft, isRight);
-            hurtBox = hurtBox.Move(playerMove.PSA.Pos);
+            hurtBox = hurtBox.Move(playerMove.PA.Pos);
         }
 
         public async UniTask TakeDamage(int damageValue)
@@ -51,13 +51,15 @@ namespace Assets.Scripts.Objects.Player.Model
             hurtBox = hurtBox.Activate();
         }
 
+        public void Heal(int healValue) => hP = hP.Heal(healValue);
+
         public bool IsDead() => hP.IsDead();
 
         public void Destroy()
         {
             cts?.Cancel();
             cts?.Dispose();
-            ObjectsStorageModel.Instance.RemovePlayer(this);
+            ObjectsStorageModel.Instance.RemovePlayer();
             GameObject.Destroy(playerController.gameObject);
         }
     }

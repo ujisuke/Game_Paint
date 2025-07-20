@@ -18,7 +18,7 @@ namespace Assets.Scripts.Objects.Player.Controller
         {
             playerModel = new(playerData, transform.position, this, colorDataList);
             playerView.ColorDataList = colorDataList;
-            playerView.SetPSA(playerModel.PSA);
+            playerView.SetPA(playerModel.PA);
             pStateMachine = new PStateMachine(playerModel, this);
         }
 

@@ -15,9 +15,9 @@ namespace Assets.Scripts.GameSystems.StageSystem.Model
             sStateMachine = new SStateMachine(this);
         }
 
-        public void FixedUpdate()
+        public void OnUpdate()
         {
-            sStateMachine.FixedUpdate();
+            sStateMachine.OnUpdate();
         }
 
         public void ChangeState(ISState newState)

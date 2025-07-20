@@ -22,7 +22,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
             if (enemyAttackModel == null)
                 return;
             enemyAttackModel.OnUpdate();
-            enemyAttackView.SetPSA(enemyAttackModel.PSA);
+            enemyAttackView.SetPAS(enemyAttackModel.PA, enemyAttackData.HitBoxScale);
         }
     }
 }

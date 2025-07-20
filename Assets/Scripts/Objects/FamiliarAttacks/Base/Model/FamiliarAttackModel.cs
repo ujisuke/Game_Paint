@@ -8,32 +8,32 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
 {
     public class FamiliarAttackModel
     {
-        private PSA pSA;
+        private PA pA;
         private HitBox hitBox;
         private readonly FamiliarAttackData familiarAttackData;
         private readonly FamiliarAttackController familiarAttackController;
         private readonly ColorName colorName;
         public int Power => familiarAttackData.Power;
-        public PSA PSA => pSA;
+        public PA PA => pA;
         public HitBox HitBox => hitBox;
         public FamiliarAttackData FamiliarAttackData => familiarAttackData;
         public ColorName ColorName => colorName;
 
-        public FamiliarAttackModel(FamiliarAttackData familiarAttackData, Vector2 position, FamiliarAttackController familiarAttackController, bool isEnemy, ColorName colorName)
+        public FamiliarAttackModel(FamiliarAttackData familiarAttackData, Vector2 pos, FamiliarAttackController familiarAttackController, bool isEnemy, ColorName colorName)
         {
             this.familiarAttackController = familiarAttackController;
             this.familiarAttackData = familiarAttackData;
-            pSA = new PSA(position, familiarAttackData.HitBoxScale, 0f);
-            hitBox = new(pSA.Pos, familiarAttackData.HitBoxScale);
+            pA = new PA(pos, 0f);
+            hitBox = new(pA.Pos, familiarAttackData.HitBoxScale);
             this.colorName = colorName;
             ObjectsStorageModel.Instance.AddFamiliarAttack(this, isEnemy);
         }
 
-        public void Move(Vector2 dir) => pSA = pSA.Move(dir);
+        public void Move(Vector2 dir) => pA = pA.Move(dir);
 
         public void OnUpdate()
         {
-            hitBox = hitBox.Move(pSA.Pos);
+            hitBox = hitBox.Move(pA.Pos);
         }
 
         public float GetUniqueParameter(string key) => familiarAttackData.GetUniqueParameter(key);

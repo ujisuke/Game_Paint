@@ -18,12 +18,15 @@ namespace Assets.Scripts.GameSystems.StageSystem.Model
             GameObject.Instantiate(sSM.StagePEData.PlayerPrefab, sSM.StagePEData.PlayerInitPos, Quaternion.identity);
         }
 
-        public void OnStateFixedUpdate()
+        public void OnUpdate()
         {
             if (!SceneChangerModel.Instance.IsRetry)
+            {
                 sSM.ChangeState(new SStateConversation(sSM));
+                return;
+            }
             for (int i = 0; i < sSM.StagePEData.EDataList.Count; i++)
-                GameObject.Instantiate(sSM.StagePEData.EDataList[i].EnemyPrefab, sSM.StagePEData.EDataList[i].EnemyInitPos, Quaternion.identity);
+                    GameObject.Instantiate(sSM.StagePEData.EDataList[i].EnemyPrefab, sSM.StagePEData.EDataList[i].EnemyInitPos, Quaternion.identity);
             Debug.Log("Retrying Stage");
             sSM.ChangeState(new SStateBattle(sSM));
         }

@@ -6,7 +6,7 @@ using Assets.Scripts.Objects.Player.Model;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
-using Assets.Scripts.Datas;
+using Assets.Scripts.Objects.HealArea.Model;
 
 namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
 {
@@ -19,6 +19,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
         private readonly List<EnemyAttackModel> enemyAttacks;
         private readonly List<FamiliarAttackModel> eFamiliarAttacks;
         private readonly List<FamiliarAttackModel> pFamiliarAttacks;
+        private readonly List<HealAreaModel> healAreas;
         private static ObjectsStorageModel instance = new();
         public static ObjectsStorageModel Instance => instance;
 
@@ -31,15 +32,18 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
             enemyAttacks = new();
             eFamiliarAttacks = new();
             pFamiliarAttacks = new();
+            healAreas = new();
             instance = this;
         }
 
         public void AddEnemy(EnemyModel enemy) => enemies.Add(enemy);
         public void RemoveEnemy(EnemyModel enemy) => enemies.Remove(enemy);
         public void AddPlayer(PlayerModel player) => this.player = player;
-        public void RemovePlayer(PlayerModel player) => this.player = null;
+        public void RemovePlayer() => player = null;
         public void AddEnemyAttack(EnemyAttackModel enemyAttack) => enemyAttacks.Add(enemyAttack);
         public void RemoveEnemyAttack(EnemyAttackModel enemyAttack) => enemyAttacks.Remove(enemyAttack);
+        public void AddHealArea(HealAreaModel healArea) => healAreas.Add(healArea);
+        public void RemoveHealArea(HealAreaModel healArea) => healAreas.Remove(healArea);
 
         public void AddFamiliar(FamiliarModel familiar, bool isEnemy)
         {
@@ -82,6 +86,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
             DetectHitEFAToPF();
             DetectHitEFAToP();
             DetectHitPFAToEA();
+            DetectHitPToHA();
         }
 
         private void DetectHitPFAToE()
@@ -105,7 +110,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
             for (int i = 0; i < enemyAttacks.Count; i++)
                 for (int j = 0; j < pFamiliars.Count; j++)
                     if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, pFamiliars[j].HurtBox))
-                        pFamiliars[j].TakeDamageFromEnemy(enemyAttacks[i].PowerValue).Forget();
+                        pFamiliars[j].TakeDamageFromEnemy(enemyAttacks[i].Power).Forget();
         }
 
         private void DetectHitEAToP()
@@ -114,7 +119,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                 return;
             for (int i = 0; i < enemyAttacks.Count; i++)
                 if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, player.HurtBox))
-                    player.TakeDamage(enemyAttacks[i].PowerValue).Forget();
+                    player.TakeDamage(enemyAttacks[i].Power).Forget();
         }
 
         private void DetectHitEFAToPF()
@@ -142,6 +147,18 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                         enemyAttacks[j].Break(pFamiliarAttacks[i]);
         }
 
+        private void DetectHitPToHA()
+        {
+            if (player == null)
+                return;
+            for (int i = 0; i < healAreas.Count; i++)
+                if (ObjectsHitDetector.IsAttacking(healAreas[i].HitBox, player.HurtBox))
+                {
+                    player.Heal(healAreas[i].HealAmount);
+                    healAreas[i].Destroy();
+                }
+        }
+
         public Vector2 GetNearestEnemyPos(Vector2 pos)
         {
             Vector2 nearestPos = pos;
@@ -149,11 +166,11 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
 
             for (int i = 0; i < enemies.Count; i++)
             {
-                float distance = Vector2.Distance(pos, enemies[i].PSA.Pos);
+                float distance = Vector2.Distance(pos, enemies[i].PA.Pos);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
-                    nearestPos = enemies[i].PSA.Pos;
+                    nearestPos = enemies[i].PA.Pos;
                 }
             }
 

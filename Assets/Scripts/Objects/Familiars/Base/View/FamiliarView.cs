@@ -9,11 +9,9 @@ namespace Assets.Scripts.Objects.Familiars.Base.View
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private ColorDataList colorDataList;
         
-        public void SetPSA(PSA pSA)
+        public void SetPA(PA pA)
         {
-            transform.position = pSA.Pos;
-            transform.localScale = pSA.Scale;
-            transform.rotation = Quaternion.Euler(0f, 0f, pSA.Angle);
+            transform.SetPositionAndRotation(pA.Pos, Quaternion.Euler(0f, 0f, pA.Angle));
         }
 
         public void SetColor(ColorName colorNameInput)

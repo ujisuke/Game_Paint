@@ -9,13 +9,8 @@ namespace Assets.Scripts.Objects.Player.View
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [NonSerialized] public ColorDataList ColorDataList;
-        
-        public void SetPSA(PSA pSA)
-        {
-            transform.position = pSA.Pos;
-            transform.localScale = pSA.Scale;
-            transform.rotation = Quaternion.Euler(0f, 0f, pSA.Angle);
-        }
+
+        public void SetPA(PA pA) => transform.SetPositionAndRotation(pA.Pos, Quaternion.Euler(0f, 0f, pA.Angle));
 
         public void SetColor(ColorName colorNameInput)
         {

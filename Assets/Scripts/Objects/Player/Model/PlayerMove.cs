@@ -12,16 +12,16 @@ namespace Assets.Scripts.Objects.Player.Model
         private readonly float moveSpeed;
         private const float wallCollisionOffset = 0.001f;
         private const float lerpFactor = 0.1f;
-        private PSA pSA;
+        private PA pA;
         public Vector2 DirectionVector => directionVectorPrev;
-        public PSA PSA => pSA;
+        public PA PA => pA;
 
-        public PlayerMove(float moveSpeed, Vector2 hurtBoxScale, Vector2 position, Vector2 Scale, float angle)
+        public PlayerMove(float moveSpeed, Vector2 hurtBoxScale, Vector2 pos, float angle)
         {
             this.moveSpeed = moveSpeed;
             directionVectorPrev = Vector2.zero;
             hurtBoxVertexPos = hurtBoxScale * 0.5f;
-            pSA = new PSA(position, Scale, angle);
+            pA = new PA(pos, angle);
         }
 
         public void Move(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
@@ -30,10 +30,10 @@ namespace Assets.Scripts.Objects.Player.Model
             Vector2 directionVector = Vector2.Lerp(directionVectorPrev, inputVector, lerpFactor);
 
             Vector2[] playerVertexPoses = {
-                pSA.Pos + hurtBoxVertexPos,
-                pSA.Pos + new Vector2(-hurtBoxVertexPos.x, hurtBoxVertexPos.y),
-                pSA.Pos - hurtBoxVertexPos,
-                pSA.Pos - new Vector2(-hurtBoxVertexPos.x, hurtBoxVertexPos.y)
+                pA.Pos + hurtBoxVertexPos,
+                pA.Pos + new Vector2(-hurtBoxVertexPos.x, hurtBoxVertexPos.y),
+                pA.Pos - hurtBoxVertexPos,
+                pA.Pos - new Vector2(-hurtBoxVertexPos.x, hurtBoxVertexPos.y)
             };
 
             Vector2 minimalDirectionVector = new(
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Objects.Player.Model
                 ApplyCollisionToDirectionVectorY(playerVertexPoses, directionVector.y));
 
             directionVectorPrev = AdjustDiagonalDirectionVector(playerVertexPoses, minimalDirectionVector);
-            pSA = pSA.Move(directionVectorPrev);
+            pA = pA.Move(directionVectorPrev);
         }
 
         private Vector2 ApplyInputToDirectionVector(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)

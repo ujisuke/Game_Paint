@@ -16,7 +16,7 @@ namespace Assets.Scripts.Objects.Familiars.Base.Controller
         protected void Initialize(IFStateAfterBorn fStateAfterBorn, Vector2 pos, ColorName colorName, bool isEnemy)
         {
             familiarModel = new FamiliarModel(familiarData, fStateAfterBorn, pos, this, colorName, isEnemy);
-            familiarView.SetPSA(familiarModel.PSA);
+            familiarView.SetPA(familiarModel.PA);
         }
 
         private void Update()
@@ -24,7 +24,7 @@ namespace Assets.Scripts.Objects.Familiars.Base.Controller
             if (familiarModel == null)
                 return;
             familiarModel.OnUpdate();
-            familiarView.SetPSA(familiarModel.PSA);
+            familiarView.SetPA(familiarModel.PA);
             familiarView.SetColor(familiarModel.ColorName);
         }
     }

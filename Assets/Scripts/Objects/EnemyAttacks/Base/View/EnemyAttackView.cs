@@ -7,11 +7,10 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.View
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
 
-        public void SetPSA(PSA pSA)
+        public void SetPAS(PA pA, Vector2 hitBoxScale)
         {
-            transform.position = pSA.Pos;
-            transform.localScale = pSA.Scale;
-            transform.rotation = Quaternion.Euler(0f, 0f, pSA.Angle);
+            transform.SetPositionAndRotation(pA.Pos, Quaternion.Euler(0f, 0f, pA.Angle));
+            transform.localScale = hitBoxScale;
         }
     }
 }

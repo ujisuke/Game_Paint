@@ -24,7 +24,7 @@ namespace Assets.Scripts.Objects.Player.Controller
         public void HandleInput()
         {
             pM.MoveInput(Input.GetKey(KeyCode.W), Input.GetKey(KeyCode.S), Input.GetKey(KeyCode.A), Input.GetKey(KeyCode.D));
-            pC.PlayerView.SetPSA(pM.PSA);
+            pC.PlayerView.SetPA(pM.PA);
             pM.SetColor(Input.mouseScrollDelta.y);
             pC.PlayerView.SetColor(pM.ColorNameCurrent);
             if (pM.IsDead())

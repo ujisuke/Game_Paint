@@ -11,7 +11,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
 {
     public class EnemyModel
     {
-        private PSA pSA;
+        private PA pA;
         private Status status;
         private HurtBox hurtBox;
         private readonly EStateMachine eStateMachine;
@@ -19,16 +19,16 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         private readonly EnemyController enemyController;
         private readonly CancellationTokenSource cts;
         private readonly CancellationToken token;
-        public PSA PSA => pSA;
+        public PA PA => pA;
         public HurtBox HurtBox => hurtBox;
         public EnemyData EnemyData => enemyData;
 
-        public EnemyModel(EnemyData enemyData, IEStateAfterBorn eStateAfterBorn, Vector2 position, EnemyController enemyController)
+        public EnemyModel(EnemyData enemyData, IEStateAfterBorn eStateAfterBorn, Vector2 pos, EnemyController enemyController)
         {
             this.enemyData = enemyData;
-            pSA = new PSA(position, enemyData.Scale, 0f);
+            pA = new PA(pos, 0f);
             status = new Status(new HP(enemyData.MaxHP), 0f, 0f, 0f);
-            hurtBox = new HurtBox(pSA.Pos, enemyData.HurtBoxScale, true);
+            hurtBox = new HurtBox(pA.Pos, enemyData.HurtBoxScale, true);
             eStateMachine = new EStateMachine(this, eStateAfterBorn);
             this.enemyController = enemyController;
             ObjectsStorageModel.Instance.AddEnemy(this);
@@ -41,8 +41,8 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
 
         public void Move(Vector2 dir)
         {
-            pSA = pSA.Move(dir);
-            hurtBox = hurtBox.Move(pSA.Pos);
+            pA = pA.Move(dir);
+            hurtBox = hurtBox.Move(pA.Pos);
         }
 
         public void ChangeState(IEState state) => eStateMachine.ChangeState(state);

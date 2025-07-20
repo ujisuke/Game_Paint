@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 542be573a2e659b4cb22dcaee54d5cc9, type: 3}
-  m_Name: ETestAttack1Data
+  m_Script: {fileID: 11500000, guid: 616484ce652ed444c9a4ecd41aee90ae, type: 3}
+  m_Name: HealAreaData
   m_EditorClassIdentifier: 
-  power: 1
   hitBoxScale: {x: 0.5, y: 0.5}
-  uniqueParametersList: []
+  healAmount: 10

@@ -16,7 +16,7 @@ namespace Assets.Scripts.GameSystems.StageSystem.Controller
 
         private void FixedUpdate()
         {
-            stageSystemModel.FixedUpdate();
+            stageSystemModel.OnUpdate();
         }
     }
 }

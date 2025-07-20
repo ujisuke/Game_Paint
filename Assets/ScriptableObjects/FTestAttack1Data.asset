@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054c7da40c6a48644863fce2fd39275b, type: 3}
   m_Name: FTestAttack1Data
   m_EditorClassIdentifier: 
-  defaultPower: 0
-  hitBoxScale: {x: 0, y: 0}
+  power: 1
+  hitBoxScale: {x: 0.5, y: 0.5}
   uniqueParametersList: []
+  defendDecreaseSeconds: 0
+  poisonSeconds: 0
+  healValue: 0
+  attackSpeedDecreaseSeconds: 0

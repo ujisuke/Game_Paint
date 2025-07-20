@@ -16,7 +16,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Controller
         protected void Initialize(IEStateAfterBorn eStateAfterBorn, Vector2 pos)
         {
             enemyModel = new EnemyModel(enemyData, eStateAfterBorn, pos, this);
-            enemyView.SetPSA(enemyModel.PSA);
+            enemyView.SetPA(enemyModel.PA);
         }
 
         private void Update()
@@ -24,7 +24,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Controller
             if (enemyModel == null)
                 return;
             enemyModel.OnUpdate();
-            enemyView.SetPSA(enemyModel.PSA);
+            enemyView.SetPA(enemyModel.PA);
         }
     }
 

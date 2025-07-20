@@ -8,6 +8,7 @@ namespace Assets.Scripts.Objects.Familiars.FTest.Model
     {
         private readonly FamiliarModel fM;
         private Vector2 targetPos;
+        private int i;
 
         public FTestStateMove(FamiliarModel familiarModel) => fM = familiarModel;
         
@@ -16,15 +17,23 @@ namespace Assets.Scripts.Objects.Familiars.FTest.Model
         public void OnStateEnter()
         {
             Debug.Log("FTestStateMove");
-            targetPos = ObjectsStorageModel.Instance.GetNearestEnemyPos(fM.PSA.Pos);
+            targetPos = ObjectsStorageModel.Instance.GetNearestEnemyPos(fM.PA.Pos);
+            i = 0;
         }
 
         public void OnUpdate()
         {
-            fM.Move(fM.FamiliarData.GetUniqueParameter("Speed") * (targetPos - fM.PSA.Pos).normalized);
+            fM.Move(fM.FamiliarData.GetUniqueParameter("Speed") * (targetPos - fM.PA.Pos).normalized);
+            if (i < 10)
+                i++;
+            else if (fM.ColorName == Datas.ColorName.green)
+            {
+                i = 0;
+                GameObject.Instantiate(fM.FamiliarData.HealAreaPrefab, fM.PA.Pos, Quaternion.identity);
+            }
             if (fM.IsDead())
                 fM.ChangeState(new FStateDead(fM));
-            else if (Vector2.Distance(targetPos, fM.PSA.Pos) < 0.1f)
+            else if (Vector2.Distance(targetPos, fM.PA.Pos) < 0.1f)
                 fM.ChangeState(new FTestStateAttack(fM));
         }
 
