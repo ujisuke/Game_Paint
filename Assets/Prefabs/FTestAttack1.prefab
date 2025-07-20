@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6950007517489721335}
   - component: {fileID: 4719501435335199521}
-  - component: {fileID: -620872844726676241}
-  - component: {fileID: -1987596967000065661}
+  - component: {fileID: 3749564857634276427}
+  - component: {fileID: 3573569991699939733}
   m_Layer: 0
   m_Name: FTestAttack1
   m_TagString: Untagged
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-620872844726676241
+--- !u!114 &3749564857634276427
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,12 +98,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3515165110105616261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfb8625be47633e4fa632dd0b695e6af, type: 3}
+  m_Script: {fileID: 11500000, guid: 084913c1dfa61624abe8192b8e94cacc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectAttackData: {fileID: 11400000, guid: 3e2a6edc0eb0d494893c46af988a5fe6, type: 2}
-  objectAttackView: {fileID: -1987596967000065661}
---- !u!114 &-1987596967000065661
+  familiarAttackData: {fileID: 11400000, guid: 2db7e9f7bc49200429c42a9e6a5a2ec4, type: 2}
+  familiarAttackView: {fileID: 3573569991699939733}
+--- !u!114 &3573569991699939733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3515165110105616261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdd559109b9848d46bd2e10f395748bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9be0804db7f2b6e49952be2cb70ca575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4719501435335199521}

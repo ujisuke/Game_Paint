@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6950007517489721335}
   - component: {fileID: 4719501435335199521}
   - component: {fileID: -620872844726676241}
-  - component: {fileID: -1987596967000065661}
+  - component: {fileID: 578378016815631566}
   m_Layer: 0
   m_Name: ETestAttack1
   m_TagString: Untagged
@@ -101,9 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb8625be47633e4fa632dd0b695e6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectAttackData: {fileID: 11400000, guid: 2882e11b0c2e0914c98bd34ebda66d20, type: 2}
-  objectAttackView: {fileID: -1987596967000065661}
---- !u!114 &-1987596967000065661
+  enemyAttackData: {fileID: 11400000, guid: 2882e11b0c2e0914c98bd34ebda66d20, type: 2}
+  enemyAttackView: {fileID: 578378016815631566}
+--- !u!114 &578378016815631566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

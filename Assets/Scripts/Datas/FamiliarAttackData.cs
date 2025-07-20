@@ -1,28 +1,30 @@
 using System.Collections.Generic;
-using Assets.Scripts.Objects.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
 {
-    [CreateAssetMenu(fileName = "ObjectAttackData", menuName = "ScriptableObjects/ObjectAttackData")]
-    public class ObjectAttackData : ScriptableObject
+    [CreateAssetMenu(fileName = "FamiliarAttackData", menuName = "ScriptableObjects/FamiliarAttackData")]
+    public class FamiliarAttackData : ScriptableObject
     {
-        [SerializeField] private int defaultPower;
-        public Power DefaultPower => new(defaultPower);
+        [SerializeField] private int power;
         [SerializeField] private Vector2 hitBoxScale;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
+        [SerializeField] private float defendDecreaseSeconds;
+        [SerializeField] private float poisonSeconds;
+        [SerializeField] private float healValue;
+        [SerializeField] private float attackSpeedDecreaseSeconds;
         private Dictionary<string, float> uniqueParameters;
+        public int Power => power;
         public Vector2 HitBoxScale => hitBoxScale;
-        [SerializeField] private bool isEnemyAttack;
-        public bool IsEnemyAttack => isEnemyAttack;
+        public float DefendDecreaseSeconds => defendDecreaseSeconds;
+        public float PoisonSeconds => poisonSeconds;
+        public float HealValue => healValue;
+        public float AttackSpeedDecreaseSeconds => attackSpeedDecreaseSeconds;
 
         public float GetUniqueParameter(string parameterName)
         {
             uniqueParameters ??= InitializeUniqueParameters();
-            try
-            { return uniqueParameters[parameterName]; }
-            catch (KeyNotFoundException)
-            { return 0f; }
+            return uniqueParameters[parameterName];
         }
 
         private Dictionary<string, float> InitializeUniqueParameters()

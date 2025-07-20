@@ -14,7 +14,7 @@ namespace Assets.Scripts.Datas
         public void Summon(Vector2 position, ColorName colorNameInput)
         {
             GameObject newfamiliar = GameObject.Instantiate(familiar);
-            newfamiliar.GetComponent<FamiliarController>().OnSummon(position, colorNameInput);
+            newfamiliar.GetComponent<FamiliarController>().OnSummon(position, colorNameInput, false);
         }
     }
 }

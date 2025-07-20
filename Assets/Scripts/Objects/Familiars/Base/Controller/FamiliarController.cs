@@ -11,11 +11,11 @@ namespace Assets.Scripts.Objects.Familiars.Base.Controller
         private FamiliarModel familiarModel;
         [SerializeField] private FamiliarView familiarView;
 
-        public abstract void OnSummon(Vector2 pos, ColorName colorNameInput);
+        public abstract void OnSummon(Vector2 pos, ColorName colorNameInput, bool isEnemy);
 
-        protected void Initialize(IFStateAfterBorn fStateAfterBorn, Vector2 pos, ColorName colorName)
+        protected void Initialize(IFStateAfterBorn fStateAfterBorn, Vector2 pos, ColorName colorName, bool isEnemy)
         {
-            familiarModel = new FamiliarModel(familiarData, fStateAfterBorn, pos, this, colorName);
+            familiarModel = new FamiliarModel(familiarData, fStateAfterBorn, pos, this, colorName, isEnemy);
             familiarView.SetPSA(familiarModel.PSA);
         }
 

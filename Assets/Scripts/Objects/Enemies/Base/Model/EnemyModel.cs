@@ -5,13 +5,14 @@ using Assets.Scripts.Objects.Enemies.Base.Controller;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using UnityEngine;
 using System.Threading;
+using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
 
 namespace Assets.Scripts.Objects.Enemies.Base.Model
 {
     public class EnemyModel
     {
         private PSA pSA;
-        private HP hP;
+        private Status status;
         private HurtBox hurtBox;
         private readonly EStateMachine eStateMachine;
         private readonly EnemyData enemyData;
@@ -26,7 +27,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         {
             this.enemyData = enemyData;
             pSA = new PSA(position, enemyData.Scale, 0f);
-            hP = enemyData.MaxHP;
+            status = new Status(new HP(enemyData.MaxHP), 0f, 0f, 0f);
             hurtBox = new HurtBox(pSA.Pos, enemyData.HurtBoxScale, true);
             eStateMachine = new EStateMachine(this, eStateAfterBorn);
             this.enemyController = enemyController;
@@ -48,15 +49,15 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
 
         public float GetUP(string key) => enemyData.GetUP(key);
 
-        public async UniTask TakeDamage(int damageValue)
+        public async UniTask TakeDamageFromFamiliar(FamiliarAttackModel familiarAttackModel)
         {
-            hP = hP.TakeDamage(damageValue);
+            status = status.TakeDamageFromFamiliar(familiarAttackModel);
             hurtBox = hurtBox.Inactivate();
             await UniTask.Delay(enemyData.InvincibleSecond, cancellationToken: token);
             hurtBox = hurtBox.Activate();
         }
 
-        public bool IsDead() => hP.IsDead();
+        public bool IsDead() => status.HP.IsDead();
 
         public void Destroy()
         {

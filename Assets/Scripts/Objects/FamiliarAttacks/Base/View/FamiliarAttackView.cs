@@ -1,9 +1,9 @@
-using UnityEngine;
 using Assets.Scripts.Objects.Common;
+using UnityEngine;
 
-namespace Assets.Scripts.Objects.ObjectAttacks.Base.View
+namespace Assets.Scripts.Objects.FamiliarAttacks.Base.View
 {
-    public class ObjectAttackView : MonoBehaviour
+    public class FamiliarAttackView : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
 

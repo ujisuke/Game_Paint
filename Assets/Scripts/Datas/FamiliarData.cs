@@ -27,10 +27,7 @@ namespace Assets.Scripts.Datas
         public float GetUniqueParameter(string parameterName)
         {
             uniqueParameters ??= InitializeUniqueParameters();
-            try
-            { return uniqueParameters[parameterName]; }
-            catch (KeyNotFoundException)
-            { return 0f; }
+            return uniqueParameters[parameterName];
         }
 
         private Dictionary<string, float> InitializeUniqueParameters()

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using Assets.Scripts.Objects.Enemies.Base.Model;
 using Assets.Scripts.Objects.Familiars.Base.Model;
-using Assets.Scripts.Objects.ObjectAttacks.Base.Model;
+using Assets.Scripts.Objects.EnemyAttacks.Base.Model;
 using Assets.Scripts.Objects.Player.Model;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
+using Assets.Scripts.Datas;
 
 namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
 {
@@ -12,19 +14,23 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
     {
         private readonly List<EnemyModel> enemies;
         private PlayerModel player;
-        private readonly List<FamiliarModel> familiars;
-        private readonly List<ObjectAttackModel> enemyAttacks;
-        private readonly List<ObjectAttackModel> familiarAttacks;
+        private readonly List<FamiliarModel> eFamiliars;
+        private readonly List<FamiliarModel> pFamiliars;
+        private readonly List<EnemyAttackModel> enemyAttacks;
+        private readonly List<FamiliarAttackModel> eFamiliarAttacks;
+        private readonly List<FamiliarAttackModel> pFamiliarAttacks;
         private static ObjectsStorageModel instance = new();
         public static ObjectsStorageModel Instance => instance;
 
         public ObjectsStorageModel()
         {
-            enemies = new List<EnemyModel>();
+            enemies = new();
             player = null;
-            familiars = new List<FamiliarModel>();
-            enemyAttacks = new List<ObjectAttackModel>();
-            familiarAttacks = new List<ObjectAttackModel>();
+            eFamiliars = new();
+            pFamiliars = new();
+            enemyAttacks = new();
+            eFamiliarAttacks = new();
+            pFamiliarAttacks = new();
             instance = this;
         }
 
@@ -32,46 +38,73 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
         public void RemoveEnemy(EnemyModel enemy) => enemies.Remove(enemy);
         public void AddPlayer(PlayerModel player) => this.player = player;
         public void RemovePlayer(PlayerModel player) => this.player = null;
-        public void AddFamiliar(FamiliarModel familiar) => familiars.Add(familiar);
-        public void RemoveFamiliar(FamiliarModel familiar) => familiars.Remove(familiar);
+        public void AddEnemyAttack(EnemyAttackModel enemyAttack) => enemyAttacks.Add(enemyAttack);
+        public void RemoveEnemyAttack(EnemyAttackModel enemyAttack) => enemyAttacks.Remove(enemyAttack);
 
-        public void AddObjectAttack(ObjectAttackModel objectAttack, bool isEnemyAttack)
+        public void AddFamiliar(FamiliarModel familiar, bool isEnemy)
         {
-            if (isEnemyAttack)
-                enemyAttacks.Add(objectAttack);
+            if (isEnemy)
+                eFamiliars.Add(familiar);
             else
-                familiarAttacks.Add(objectAttack);
+                pFamiliars.Add(familiar);
         }
 
-        public void RemoveObjectAttack(ObjectAttackModel objectAttack)
+        public void RemoveFamiliar(FamiliarModel familiar)
         {
-            if (enemyAttacks.Contains(objectAttack))
-                enemyAttacks.Remove(objectAttack);
-            else if (familiarAttacks.Contains(objectAttack))
-                familiarAttacks.Remove(objectAttack);
+            if (eFamiliars.Contains(familiar))
+                eFamiliars.Remove(familiar);
+            else if (pFamiliars.Contains(familiar))
+                pFamiliars.Remove(familiar);
+        }
+
+        public void AddFamiliarAttack(FamiliarAttackModel familiarAttack, bool isEnemy)
+        {
+            if (isEnemy)
+                eFamiliarAttacks.Add(familiarAttack);
+            else
+                pFamiliarAttacks.Add(familiarAttack);
+        }
+
+        public void RemoveFamiliarAttack(FamiliarAttackModel familiarAttack)
+        {
+            if (eFamiliarAttacks.Contains(familiarAttack))
+                eFamiliarAttacks.Remove(familiarAttack);
+            else if (pFamiliarAttacks.Contains(familiarAttack))
+                pFamiliarAttacks.Remove(familiarAttack);
         }
 
         public void DetectHit()
         {
-            DetectHitFToE();
-            DetectHitEToF();
+            DetectHitPFToE();
+            DetectHitPFToEF();
+            DetectHitEToPF();
             DetectHitEToP();
+            DetectHitEFToPF();
+            DetectHitEFToP();
         }
 
-        private void DetectHitFToE()
+        private void DetectHitPFToE()
         {
-            for (int i = 0; i < familiarAttacks.Count; i++)
+            for (int i = 0; i < pFamiliarAttacks.Count; i++)
                 for (int j = 0; j < enemies.Count; j++)
-                    if (ObjectsHitDetector.IsAttacking(familiarAttacks[i].HitBox, enemies[j].HurtBox))
-                        enemies[j].TakeDamage(familiarAttacks[i].PowerValue).Forget();
+                    if (ObjectsHitDetector.IsAttacking(pFamiliarAttacks[i].HitBox, enemies[j].HurtBox))
+                        enemies[j].TakeDamageFromFamiliar(pFamiliarAttacks[i]).Forget();
         }
 
-        private void DetectHitEToF()
+        private void DetectHitPFToEF()
+        {
+            for (int i = 0; i < pFamiliarAttacks.Count; i++)
+                for (int j = 0; j < eFamiliars.Count; j++)
+                    if (ObjectsHitDetector.IsAttacking(pFamiliarAttacks[i].HitBox, eFamiliars[j].HurtBox))
+                        eFamiliars[j].TakeDamageFromFamiliar(pFamiliarAttacks[i]).Forget();
+        }
+
+        private void DetectHitEToPF()
         {
             for (int i = 0; i < enemyAttacks.Count; i++)
-                for (int j = 0; j < familiars.Count; j++)
-                    if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, familiars[j].HurtBox))
-                        familiars[j].TakeDamage(enemyAttacks[i].PowerValue).Forget();
+                for (int j = 0; j < pFamiliars.Count; j++)
+                    if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, pFamiliars[j].HurtBox))
+                        pFamiliars[j].TakeDamageFromEnemy(enemyAttacks[i].PowerValue).Forget();
         }
 
         private void DetectHitEToP()
@@ -81,6 +114,23 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
             for (int i = 0; i < enemyAttacks.Count; i++)
                 if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, player.HurtBox))
                     player.TakeDamage(enemyAttacks[i].PowerValue).Forget();
+        }
+
+        private void DetectHitEFToPF()
+        {
+            for (int i = 0; i < eFamiliarAttacks.Count; i++)
+                for (int j = 0; j < pFamiliars.Count; j++)
+                    if (ObjectsHitDetector.IsAttacking(eFamiliarAttacks[i].HitBox, pFamiliars[j].HurtBox))
+                        pFamiliars[j].TakeDamageFromEnemy(eFamiliarAttacks[i].Power).Forget();
+        }
+
+        private void DetectHitEFToP()
+        {
+            if (player == null)
+                return;
+            for (int i = 0; i < eFamiliarAttacks.Count; i++)
+                if (ObjectsHitDetector.IsAttacking(eFamiliarAttacks[i].HitBox, player.HurtBox))
+                    player.TakeDamage(eFamiliarAttacks[i].Power).Forget();
         }
 
         public Vector2 GetNearestEnemyPos(Vector2 pos)

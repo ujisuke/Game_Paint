@@ -1,6 +1,6 @@
 using Assets.Scripts.Objects.Enemies.Base.Model;
-using Assets.Scripts.Objects.ObjectAttacks.Base.Controller;
-using Assets.Scripts.Objects.ObjectAttacks.Base.Model;
+using Assets.Scripts.Objects.EnemyAttacks.Base.Controller;
+using Assets.Scripts.Objects.EnemyAttacks.Base.Model;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.Enemies.ETest.Model
@@ -8,14 +8,14 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
     public class ETestStateAttack : IEState
     {
         private readonly EnemyModel eM;
-        private ObjectAttackModel attack;
-        public ETestStateAttack(EnemyModel enemyModel) => eM = enemyModel;
+        private EnemyAttackModel eAM;
+        public ETestStateAttack(EnemyModel eM) => this.eM = eM;
 
         public void OnStateEnter()
         {
             Debug.Log("ETestStateAttack");
             var newAttack = GameObject.Instantiate(eM.EnemyData.AttackPrefab, eM.PSA.Pos, Quaternion.identity);
-            attack = newAttack.GetComponent<ObjectAttackController>().ObjectAttackModel;
+            eAM = newAttack.GetComponent<EnemyAttackController>().EnemyAttackModel;
         }
 
         public void OnUpdate()
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
 
         public void OnStateExit()
         {
-            attack?.Destroy();
+            eAM?.Destroy();
         }
     }
 }

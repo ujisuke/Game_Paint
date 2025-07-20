@@ -5,17 +5,19 @@ using Assets.Scripts.Objects.Familiars.Base.Controller;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
 
 namespace Assets.Scripts.Objects.Familiars.Base.Model
 {
     public class FamiliarModel
     {
         private PSA pSA;
-        private HP hP;
+        private Status status;
         private HurtBox hurtBox;
         private readonly FStateMachine fStateMachine;
         private readonly FamiliarData familiarData;
         private readonly FamiliarController familiarController;
+        private readonly bool isEnemy;
         private readonly CancellationTokenSource cts;
         private readonly CancellationToken token;
         private readonly ColorName colorName;
@@ -23,17 +25,19 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
         public HurtBox HurtBox => hurtBox;
         public ColorName ColorName => colorName;
         public FamiliarData FamiliarData => familiarData;
+        public bool IsEnemy => isEnemy;
 
-        public FamiliarModel(FamiliarData familiarData, IFStateAfterBorn fStateAfterBorn, Vector2 position, FamiliarController familiarController, ColorName colorName)
+        public FamiliarModel(FamiliarData familiarData, IFStateAfterBorn fStateAfterBorn, Vector2 position, FamiliarController familiarController, ColorName colorName, bool isEnemy)
         {
             this.familiarData = familiarData;
             pSA = new PSA(position, familiarData.Scale, 0f);
-            hP = familiarData.MaxHP;
+            status = new Status(familiarData.MaxHP, 0f, 0f, 0f);
             hurtBox = new HurtBox(pSA.Pos, familiarData.HurtBoxScale, true);
             fStateMachine = new FStateMachine(this, fStateAfterBorn);
             this.familiarController = familiarController;
             this.colorName = colorName;
-            ObjectsStorageModel.Instance.AddFamiliar(this);
+            this.isEnemy = isEnemy;
+            ObjectsStorageModel.Instance.AddFamiliar(this, isEnemy);
             cts = new CancellationTokenSource();
             token = cts.Token;
         }
@@ -48,15 +52,23 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
         
         public void ChangeState(IFState state) => fStateMachine.ChangeState(state);
 
-        public async UniTask TakeDamage(int damageValue)
+        public async UniTask TakeDamageFromFamiliar(FamiliarAttackModel familiarAttackModel)
         {
-            hP = hP.TakeDamage(damageValue);
+            status = status.TakeDamageFromFamiliar(familiarAttackModel);
+            hurtBox = hurtBox.Inactivate();
+            await UniTask.Delay(familiarData.InvincibleSecond, cancellationToken: token);
+            hurtBox = hurtBox.Activate();
+        }
+
+        public async UniTask TakeDamageFromEnemy(int damageValue)
+        {
+            status = status.TakeDamageFromEnemy(damageValue);
             hurtBox = hurtBox.Inactivate();
             await UniTask.Delay(FamiliarData.InvincibleSecond, cancellationToken: token);
             hurtBox = hurtBox.Activate();
         }
 
-        public bool IsDead() => hP.IsDead();
+        public bool IsDead() => status.HP.IsDead();
 
         public void Destroy()
         {
