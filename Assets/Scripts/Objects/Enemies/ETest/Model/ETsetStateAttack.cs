@@ -26,7 +26,7 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
 
         public void OnStateExit()
         {
-            eAM?.Destroy();
+            eAM.Destroy();
         }
     }
 }

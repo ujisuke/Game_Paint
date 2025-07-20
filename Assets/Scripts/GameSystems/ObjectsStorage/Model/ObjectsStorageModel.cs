@@ -75,15 +75,16 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
 
         public void DetectHit()
         {
-            DetectHitPFToE();
-            DetectHitPFToEF();
-            DetectHitEToPF();
-            DetectHitEToP();
-            DetectHitEFToPF();
-            DetectHitEFToP();
+            DetectHitPFAToE();
+            DetectHitPFAToEF();
+            DetectHitEAToPF();
+            DetectHitEAToP();
+            DetectHitEFAToPF();
+            DetectHitEFAToP();
+            DetectHitPFAToEA();
         }
 
-        private void DetectHitPFToE()
+        private void DetectHitPFAToE()
         {
             for (int i = 0; i < pFamiliarAttacks.Count; i++)
                 for (int j = 0; j < enemies.Count; j++)
@@ -91,7 +92,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                         enemies[j].TakeDamageFromFamiliar(pFamiliarAttacks[i]).Forget();
         }
 
-        private void DetectHitPFToEF()
+        private void DetectHitPFAToEF()
         {
             for (int i = 0; i < pFamiliarAttacks.Count; i++)
                 for (int j = 0; j < eFamiliars.Count; j++)
@@ -99,7 +100,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                         eFamiliars[j].TakeDamageFromFamiliar(pFamiliarAttacks[i]).Forget();
         }
 
-        private void DetectHitEToPF()
+        private void DetectHitEAToPF()
         {
             for (int i = 0; i < enemyAttacks.Count; i++)
                 for (int j = 0; j < pFamiliars.Count; j++)
@@ -107,7 +108,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                         pFamiliars[j].TakeDamageFromEnemy(enemyAttacks[i].PowerValue).Forget();
         }
 
-        private void DetectHitEToP()
+        private void DetectHitEAToP()
         {
             if (player == null)
                 return;
@@ -116,7 +117,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                     player.TakeDamage(enemyAttacks[i].PowerValue).Forget();
         }
 
-        private void DetectHitEFToPF()
+        private void DetectHitEFAToPF()
         {
             for (int i = 0; i < eFamiliarAttacks.Count; i++)
                 for (int j = 0; j < pFamiliars.Count; j++)
@@ -124,13 +125,21 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                         pFamiliars[j].TakeDamageFromEnemy(eFamiliarAttacks[i].Power).Forget();
         }
 
-        private void DetectHitEFToP()
+        private void DetectHitEFAToP()
         {
             if (player == null)
                 return;
             for (int i = 0; i < eFamiliarAttacks.Count; i++)
                 if (ObjectsHitDetector.IsAttacking(eFamiliarAttacks[i].HitBox, player.HurtBox))
                     player.TakeDamage(eFamiliarAttacks[i].Power).Forget();
+        }
+
+        private void DetectHitPFAToEA()
+        {
+            for (int i = 0; i < pFamiliarAttacks.Count; i++)
+                for (int j = 0; j < enemyAttacks.Count; j++)
+                    if (ObjectsHitDetector.IsHitting(pFamiliarAttacks[i].HitBox, enemyAttacks[j].HitBox))
+                        enemyAttacks[j].Break(pFamiliarAttacks[i]);
         }
 
         public Vector2 GetNearestEnemyPos(Vector2 pos)

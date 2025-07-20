@@ -3,6 +3,7 @@ using Assets.Scripts.Datas;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Controller;
 using UnityEngine;
+using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
 
 namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
 {
@@ -36,10 +37,18 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
 
         public float GetUniqueParameter(string key) => enemyAttackData.GetUniqueParameter(key);
 
+        public void Break(FamiliarAttackModel familiarAttack)
+        {
+            if (familiarAttack.ColorName == ColorName.orange)
+                Destroy();
+        }
+
         public void Destroy()
         {
+            if (enemyAttackController == null)
+                return;
             ObjectsStorageModel.Instance.RemoveEnemyAttack(this);
-            Object.Destroy(enemyAttackController.gameObject);
+            GameObject.Destroy(enemyAttackController.gameObject);
         }
     }
 }
