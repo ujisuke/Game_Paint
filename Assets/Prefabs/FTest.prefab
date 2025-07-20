@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   familiarData: {fileID: 11400000, guid: 7ea6efc1a068c344493aa6cf2e5d51dc, type: 2}
   familiarView: {fileID: 3002411519874170657}
+  colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}
 --- !u!114 &3002411519874170657
 MonoBehaviour:
   m_ObjectHideFlags: 0

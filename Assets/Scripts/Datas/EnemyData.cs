@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -11,15 +10,13 @@ namespace Assets.Scripts.Datas
         [SerializeField] private string enemyName;
         [SerializeField] private int maxHP;
         [SerializeField] private Vector2 hurtBoxScale;
-        [SerializeField] private Vector2 scale;
         [SerializeField] private float invincibleSecond;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
         [SerializeField] private GameObject attackPrefab;
         private Dictionary<string, float> uniqueParameters;
         public string EnemyName => enemyName;
-        public HP MaxHP => new(maxHP);
+        public int MaxHP => maxHP;
         public Vector2 HurtBoxScale => hurtBoxScale;
-        public Vector2 Scale => scale;
         public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
         public GameObject AttackPrefab => attackPrefab;
 
@@ -27,10 +24,7 @@ namespace Assets.Scripts.Datas
         public float GetUP(string parameterName)
         {
             uniqueParameters ??= InitializeUniqueParameters();
-            try
-            { return uniqueParameters[parameterName]; }
-            catch (KeyNotFoundException)
-            { return 0f; }
+            return uniqueParameters[parameterName];
         }
 
         private Dictionary<string, float> InitializeUniqueParameters()

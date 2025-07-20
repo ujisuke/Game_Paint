@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 65c2d2b338c59b54ab050f8257a64c75, type: 2}
   enemyView: {fileID: -1365387567242008421}
+  colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}
 --- !u!114 &-1365387567242008421
 MonoBehaviour:
   m_ObjectHideFlags: 0

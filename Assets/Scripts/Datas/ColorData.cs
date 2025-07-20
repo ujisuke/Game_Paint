@@ -10,7 +10,7 @@ namespace Assets.Scripts.Datas
         [SerializeField] private ColorName colorName;
 
         public Color Color => color;
-        public ColorName Colorname => colorName;
+        public ColorName ColorName => colorName;
     }
 
     public enum ColorName

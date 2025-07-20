@@ -7,10 +7,10 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
     public class MStateInitial : IMState
     {
         private readonly MapSystemModel mM;
-        private readonly MapSystemStateMachine mSM;
+        private readonly MStateMachine mSM;
         private MapSystemController mC;
 
-        public MStateInitial(MapSystemModel mapSystemModel, MapSystemStateMachine stateMachine, MapSystemController controller)
+        public MStateInitial(MapSystemModel mapSystemModel, MStateMachine stateMachine, MapSystemController controller)
         {
             mM = mapSystemModel;
             mSM = stateMachine;

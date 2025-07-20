@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542be573a2e659b4cb22dcaee54d5cc9, type: 3}
   m_Name: ETestAttack1Data
   m_EditorClassIdentifier: 
-  defaultPower: 1
+  power: 1
   hitBoxScale: {x: 0.5, y: 0.5}
   uniqueParametersList: []
-  isEnemyAttack: 1

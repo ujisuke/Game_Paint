@@ -7,10 +7,11 @@ namespace Assets.Scripts.GameSystems.SceneChanger.Controller
     {
         [SerializeField] private string sceneNameTitle;
         [SerializeField] private string sceneNameMap;
+        [SerializeField] private string sceneNameUI;
 
         private void Awake()
         {
-            SceneChangerModel.Initialize(sceneNameTitle, sceneNameMap);
+            SceneChangerModel.Initialize(sceneNameTitle, sceneNameMap, sceneNameUI);
         }
     }
 }
