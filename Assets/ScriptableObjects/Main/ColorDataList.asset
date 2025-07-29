@@ -26,7 +26,7 @@ MonoBehaviour:
   - color: {r: 1, g: 0.6268286, b: 0.2028302, a: 1}
     colorName: 5
   stageColorDataList:
-  - color: {r: 0, g: 0, b: 0, a: 1}
+  - color: {r: 0, g: 0, b: 0, a: 0}
     colorName: 6
-  - color: {r: 0.8396226, g: 0.82465506, b: 0.621796, a: 1}
+  - color: {r: 0.9481132, g: 1, b: 0.99234456, a: 1}
     colorName: 7

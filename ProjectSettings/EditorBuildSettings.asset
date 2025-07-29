@@ -6,17 +6,38 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestTitleScene.unity
+    path: Assets/Scenes/Test/TestTitleScene.unity
     guid: b62ab3d3c734f414189b5d0095768917
   - enabled: 1
-    path: Assets/Scenes/TestMapScene.unity
+    path: Assets/Scenes/Test/TestMapScene.unity
     guid: e1d62753cbc0cfe47b3cfe3134427ec5
   - enabled: 1
-    path: Assets/Scenes/TestStageScene.unity
+    path: Assets/Scenes/Test/TestStageScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/TestUIScene.unity
+    path: Assets/Scenes/Test/TestUIScene.unity
     guid: 40e4cb38cdafc3b41a9bf072881a9b14
+  - enabled: 1
+    path: Assets/Scenes/main/Map.unity
+    guid: d8866a542e694b743a7ed20b3c997d86
+  - enabled: 1
+    path: Assets/Scenes/main/StageFarmer.unity
+    guid: ba588ea948baf6049b60cf4b892f203b
+  - enabled: 1
+    path: Assets/Scenes/main/StageMiner.unity
+    guid: befc770fe055e164187ec4ce0010b89c
+  - enabled: 1
+    path: Assets/Scenes/main/StageAngler.unity
+    guid: 2848fc2ffa10e034982ee7e69593757b
+  - enabled: 1
+    path: Assets/Scenes/main/StageNinja.unity
+    guid: 0fd59bb812ab9504eb7f3586e943fbe0
+  - enabled: 1
+    path: Assets/Scenes/main/StageHead.unity
+    guid: 711065e0e19dc4343a38fa43dd4c0b90
+  - enabled: 1
+    path: Assets/Scenes/main/StageUI.unity
+    guid: 3adef804006716a43bfb2fdb7f59bdb8
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 9f1c133bbc155d94085decd12cb6e572, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

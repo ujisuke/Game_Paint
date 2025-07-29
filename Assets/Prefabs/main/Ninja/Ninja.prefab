@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6376128447179116879}
   - component: {fileID: -1365387567242008421}
   m_Layer: 0
-  m_Name: ETest
+  m_Name: Ninja
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,12 +78,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 1350452558992062208, guid: 18bc523eb1ce2bc4ebe3ffa3bde9efec, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.75, y: 1.0625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95e98a9fd6329e4a9eeb42ac3567408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 65c2d2b338c59b54ab050f8257a64c75, type: 2}
+  enemyData: {fileID: 11400000, guid: 880d87b6e22fda44cad506347834c97e, type: 2}
   enemyView: {fileID: -1365387567242008421}
   colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}
 --- !u!114 &-1365387567242008421

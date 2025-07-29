@@ -19,11 +19,12 @@ namespace Assets.Scripts.Objects.Player.Controller
         public void OnStateEnter()
         {
             Debug.Log("PStateBorn");
+            pC.PlayAnim("Idle");
         }
 
         public void HandleInput()
         {
-            pSM.ChangeState(new PStateMove(pM, pSM, pC));
+            pSM.ChangeState(new PStateIdle(pM, pSM, pC));
         }
 
         public void OnStateExit()

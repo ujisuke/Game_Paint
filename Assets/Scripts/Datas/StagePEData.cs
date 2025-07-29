@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -10,11 +9,13 @@ namespace Assets.Scripts.Datas
         [SerializeField] private string sceneName;
         private GameObject playerPrefab;
         [SerializeField] private Vector2 playerInitPos;
-        [SerializeField] private List<EnemyAndPosData> eDataList;
+        [SerializeField] private GameObject enemyPrefab;
+        [SerializeField] private Vector2 enemyInitPos;
         public string SceneName => sceneName;
         public GameObject PlayerPrefab => playerPrefab;
         public Vector2 PlayerInitPos => playerInitPos;
-        public List<EnemyAndPosData> EDataList => eDataList;
+        public GameObject EnemyPrefab => enemyPrefab;
+        public Vector2 EnemyInitPos => enemyInitPos;
 
         public void AddPlayerPrefab(GameObject playerPrefab)
         {

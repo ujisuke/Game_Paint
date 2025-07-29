@@ -26,5 +26,15 @@ namespace Assets.Scripts.Objects.Player.Controller
         {
             pStateMachine.HandleInput();
         }
+
+        public void PlayAnim(string animName)
+        {
+            playerView.PlayAnim(animName);
+        }
+
+        public void FlipX(bool isLeft)
+        {
+            playerView.FlipX(isLeft);
+        }
     }
 }

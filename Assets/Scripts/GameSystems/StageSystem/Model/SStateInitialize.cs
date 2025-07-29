@@ -25,8 +25,7 @@ namespace Assets.Scripts.GameSystems.StageSystem.Model
                 sSM.ChangeState(new SStateConversation(sSM));
                 return;
             }
-            for (int i = 0; i < sSM.StagePEData.EDataList.Count; i++)
-                    GameObject.Instantiate(sSM.StagePEData.EDataList[i].EnemyPrefab, sSM.StagePEData.EDataList[i].EnemyInitPos, Quaternion.identity);
+            GameObject.Instantiate(sSM.StagePEData.EnemyPrefab, sSM.StagePEData.EnemyInitPos, Quaternion.identity);
             Debug.Log("Retrying Stage");
             sSM.ChangeState(new SStateBattle(sSM));
         }
