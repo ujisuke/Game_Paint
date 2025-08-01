@@ -1,12 +1,14 @@
+using Assets.Scripts.Objects.Familiars.Base.Controller;
+
 namespace Assets.Scripts.Objects.Familiars.Base.Model
 {
     public class FStateMachine
     {
         private IFState currentState;
 
-        public FStateMachine(FamiliarModel familiarModel, IFStateAfterBorn fStateAfterBorn)
+        public FStateMachine(FamiliarModel familiarModel, FamiliarController fC, IFStateAfterBorn fStateAfterBorn)
         {
-            currentState = new FStateBorn(familiarModel, fStateAfterBorn);
+            currentState = new FStateBorn(familiarModel, fC, fStateAfterBorn);
             currentState.OnStateEnter();
         }
 

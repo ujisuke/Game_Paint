@@ -20,7 +20,7 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
 
         public void OnStateEnter()
         {
-            Debug.Log("MStateChooseBattle");
+            Debug.Log("MStateChooseStage");
         }
 
         public void HandleInput()

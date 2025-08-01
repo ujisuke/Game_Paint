@@ -13,7 +13,6 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
 
         public void OnStateEnter()
         {
-            Debug.Log("ETestStateAttack");
             var newAttack = GameObject.Instantiate(eM.EnemyData.AttackPrefab, eM.PA.Pos, Quaternion.identity);
             newAttack.GetComponent<EnemyAttackController>().Initialize(eM.IsAttackSpeedDecreased);
             eAM = newAttack.GetComponent<EnemyAttackController>().EnemyAttackModel;

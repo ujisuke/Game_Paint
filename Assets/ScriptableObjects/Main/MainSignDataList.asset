@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 115a3362ced311d4f8857d4558e1dd09, type: 3}
-  m_Name: SignDataList
+  m_Name: MainSignDataList
   m_EditorClassIdentifier: 
   signDataList:
-  - signShape: '^^^
-
-      ^--'
-    familiar: {fileID: 3515165110105616261, guid: f3e62d3acde3b974383e475087e98679, type: 3}
+  - signShape: ^^
+    familiar: {fileID: 3515165110105616261, guid: 669470a7f94fa684d8a7b8f3a7e25c11, type: 3}

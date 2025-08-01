@@ -19,7 +19,7 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
 
         public void OnStateEnter()
         {
-            Debug.Log("ETestStateMove");
+
         }
 
         public void OnUpdate()

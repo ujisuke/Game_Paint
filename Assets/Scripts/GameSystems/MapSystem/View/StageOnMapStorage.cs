@@ -37,7 +37,6 @@ namespace Assets.Scripts.GameSystems.MapSystem.View
 
         public void IndicateCurrentStage(string newStageSceneName)
         {
-            Debug.Log($"IndicateCurrentStage: {newStageSceneName}");
             if (newStageSceneName == currentStageOnMap.StageSceneName)
                 return;
             currentStageOnMap.Deselect();

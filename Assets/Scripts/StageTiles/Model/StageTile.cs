@@ -40,7 +40,6 @@ namespace Assets.Scripts.StageTiles.Model
 
         public StageTile ResetColor()
         {
-            Debug.Log($"Resetting color from {colorNameCurrent} to {colorNameInitial}");
             return new StageTile(colorNameInitial, colorNameInitial);
         }
     }

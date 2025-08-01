@@ -7,15 +7,14 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Controller
 {
     public class FamiliarAttackController : MonoBehaviour
     {
-        [SerializeField] private FamiliarAttackData familiarAttackData;
         private FamiliarAttackModel familiarAttackModel;
         public FamiliarAttackModel FamiliarAttackModel => familiarAttackModel;
         [SerializeField] private FamiliarAttackView familiarAttackView;
         [SerializeField] private ColorEffectData colorEffectData;
 
-        public void Initialize(bool isEnemy, ColorName colorName, bool isSpeedDecreased)
+        public void Initialize(FamiliarData familiarData, bool isEnemy, ColorName colorName)
         {
-            familiarAttackModel = new FamiliarAttackModel(familiarAttackData, transform.position, this, isSpeedDecreased, isEnemy, colorName, colorEffectData);
+            familiarAttackModel = new FamiliarAttackModel(familiarData, transform.position, this, isEnemy, colorName, colorEffectData);
         }
 
         private void Update()
