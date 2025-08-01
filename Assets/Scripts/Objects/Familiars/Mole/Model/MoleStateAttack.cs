@@ -5,38 +5,40 @@ using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
 
-namespace Assets.Scripts.Objects.Familiars.Bird.Model
+namespace Assets.Scripts.Objects.Familiars.Mole.Model
 {
-    public class BirdStateAttack : IFStateAfterBorn
+    public class MoleStateAttack : IFStateAfterBorn
     {
         private readonly FamiliarModel fM;
         private readonly FamiliarController fC;
         private FamiliarAttackModel attack;
-        private Vector2 targetPos;
+        private Vector2 moveDir;
 
-        public BirdStateAttack(FamiliarModel fM, FamiliarController fC)
+        public MoleStateAttack(FamiliarModel fM, FamiliarController fC)
         {
             this.fM = fM;
             this.fC = fC;
         }
 
-        public IFState Initialize(FamiliarModel fM, FamiliarController fC) => new BirdStateAttack(fM, fC);
+        public IFState Initialize(FamiliarModel fM, FamiliarController fC) => new MoleStateAttack(fM, fC);
 
         public void OnStateEnter()
         {
             var newAttack = GameObject.Instantiate(fM.AttackPrefab, fM.PA.Pos, Quaternion.identity);
             newAttack.GetComponent<FamiliarAttackController>().Initialize(fM.FamiliarData, fM.IsEnemy, fM.ColorName);
             attack = newAttack.GetComponent<FamiliarAttackController>().FamiliarAttackModel;
-            targetPos = ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
-            fC.FlipX(targetPos.x - fM.PA.Pos.x < 0f);
+            float hostilePosX = ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy).x;
+            moveDir = (new Vector2(hostilePosX, fM.PA.Pos.y) - fM.PA.Pos).normalized * fM.FamiliarData.GetUniqueParameter("Speed") * Time.deltaTime;
+            fC.FlipX(hostilePosX - fM.PA.Pos.x < 0f);
+            attack.Move(moveDir.normalized);
             fC.PlayAnim("Attack");
         }
 
         public void OnUpdate()
         {
-            fM.Move(fM.FamiliarData.GetUniqueParameter("Speed") * Time.deltaTime * (targetPos - fM.PA.Pos).normalized);
-            attack.Move(fM.PA.Pos - attack.PA.Pos);
-            if ((targetPos - fM.PA.Pos).magnitude <= 0.6f)
+            fM.Move(moveDir);
+            attack.Move(moveDir);
+            if (fM.PA.Pos.x < 0f || fM.PA.Pos.x > 18f)
                 fM.ChangeState(new FStateDead(fM));
         }
 

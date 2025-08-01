@@ -15,6 +15,7 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Controller
         public void Initialize(FamiliarData familiarData, bool isEnemy, ColorName colorName)
         {
             familiarAttackModel = new FamiliarAttackModel(familiarData, transform.position, this, isEnemy, colorName, colorEffectData);
+            familiarAttackView.SetViewScale(familiarData.HitBoxScale);
         }
 
         private void Update()

@@ -15,3 +15,21 @@ MonoBehaviour:
   signDataList:
   - signShape: ^^
     familiar: {fileID: 3515165110105616261, guid: 669470a7f94fa684d8a7b8f3a7e25c11, type: 3}
+  - signShape: '^^
+
+      ^^'
+    familiar: {fileID: 3515165110105616261, guid: 0db9b97f8f2013f4bb86b2fa785e40fc, type: 3}
+  - signShape: '^^-
+
+      ^^^'
+    familiar: {fileID: 3515165110105616261, guid: 016ff37a204df0c4a87c7e6c41ded31a, type: 3}
+  - signShape: '^^--
+
+      -^^^'
+    familiar: {fileID: 3515165110105616261, guid: 9c85e096e82e0d348b2bfb8c0f4f7ef7, type: 3}
+  - signShape: '^^^
+
+      -^-
+
+      -^-'
+    familiar: {fileID: 3515165110105616261, guid: 128058c9296b7c34592b63aa6b1aa6e7, type: 3}
