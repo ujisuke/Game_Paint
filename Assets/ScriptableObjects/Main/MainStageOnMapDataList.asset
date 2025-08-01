@@ -10,14 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36749259e5efa244f84a28ed3f31b445, type: 3}
-  m_Name: StageOnMapDataList
+  m_Name: MainStageOnMapDataList
   m_EditorClassIdentifier: 
   stageOnMapDataList:
-  - stageSceneName: 1
-    moveToNext: 3
-  - stageSceneName: 2
-    moveToNext: 3
-  - stageSceneName: 3
-    moveToNext: 1
-  - stageSceneName: 4
-    moveToNext: 4
+  - stageSceneName: StageFarmer
+    moveDirsToNext: 0300000000000000
+  - stageSceneName: StageMiner
+    moveDirsToNext: 03000000
+  - stageSceneName: StageAngler
+    moveDirsToNext: 030000000100000001000000
+  - stageSceneName: StageNinja
+    moveDirsToNext: 02000000
+  - stageSceneName: StageHead
+    moveDirsToNext: 04000000
+  moveSecondsPerEdge: 0.2

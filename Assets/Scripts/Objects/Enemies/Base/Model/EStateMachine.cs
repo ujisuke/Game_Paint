@@ -1,12 +1,14 @@
+using Assets.Scripts.Objects.Enemies.Base.Controller;
+
 namespace Assets.Scripts.Objects.Enemies.Base.Model
 {
     public class EStateMachine
     {
         private IEState currentState;
 
-        public EStateMachine(EnemyModel enemyModel, IEStateAfterBorn eStateAfterBorn)
+        public EStateMachine(EnemyModel enemyModel, IEStateAfterBorn eStateAfterBorn, EnemyController enemyController)
         {
-            currentState = new EStateBorn(enemyModel, eStateAfterBorn);
+            currentState = new EStateBorn(enemyModel, enemyController, eStateAfterBorn);
             currentState.OnStateEnter();
         }
 

@@ -30,7 +30,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
             pA = new PA(pos, 0f);
             status = new Status(new HP(enemyData.MaxHP), 0f, 0f, 0f, 0f, colorEffectData);
             hurtBox = new HurtBox(pA.Pos, enemyData.HurtBoxScale, true);
-            eStateMachine = new EStateMachine(this, eStateAfterBorn);
+            eStateMachine = new EStateMachine(this, eStateAfterBorn, enemyController);
             this.enemyController = enemyController;
             ObjectsStorageModel.Instance.AddEnemy(this);
             cts = new CancellationTokenSource();

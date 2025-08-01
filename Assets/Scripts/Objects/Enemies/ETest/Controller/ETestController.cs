@@ -7,7 +7,7 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Controller
     public class ETestController : EnemyController
     {
         public override void OnSummon(Vector2 pos) =>
-            Initialize(new ETestStateMove(null), pos);
+            Initialize(new ETestStateMove(null, this), pos);
 
         private void Start()
         {

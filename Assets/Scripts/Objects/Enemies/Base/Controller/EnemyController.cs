@@ -27,6 +27,16 @@ namespace Assets.Scripts.Objects.Enemies.Base.Controller
             enemyModel.OnUpdate();
             enemyView.SetPA(enemyModel.PA);
         }
+
+        public void PlayAnim(string animName)
+        {
+            enemyView.PlayAnim(animName);
+        }
+
+        public void FlipX(bool isLeft)
+        {
+            enemyView.FlipX(isLeft);
+        }
     }
 
 }

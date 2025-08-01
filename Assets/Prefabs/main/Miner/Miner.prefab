@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4719501435335199521}
   - component: {fileID: 6376128447179116879}
   - component: {fileID: -1365387567242008421}
+  - component: {fileID: 1823964652808180693}
   m_Layer: 0
   m_Name: Miner
   m_TagString: Untagged
@@ -117,3 +118,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4719501435335199521}
+  animator: {fileID: 1823964652808180693}
+--- !u!95 &1823964652808180693
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3515165110105616261}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: -2614429115257720595, guid: 150a0d1a5a235f644b82d9afeaeac543, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
