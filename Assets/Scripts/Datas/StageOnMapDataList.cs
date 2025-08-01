@@ -8,6 +8,7 @@ namespace Assets.Scripts.Datas
     {
         [SerializeField] private List<StageOnMapData> stageOnMapDataList;
         private Dictionary<string, StageOnMapData> stageOnMapDataDictionary;
+        [SerializeField] private float moveSecondsPerEdge;
 
         private void Initialize()
         {
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Datas
             for (int i = 0; i < stageOnMapDataList.Count; i++)
             {
                 StageOnMapData stageOnMapData = stageOnMapDataList[i];
+                stageOnMapData.moveSecondsPerEdge = moveSecondsPerEdge;
                 stageOnMapData.PrevStageData = i == 0 ? null : stageOnMapDataList[i - 1];
                 stageOnMapData.NextStageData = i == stageOnMapDataList.Count - 1 ? null : stageOnMapDataList[i + 1];
                 if (stageOnMapData != null)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Assets.Scripts.Datas;
@@ -12,7 +13,7 @@ namespace Assets.Scripts.GameSystems.MapSystem.Model
         public static string CurrentStageSceneName;
         private bool isProcessing;
         private readonly CancellationTokenSource cancellationTokenSource;
-        private static Dictionary<MoveDirOnMap, MoveDirOnMap> oppositeDirDictionary = new()
+        private static readonly Dictionary<MoveDirOnMap, MoveDirOnMap> oppositeDirDictionary = new()
         {
             { MoveDirOnMap.Up, MoveDirOnMap.Down },
             { MoveDirOnMap.Down, MoveDirOnMap.Up },
@@ -29,10 +30,10 @@ namespace Assets.Scripts.GameSystems.MapSystem.Model
             cancellationTokenSource = new();
         }
 
-        private async UniTask Process()
+        private async UniTask Process(float waitSeconds)
         {
             isProcessing = true;
-            await UniTask.Delay(250, cancellationToken: cancellationTokenSource.Token);
+            await UniTask.Delay(TimeSpan.FromSeconds(waitSeconds), cancellationToken: cancellationTokenSource.Token);
             isProcessing = false;
         }
 
@@ -46,11 +47,16 @@ namespace Assets.Scripts.GameSystems.MapSystem.Model
         {
             if (isProcessing)
                 return;
-            Process().Forget();
-            if (currentStageData.MoveToNext == moveDirOnMap)
+            if (currentStageData.IsToNextDir(moveDirOnMap))
+            {
+                Process(currentStageData.MoveSecondsToNext).Forget();
                 currentStageData = currentStageData.NextStageData;
-            else if (currentStageData.PrevStageData?.MoveToNext == oppositeDirDictionary[moveDirOnMap])
+            }
+            else if (currentStageData.PrevStageData?.IsToPrevDir(oppositeDirDictionary[moveDirOnMap]) == true)
+            {
+                Process(currentStageData.PrevStageData.MoveSecondsToNext).Forget();
                 currentStageData = currentStageData.PrevStageData;
+            }
             CurrentStageSceneName = currentStageData.StageSceneName;
             Debug.Log($"Changed to stage: {currentStageData.StageSceneName}");            
         }

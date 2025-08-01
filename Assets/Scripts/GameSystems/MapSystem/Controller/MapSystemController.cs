@@ -22,7 +22,7 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
             stageOnMapStorage = new StageOnMapStorage(stageOnMapList);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             mStateMachine.HandleInput();
         }

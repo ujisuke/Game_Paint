@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c327cd48247858347b798def9f1b2417, type: 3}
+  m_Name: MainStagePEDataList
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 6412475687881785497, guid: ab0f78770eaadbf479a55404bd1c2a29, type: 3}
+  stagePEDataList:
+  - sceneName: StageFarmer
+    playerInitPos: {x: 5, y: 5}
+    enemyPrefab: {fileID: 3515165110105616261, guid: c7dc60956a6306f4fa159546f965ed5b, type: 3}
+    enemyInitPos: {x: 3, y: 3}
+  - sceneName: StageMiner
+    playerInitPos: {x: 5, y: 5}
+    enemyPrefab: {fileID: 3515165110105616261, guid: 86eb5f833e374d04295f1cd8a7f7755d, type: 3}
+    enemyInitPos: {x: 3, y: 3}
+  - sceneName: StageAngler
+    playerInitPos: {x: 5, y: 5}
+    enemyPrefab: {fileID: 3515165110105616261, guid: 0a16686f56e907d4cb5ce89181fda75b, type: 3}
+    enemyInitPos: {x: 3, y: 3}
+  - sceneName: StageNinja
+    playerInitPos: {x: 5, y: 5}
+    enemyPrefab: {fileID: 3515165110105616261, guid: 67a6472ec1041974aa7dbdee8dac9035, type: 3}
+    enemyInitPos: {x: 3, y: 3}
+  - sceneName: StageHead
+    playerInitPos: {x: 5, y: 5}
+    enemyPrefab: {fileID: 3515165110105616261, guid: 2f0ae2c31c2750344957e00d5e3a02bd, type: 3}
+    enemyInitPos: {x: 3, y: 3}
