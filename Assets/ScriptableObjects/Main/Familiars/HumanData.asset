@@ -18,4 +18,6 @@ MonoBehaviour:
   attackSpeedDecreaseSeconds: 0
   hitBoxScale: {x: 1, y: 1}
   viewScale: {x: 1, y: 1}
-  uniqueParametersList: []
+  uniqueParametersList:
+  - parameterName: Seconds
+    value: 1
