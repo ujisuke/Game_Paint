@@ -33,3 +33,21 @@ MonoBehaviour:
 
       -^-'
     familiar: {fileID: 3515165110105616261, guid: 128058c9296b7c34592b63aa6b1aa6e7, type: 3}
+  - signShape: '-^^-
+
+      ^^^^
+
+      ^--^'
+    familiar: {fileID: 3515165110105616261, guid: 939c2f6c5e457b84d899fa408216f8ed, type: 3}
+  - signShape: '--^
+
+      --^
+
+      ^^^'
+    familiar: {fileID: 3515165110105616261, guid: d7fe9cc55d49e204b9b87d1c631ce125, type: 3}
+  - signShape: '-^-
+
+      ^^^
+
+      ^^^'
+    familiar: {fileID: 3515165110105616261, guid: d7fe9cc55d49e204b9b87d1c631ce125, type: 3}

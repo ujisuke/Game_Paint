@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Assets.Scripts.Objects.Enemies.Base.Model;
-using Assets.Scripts.Objects.Familiars.Base.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Model;
 using Assets.Scripts.Objects.Player.Model;
 using Cysharp.Threading.Tasks;

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Objects.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -8,15 +7,25 @@ namespace Assets.Scripts.Datas
     [CreateAssetMenu(fileName = "SignDataList", menuName = "ScriptableObjects/SignDataList")]
     public class SignDataList : ScriptableObject
     {
-        [SerializeField] private List<SignData> signDataList;
+        [SerializeField] private List<SignData> signDataListGeneral;
+        [SerializeField] private List<SignData> signDataListUnique;
         private Dictionary<string, SignData> signDictionary;
+        private static SignDataList instance;
+        public static SignDataList Instance => instance;
 
-        private void Initialize()
+        public void SetInstance()
+        {
+            instance = this;
+        }
+
+        private void InitializeDictionary()
         {
             signDictionary = new Dictionary<string, SignData>();
 
-            for (int i = 0; i < signDataList.Count; i++)
-                signDictionary = AddToDictionary(signDataList[i], signDictionary);
+            for (int i = 0; i < signDataListGeneral.Count; i++)
+                signDictionary = AddToDictionary(signDataListGeneral[i], signDictionary);
+            for (int i = 0; i < signDataListUnique.Count; i++)
+                signDictionary = AddToDictionary(signDataListUnique[i], signDictionary);
         }
 
         private static Dictionary<string, SignData> AddToDictionary(SignData signData, Dictionary<string, SignData> signDictionary)
@@ -87,7 +96,7 @@ namespace Assets.Scripts.Datas
         {
             string signShape = ConvertToString(posInts);
             if (signDictionary == null)
-                Initialize();
+                InitializeDictionary();
             try
             {
                 float averageX = (posInts.Min(p => p.x) + posInts.Max(p => p.x)) / 2f;
@@ -118,10 +127,16 @@ namespace Assets.Scripts.Datas
             {
                 for (int x = 0; x < posChars.GetLength(1); x++)
                     result += posChars[y, x];
-                if(y != 0)
+                if (y != 0)
                     result += "\n";
             }
             return result;
+        }
+
+        public void SummonAtRandom(Vector2Int posInt, ColorName colorNameInput)
+        {
+            int r = Random.Range(0, signDataListGeneral.Count);
+            signDataListGeneral[r].Summon(posInt, colorNameInput);
         }
     }
 }
