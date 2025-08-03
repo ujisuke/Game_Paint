@@ -7,13 +7,13 @@ namespace Assets.Scripts.Datas
     {
         [SerializeField] private float powerMultiplier;
         [SerializeField] private float defenseMultiplier;
+        [SerializeField] private float healRate;
         [SerializeField] private float poisonDamageRate;
-        [SerializeField] private Vector2 healAreaScale;
         [SerializeField] private float attackSpeedMultiplier;
         public float PowerMultiplier => powerMultiplier;
         public float DefenseMultiplier => defenseMultiplier;
+        public float HealRate => healRate;
         public float PoisonDamageRate => poisonDamageRate;
-        public Vector2 HealAreaScale => healAreaScale;
         public float AttackSpeedMultiplier => attackSpeedMultiplier;
     }
 }

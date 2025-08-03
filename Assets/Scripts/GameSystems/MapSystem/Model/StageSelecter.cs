@@ -57,8 +57,7 @@ namespace Assets.Scripts.GameSystems.MapSystem.Model
                 Process(currentStageData.PrevStageData.MoveSecondsToNext).Forget();
                 currentStageData = currentStageData.PrevStageData;
             }
-            CurrentStageSceneName = currentStageData.StageSceneName;
-            Debug.Log($"Changed to stage: {currentStageData.StageSceneName}");            
+            CurrentStageSceneName = currentStageData.StageSceneName;         
         }
     }
 }

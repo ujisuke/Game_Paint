@@ -18,7 +18,6 @@ namespace Assets.Scripts.Objects.Player.Controller
 
         public void OnStateEnter()
         {
-            Debug.Log("PStateMove");
             pC.PlayAnim("Walk");
         }
 

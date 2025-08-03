@@ -18,7 +18,6 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
 
         public void OnStateEnter()
         {
-            Debug.Log("EStateBorn");
             eC.PlayAnim("Idle");
         }
 

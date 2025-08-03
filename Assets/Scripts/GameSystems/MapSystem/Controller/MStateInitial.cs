@@ -19,7 +19,7 @@ namespace Assets.Scripts.GameSystems.MapSystem.Controller
 
         public void OnStateEnter()
         {
-            Debug.Log("MStateInitial");
+
         }
 
         public void HandleInput()

@@ -19,7 +19,7 @@ namespace Assets.Scripts.Objects.Player.Controller
 
         public void OnStateEnter()
         {
-            Debug.Log("PStatePaint");
+
         }
 
         public void HandleInput()

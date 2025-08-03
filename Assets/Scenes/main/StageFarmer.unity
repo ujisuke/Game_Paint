@@ -7215,6 +7215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stagePEDataList: {fileID: 11400000, guid: 321d16cbe235c5340b34d9d74f0e27a5, type: 2}
+  signDataList: {fileID: 11400000, guid: 33da02928c5a58743b72c9381dd69ca5, type: 2}
 --- !u!4 &919423485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2822140737813326770, guid: 8193bf4e840247a48b67e6614ee03d61, type: 3}
@@ -13969,7 +13970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 931134335}
-  signDataList: {fileID: 11400000, guid: 0ce11e3f85c70194bab0eb81dd96987a, type: 2}
+  signDataList: {fileID: 11400000, guid: 33da02928c5a58743b72c9381dd69ca5, type: 2}
 --- !u!4 &1833345937
 Transform:
   m_ObjectHideFlags: 0

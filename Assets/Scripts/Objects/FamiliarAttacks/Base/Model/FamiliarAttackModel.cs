@@ -10,24 +10,22 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
     {
         private PA pA;
         private HitBox hitBox;
-        private readonly FamiliarAttackData familiarAttackData;
+        private readonly FamiliarData familiarData;
         private readonly FamiliarAttackController familiarAttackController;
-        private readonly bool isSpeedDecreased;
         private readonly ColorName colorName;
         public ColorEffectData colorEffectData;
-        public int Power => familiarAttackData.Power;
+        public float Power => familiarData.Power;
         public PA PA => pA;
         public HitBox HitBox => hitBox;
-        public FamiliarAttackData FamiliarAttackData => familiarAttackData;
+        public FamiliarData FamiliarData => familiarData;
         public ColorName ColorName => colorName;
 
-        public FamiliarAttackModel(FamiliarAttackData familiarAttackData, Vector2 pos, FamiliarAttackController familiarAttackController, bool isSpeedDecreased, bool isEnemy, ColorName colorName, ColorEffectData colorEffectData)
+        public FamiliarAttackModel(FamiliarData familiarData, Vector2 pos, FamiliarAttackController familiarAttackController, bool isEnemy, ColorName colorName, ColorEffectData colorEffectData)
         {
-            this.familiarAttackData = familiarAttackData;
+            this.familiarData = familiarData;
             pA = new PA(pos, 0f);
-            hitBox = new(pA.Pos, familiarAttackData.HitBoxScale);
+            hitBox = new(pA.Pos, familiarData.HitBoxScale);
             this.familiarAttackController = familiarAttackController;
-            this.isSpeedDecreased = isSpeedDecreased;
             this.colorName = colorName;
             this.colorEffectData = colorEffectData;
             ObjectsStorageModel.Instance.AddFamiliarAttack(this, isEnemy);
@@ -35,8 +33,6 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
 
         public void Move(Vector2 dir)
         {
-            if (isSpeedDecreased)
-                dir *= colorEffectData.AttackSpeedMultiplier;
             pA = pA.Move(dir);
         }
 
@@ -51,7 +47,7 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
                 Destroy();
         }
 
-        public float GetUniqueParameter(string key) => familiarAttackData.GetUniqueParameter(key);
+        public float GetUniqueParameter(string key) => familiarData.GetUniqueParameter(key);
 
         public void Destroy()
         {

@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Assets.Scripts.Objects.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -8,25 +6,21 @@ namespace Assets.Scripts.Datas
     [CreateAssetMenu(fileName = "FamiliarData", menuName = "ScriptableObjects/FamiliarData")]
     public class FamiliarData : ScriptableObject
     {
-        [SerializeField] private string familiarName;
-        [SerializeField] private int maxHP;
-        [SerializeField] private Vector2 hurtBoxScale;
-        [SerializeField] private Vector2 scale;
-        [SerializeField] private float invincibleSecond;
+        [SerializeField] private float power;
+        [SerializeField] private float defenseDecreaseSeconds;
+        [SerializeField] private float poisonSeconds;
+        [SerializeField] private float attackSpeedDecreaseSeconds;
+        [SerializeField] private Vector2 hitBoxScale;
+        [SerializeField] private Vector2 viewScale;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
-        [SerializeField] private GameObject attackPrefab;
-        [SerializeField] private GameObject healAreaPrefab;
-        [SerializeField] private float healRate;
         private Dictionary<string, float> uniqueParameters;
 
-        public string FamiliarName => familiarName;
-        public HP MaxHP => new(maxHP);
-        public Vector2 HurtBoxScale => hurtBoxScale;
-        public Vector2 Scale => scale;
-        public GameObject AttackPrefab => attackPrefab;
-        public GameObject HealAreaPrefab => healAreaPrefab;
-        public float HealRate => healRate;
-        public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
+        public Vector2 HitBoxScale => hitBoxScale;
+        public Vector2 ViewScale => viewScale;
+        public float Power => power;
+        public float DefenseDecreaseSeconds => defenseDecreaseSeconds;
+        public float PoisonSeconds => poisonSeconds;
+        public float AttackSpeedDecreaseSeconds => attackSpeedDecreaseSeconds;
 
         public float GetUniqueParameter(string parameterName)
         {

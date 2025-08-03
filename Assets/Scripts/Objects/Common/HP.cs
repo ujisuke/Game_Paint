@@ -21,9 +21,9 @@ namespace Assets.Scripts.Objects.Common
             currentHP = maxHP;
         }
 
-        public HP TakeDamage(int damageValue)
+        public HP TakeDamage(float damageValue)
         {
-            return new HP(currentHP - damageValue, maxHP);
+            return new HP(currentHP - (int)damageValue, maxHP);
         }
 
         public HP Heal(float healRate)

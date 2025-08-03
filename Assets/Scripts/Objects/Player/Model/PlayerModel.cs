@@ -43,7 +43,7 @@ namespace Assets.Scripts.Objects.Player.Model
             hurtBox = hurtBox.Move(playerMove.PA.Pos);
         }
 
-        public async UniTask TakeDamage(int damageValue)
+        public async UniTask TakeDamage(float damageValue)
         {
             hP = hP.TakeDamage(damageValue);
             hurtBox = hurtBox.Inactivate();

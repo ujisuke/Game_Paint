@@ -18,7 +18,6 @@ namespace Assets.Scripts.Objects.Player.Controller
 
         public void OnStateEnter()
         {
-            Debug.Log("PStateIdle");
             pC.PlayAnim("Idle");
         }
 

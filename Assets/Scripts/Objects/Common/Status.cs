@@ -1,4 +1,5 @@
 using Assets.Scripts.Datas;
+using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
 using Unity.Mathematics;
 using UnityEngine;
@@ -34,25 +35,28 @@ namespace Assets.Scripts.Objects.Common
         public Status TakeDamageFromFamiliar(FamiliarAttackModel familiarAttackModel)
         {
             ColorName colorName = familiarAttackModel.ColorName;
-            FamiliarAttackData familiarAttackData = familiarAttackModel.FamiliarAttackData;
-            float newDamageValue = familiarAttackData.Power;
+            FamiliarData familiarData = familiarAttackModel.FamiliarData;
+            float newDamageValue = familiarData.Power;
             if (colorName == ColorName.red)
                 newDamageValue *= colorEffectData.PowerMultiplier;
             if (IsDefenseDecreased)
                 newDamageValue /= colorEffectData.DefenseMultiplier;
-            HP newHP = hP.TakeDamage((int)newDamageValue);
+            HP newHP = hP.TakeDamage(newDamageValue);
 
             float newDefenseDecreasedSeconds = defenseDecreasedSeconds;
             if (colorName == ColorName.blue)
-                newDefenseDecreasedSeconds = familiarAttackData.DefenseDecreaseSeconds;
+                newDefenseDecreasedSeconds = familiarData.DefenseDecreaseSeconds;
+
+            if (colorName == ColorName.green)
+                ObjectsStorageModel.Instance.HealPlayer(colorEffectData.HealRate);
 
             float newPoisonedSeconds = poisonedSeconds;
             if (colorName == ColorName.purple)
-                newPoisonedSeconds = familiarAttackData.PoisonSeconds;
+                newPoisonedSeconds = familiarData.PoisonSeconds;
 
             float newAttackSpeedDecreaseSeconds = attackSpeedDecreasedSeconds;
             if (colorName == ColorName.orange)
-                newAttackSpeedDecreaseSeconds = familiarAttackData.AttackSpeedDecreaseSeconds;
+                newAttackSpeedDecreaseSeconds = familiarData.AttackSpeedDecreaseSeconds;
 
             return new Status(newHP, newDefenseDecreasedSeconds, newPoisonedSeconds, newAttackSpeedDecreaseSeconds, poisonedElapsedSeconds, colorEffectData);
         }
