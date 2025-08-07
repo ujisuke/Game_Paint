@@ -25,6 +25,7 @@ namespace Assets.Scripts.Objects.Player.Controller
         {
             pM.MoveInput(Input.GetKey(KeyCode.W), Input.GetKey(KeyCode.S), Input.GetKey(KeyCode.A), Input.GetKey(KeyCode.D));
             pC.PlayerView.SetPA(pM.PA);
+            pC.PlayerView.SetPHurtBox(pM.HurtBox);
             pM.SetColor(Input.mouseScrollDelta.y);
             pC.PlayerView.SetColor(pM.ColorNameCurrent);
             if (Input.GetKey(KeyCode.A))

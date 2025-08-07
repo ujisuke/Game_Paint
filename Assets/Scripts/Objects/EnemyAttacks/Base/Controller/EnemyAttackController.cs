@@ -16,6 +16,9 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
         public void Initialize(bool isSpeedDecreased)
         {
             enemyAttackModel = new EnemyAttackModel(enemyAttackData, transform.position, this, isSpeedDecreased, colorEffectData);
+            enemyAttackView.SetPA(enemyAttackModel.PA);
+            enemyAttackView.SetViewScale(enemyAttackData.HitBoxScale);
+            enemyAttackView.InstantiateHitBox(enemyAttackModel.HitBox);
         }
 
         private void Update()
@@ -23,7 +26,13 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
             if (enemyAttackModel == null)
                 return;
             enemyAttackModel.OnUpdate();
-            enemyAttackView.SetPAS(enemyAttackModel.PA, enemyAttackData.HitBoxScale);
+            enemyAttackView.SetPA(enemyAttackModel.PA);
+            enemyAttackView.SetPHitBox(enemyAttackModel.HitBox);
+        }
+
+        public void OnDestroy()
+        {
+            enemyAttackModel.Destroy();
         }
     }
 }

@@ -7216,6 +7216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stagePEDataList: {fileID: 11400000, guid: 321d16cbe235c5340b34d9d74f0e27a5, type: 2}
   signDataList: {fileID: 11400000, guid: 33da02928c5a58743b72c9381dd69ca5, type: 2}
+  stageData: {fileID: 11400000, guid: 7c6afd263dbf4704596fa2016d69f248, type: 2}
 --- !u!4 &919423485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2822140737813326770, guid: 8193bf4e840247a48b67e6614ee03d61, type: 3}

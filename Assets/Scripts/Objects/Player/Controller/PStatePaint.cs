@@ -26,6 +26,7 @@ namespace Assets.Scripts.Objects.Player.Controller
         {
             pM.MoveInput(Input.GetKey(KeyCode.W), Input.GetKey(KeyCode.S), Input.GetKey(KeyCode.A), Input.GetKey(KeyCode.D));
             pC.PlayerView.SetPA(pM.PA);
+            pC.PlayerView.SetPHurtBox(pM.HurtBox);
             StageTilesModel.Instance.PaintTile(pM.PA.Pos, pM.ColorNameCurrent);
             if (pM.IsDead())
                 pSM.ChangeState(new PStateDead(pM, pSM, pC));

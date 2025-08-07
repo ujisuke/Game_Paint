@@ -16,4 +16,4 @@ MonoBehaviour:
   hurtBoxScale: {x: 0.5, y: 0.5}
   scale: {x: 0.5, y: 0.5}
   invincibleSecond: 0.3
-  moveSpeed: 6
+  moveSpeed: 4

@@ -56,6 +56,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
                 return;
             ObjectsStorageModel.Instance.RemoveEnemyAttack(this);
             GameObject.Destroy(enemyAttackController.gameObject);
+            enemyAttackController.OnDestroy();
         }
     }
 }

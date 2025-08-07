@@ -2,6 +2,7 @@ using Assets.Scripts.Datas;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.Common;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Controller;
+using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
@@ -55,6 +56,7 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
                 return;
             ObjectsStorageModel.Instance.RemoveFamiliarAttack(this);
             Object.Destroy(familiarAttackController.gameObject);
+            familiarAttackController.OnDestroy();
         }
     }
 }

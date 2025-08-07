@@ -69,6 +69,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
             cts?.Dispose();
             ObjectsStorageModel.Instance.RemoveEnemy();
             GameObject.Destroy(enemyController.gameObject);
+            enemyController.OnDestroy();
         }
     }
 }

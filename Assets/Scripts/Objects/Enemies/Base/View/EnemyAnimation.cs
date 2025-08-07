@@ -13,9 +13,11 @@ namespace Assets.Scripts.Objects.Enemies.Base.View
             this.spriteRenderer = spriteRenderer;
         }
 
-        public void Play(string animName)
+        public void Play(string animName, float animSeconds)
         {
             animator.Play(animName);
+            if (animSeconds > 0f)
+                animator.speed = 1f / animSeconds;
         }
 
         public void FlipX(bool isLeft)

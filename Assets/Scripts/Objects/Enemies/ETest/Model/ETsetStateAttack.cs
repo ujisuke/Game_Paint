@@ -1,3 +1,4 @@
+using Assets.Scripts.Objects.Enemies.Base.Controller;
 using Assets.Scripts.Objects.Enemies.Base.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Controller;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Model;
@@ -9,7 +10,12 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
     {
         private readonly EnemyModel eM;
         private EnemyAttackModel eAM;
-        public ETestStateAttack(EnemyModel eM) => this.eM = eM;
+        private EnemyController eC;
+        public ETestStateAttack(EnemyModel eM, EnemyController eC)
+        {
+            this.eM = eM;
+            this.eC = eC;
+        }
 
         public void OnStateEnter()
         {
@@ -21,7 +27,7 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
         public void OnUpdate()
         {
             if (eM.IsDead())
-                eM.ChangeState(new EStateDead(eM));
+                eM.ChangeState(new EStateDead(eM, eC));
         }
 
         public void OnStateExit()

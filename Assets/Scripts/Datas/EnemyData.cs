@@ -10,6 +10,7 @@ namespace Assets.Scripts.Datas
         [SerializeField] private string enemyName;
         [SerializeField] private int maxHP;
         [SerializeField] private Vector2 hurtBoxScale;
+        [SerializeField] private Vector2 viewScale;
         [SerializeField] private float invincibleSecond;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
         [SerializeField] private GameObject attackPrefab;
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Datas
         public string EnemyName => enemyName;
         public int MaxHP => maxHP;
         public Vector2 HurtBoxScale => hurtBoxScale;
+        public Vector2 ViewScale => viewScale;
         public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
         public GameObject AttackPrefab => attackPrefab;
 

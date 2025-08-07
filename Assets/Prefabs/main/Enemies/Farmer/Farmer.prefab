@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6950007517489721335}
   - component: {fileID: 4719501435335199521}
-  - component: {fileID: 6376128447179116879}
   - component: {fileID: -1365387567242008421}
   - component: {fileID: -7087614443209376934}
+  - component: {fileID: -4309639562848695585}
   m_Layer: 0
   m_Name: Farmer
   m_TagString: Untagged
@@ -90,21 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6376128447179116879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3515165110105616261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c95e98a9fd6329e4a9eeb42ac3567408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 8b9a983ae7c469e4ab04c3fc3e814ad7, type: 2}
-  enemyView: {fileID: -1365387567242008421}
-  colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}
 --- !u!114 &-1365387567242008421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4719501435335199521}
   animator: {fileID: -7087614443209376934}
+  hurtBoxPrefab: {fileID: 3515165110105616261, guid: 495913d86899ba6449fd1bb39984e769, type: 3}
 --- !u!95 &-7087614443209376934
 Animator:
   serializedVersion: 7
@@ -141,3 +127,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-4309639562848695585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3515165110105616261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6300bb0a5eb73ad4790f87123785939d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: 8b9a983ae7c469e4ab04c3fc3e814ad7, type: 2}
+  enemyView: {fileID: -1365387567242008421}
+  colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}

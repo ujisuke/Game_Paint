@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -8956605636201991620, guid: 1ca7a87d80bd1f342ac4f561ce6f3952, type: 3}
+  m_Sprite: {fileID: 6025932270728374797, guid: 1ca7a87d80bd1f342ac4f561ce6f3952, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -141,6 +141,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   familiarData: {fileID: 11400000, guid: 9fdbcb4c9343ffe48a096bb0c82a941b, type: 2}
   attackPrefab: {fileID: 3515165110105616261, guid: ed913e40c446e1444804f7d299d679ad, type: 3}
-  healAreaPrefab: {fileID: 6412475687881785497, guid: 8cfac30812b5f444d846c2782cc34687, type: 3}
   familiarView: {fileID: 3002411519874170657}
   colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}

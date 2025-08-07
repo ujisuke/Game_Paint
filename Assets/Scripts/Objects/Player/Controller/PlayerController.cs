@@ -18,7 +18,9 @@ namespace Assets.Scripts.Objects.Player.Controller
         {
             playerModel = new(playerData, transform.position, this, colorDataList);
             playerView.ColorDataList = colorDataList;
+            playerView.SetViewScale(playerData.ViewScale);
             playerView.SetPA(playerModel.PA);
+            playerView.InstantiateHurtBox(playerModel.HurtBox);
             pStateMachine = new PStateMachine(playerModel, this);
         }
 
@@ -35,6 +37,11 @@ namespace Assets.Scripts.Objects.Player.Controller
         public void FlipX(bool isLeft)
         {
             playerView.FlipX(isLeft);
+        }
+
+        public void OnDestroy()
+        {
+            playerView.OnDestroy();
         }
     }
 }

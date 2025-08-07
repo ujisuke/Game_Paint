@@ -24,7 +24,7 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
 
         public void OnUpdate()
         {
-            eM.ChangeState(new ETestStateAttack(eM));
+            eM.ChangeState(new ETestStateAttack(eM, eC));
         }
 
         public void OnStateExit()
