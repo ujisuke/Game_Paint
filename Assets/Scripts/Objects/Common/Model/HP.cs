@@ -1,6 +1,6 @@
 using Unity.Mathematics;
 
-namespace Assets.Scripts.Objects.Common
+namespace Assets.Scripts.Objects.Common.Model
 {
     public class HP
     {

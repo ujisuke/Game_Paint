@@ -1,14 +1,14 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Objects.Common
+namespace Assets.Scripts.Objects.Common.Model
 {
     public class HurtBox
     {
         private readonly Vector2 pos;
-        public Vector2 Pos => pos;
         private readonly Vector2 size;
-        public Vector2 Size => size;
         private readonly bool isActive;
+        public Vector2 Pos => pos;
+        public Vector2 Size => size;
         public bool IsActive => isActive;
 
         public HurtBox(Vector2 pos, Vector2 size, bool isActive)
@@ -18,19 +18,14 @@ namespace Assets.Scripts.Objects.Common
             this.isActive = isActive;
         }
 
-        public HurtBox Activate()
-        {
-            return new HurtBox(pos, size, true);
-        }
-
-        public HurtBox Inactivate()
-        {
-            return new HurtBox(pos, size, false);
-        }
-        
-        public HurtBox Move(Vector2 pos)
+        public HurtBox SetActive(bool isActive)
         {
             return new HurtBox(pos, size, isActive);
+        }
+        
+        public HurtBox Move(Vector2 dir)
+        {
+            return new HurtBox(pos + dir, size, isActive);
         }
     }
 }

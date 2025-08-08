@@ -1,5 +1,6 @@
 using UnityEngine;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
+using Assets.Scripts.Objects.Common.Model.View;
 
 namespace Assets.Scripts.Objects.Enemies.Base.View
 {
@@ -7,7 +8,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.View
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Animator animator;
-        private EnemyAnimation enemyAnimation;
+        private ObjectAnimation objectAnimation;
         [SerializeField] private GameObject hurtBoxPrefab;
         private GameObject hurtBoxObject;
 
@@ -17,14 +18,14 @@ namespace Assets.Scripts.Objects.Enemies.Base.View
 
         public void PlayAnim(string animName, float animSeconds)
         {
-            enemyAnimation ??= new EnemyAnimation(animator, spriteRenderer);
-            enemyAnimation.Play(animName, animSeconds);
+            objectAnimation ??= new ObjectAnimation(animator, spriteRenderer);
+            objectAnimation.Play(animName, animSeconds);
         }
 
         public void FlipX(bool isLeft)
         {
-            enemyAnimation ??= new EnemyAnimation(animator, spriteRenderer);
-            enemyAnimation.FlipX(isLeft);
+            objectAnimation ??= new ObjectAnimation(animator, spriteRenderer);
+            objectAnimation.FlipX(isLeft);
         }
 
         public void InstantiateHurtBox(HurtBox hurtBox)

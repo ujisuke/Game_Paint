@@ -1,3 +1,4 @@
+using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.Player.Model;
 using UnityEngine;
 
@@ -35,10 +36,12 @@ namespace Assets.Scripts.Objects.Player.Controller
 
             if (pM.IsDead())
                 pSM.ChangeState(new PStateDead(pM, pSM, pC));
+            else if (ObjectsStorageModel.Instance.IsPlayerTakingDamage())
+                pSM.ChangeState(new PStateTakeDamage(pM, pSM, pC));
             else if (Input.GetMouseButton(0))
-                pSM.ChangeState(new PStatePaint(pM, pSM, pC));
-            else if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
-                pSM.ChangeState(new PStateIdle(pM, pSM, pC));
+                        pSM.ChangeState(new PStatePaint(pM, pSM, pC));
+                    else if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
+                        pSM.ChangeState(new PStateIdle(pM, pSM, pC));
         }
 
         public void OnStateExit()

@@ -1,5 +1,3 @@
-using System;
-using Assets.Scripts.Objects.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.Datas
@@ -11,13 +9,15 @@ namespace Assets.Scripts.Datas
         [SerializeField] private Vector2 hurtBoxScale;
         [SerializeField] private Vector2 viewScale;
         [SerializeField] private Vector2 scale;
-        [SerializeField] private float invincibleSecond;
+        [SerializeField] private float downSeconds;
+        [SerializeField] private float invincibleSeconds;
         [SerializeField] private float moveSpeed;
-        public HP MaxHP => new(maxHP);
+        public int MaxHP => maxHP;
         public Vector2 HurtBoxScale => hurtBoxScale;
         public Vector2 ViewScale => viewScale;
         public Vector2 Scale => scale;
-        public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
+        public float DownSeconds => downSeconds;
+        public float InvincibleSeconds => invincibleSeconds;
         public float MoveSpeed => moveSpeed;
     }
 }

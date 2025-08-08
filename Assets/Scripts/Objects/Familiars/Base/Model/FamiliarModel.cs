@@ -1,5 +1,5 @@
 using System.Threading;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
 using UnityEngine;

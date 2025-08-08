@@ -15,10 +15,21 @@ MonoBehaviour:
   enemyName: Farmer
   maxHP: 5
   hurtBoxScale: {x: 1, y: 1}
+  viewScale: {x: 1, y: 1}
   invincibleSecond: 0.3
-  uniqueParametersList:
-  - parameterName: JumpSeconds
-    value: 0.6
-  - parameterName: ThrowSeconds
+  uniqueParameterList:
+  - parameterName: ThrowHoeSeconds
     value: 1
-  attackPrefab: {fileID: 3515165110105616261, guid: 92808a3b65aa5a143b062c710a5b6b62, type: 3}
+  - parameterName: ThrowHoeCount
+    value: 3
+  - parameterName: ThrowHoeCoolDownSeconds
+    value: 1.5
+  - parameterName: JumpSeconds
+    value: 0.7
+  - parameterName: ThrowPlantSeconds
+    value: 2
+  - parameterName: NearDistance
+    value: 2
+  attackPrefabList:
+  - {fileID: 3515165110105616261, guid: 19303ef061648e846aa641703f6fabfb, type: 3}
+  - {fileID: 3515165110105616261, guid: bad0c9c3568256947a80e6b4d3a41736, type: 3}

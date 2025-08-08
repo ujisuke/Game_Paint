@@ -8,10 +8,12 @@ namespace Assets.Scripts.Datas
     {
         [SerializeField] private int power;
         [SerializeField] private Vector2 hitBoxScale;
+        [SerializeField] private Vector2 viewScale;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
         private Dictionary<string, float> uniqueParameters;
         public int Power => power;
         public Vector2 HitBoxScale => hitBoxScale;
+        public Vector2 ViewScale => viewScale;
 
         public float GetUniqueParameter(string parameterName)
         {

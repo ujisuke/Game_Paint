@@ -20,6 +20,6 @@ MonoBehaviour:
   viewScale: {x: 1, y: 1}
   uniqueParametersList:
   - parameterName: Range
-    value: 4
+    value: 6
   - parameterName: Seconds
     value: 1

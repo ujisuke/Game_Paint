@@ -21,8 +21,6 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             seconds = 0f;
         }
 
-        public IEState Initialize(EnemyModel enemyModel, EnemyController enemyController) => new FarmerStateJumpBegin(enemyModel, enemyController);
-
         public void OnStateEnter()
         {
             Vector2 playerPos = ObjectsStorageModel.Instance.GetHostilePos(eM.PA.Pos, true);

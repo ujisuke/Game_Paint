@@ -32,5 +32,10 @@ namespace Assets.Scripts.Datas
             Vector2 offsetPos = new(Random.Range(0f, tileNumber.x * 0.5f), Random.Range(0f, tileNumber.y * 0.5f));
             return edgePosMinList[randomIndex] + offsetPos;
         }
+
+        public bool IsOutOfStage(Vector2 pos)
+        {
+            return pos.x < StageEdgePosMin.x || pos.x > StageEdgePosMax.x || pos.y < StageEdgePosMin.y || pos.y > StageEdgePosMax.y;
+        }
     }
 }

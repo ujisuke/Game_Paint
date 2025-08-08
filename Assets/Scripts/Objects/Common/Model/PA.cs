@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Objects.Common
+namespace Assets.Scripts.Objects.Common.Model
 {
 
     public class PA
@@ -18,5 +18,7 @@ namespace Assets.Scripts.Objects.Common
         }
 
         public PA Move(Vector2 directionVector) => new(pos + directionVector, angle);
+
+        public PA Rotate(float angle) => new(pos, this.angle + angle);
     }
 }

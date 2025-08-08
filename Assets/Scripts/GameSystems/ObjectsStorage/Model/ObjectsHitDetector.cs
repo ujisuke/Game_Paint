@@ -1,4 +1,4 @@
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using UnityEngine;
 
 namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
@@ -7,7 +7,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
     {
         public static bool IsAttacking(HitBox hitBox, HurtBox hurtBox)
         {
-            if (!hurtBox.IsActive)
+            if (!hitBox.IsActive || !hurtBox.IsActive)
                 return false;
 
             Vector2 hitBoxSize = hitBox.Size * 0.5f;

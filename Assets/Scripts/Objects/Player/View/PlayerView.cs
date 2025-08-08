@@ -1,7 +1,8 @@
 using UnityEngine;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
 using System;
+using Assets.Scripts.Objects.Common.Model.View;
 
 namespace Assets.Scripts.Objects.Player.View
 {
@@ -10,7 +11,7 @@ namespace Assets.Scripts.Objects.Player.View
         [SerializeField] private SpriteRenderer spriteRenderer;
         [NonSerialized] public ColorDataList ColorDataList;
         [SerializeField] private Animator animator;
-        private PlayerAnimation playerAnimation;
+        private ObjectAnimation objectAnimation;
         [SerializeField] private GameObject hurtBoxPrefab;
         private GameObject hurtBoxObject;
 
@@ -28,16 +29,16 @@ namespace Assets.Scripts.Objects.Player.View
             PlayerColorIndicator.Instance?.SetColor(colorNameInput);
         }
 
-        public void PlayAnim(string animName)
+        public void PlayAnim(string animName, float animSeconds)
         {
-            playerAnimation ??= new PlayerAnimation(animator, spriteRenderer);
-            playerAnimation.Play(animName);
+            objectAnimation ??= new ObjectAnimation(animator, spriteRenderer);
+            objectAnimation.Play(animName, animSeconds);
         }
 
         public void FlipX(bool isLeft)
         {
-            playerAnimation ??= new PlayerAnimation(animator, spriteRenderer);
-            playerAnimation.FlipX(isLeft);
+            objectAnimation ??= new ObjectAnimation(animator, spriteRenderer);
+            objectAnimation.FlipX(isLeft);
         }
 
         public void InstantiateHurtBox(HurtBox hurtBox)

@@ -12,16 +12,15 @@ namespace Assets.Scripts.Datas
         [SerializeField] private Vector2 hurtBoxScale;
         [SerializeField] private Vector2 viewScale;
         [SerializeField] private float invincibleSecond;
-        [SerializeField] private List<UniqueParameter> uniqueParametersList;
-        [SerializeField] private GameObject attackPrefab;
+        [SerializeField] private List<UniqueParameter> uniqueParameterList;
+        [SerializeField] private List<GameObject> attackPrefabList;
         private Dictionary<string, float> uniqueParameters;
         public string EnemyName => enemyName;
         public int MaxHP => maxHP;
         public Vector2 HurtBoxScale => hurtBoxScale;
         public Vector2 ViewScale => viewScale;
         public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
-        public GameObject AttackPrefab => attackPrefab;
-
+        private Dictionary<string, GameObject> attackPrefabs;
 
         public float GetUP(string parameterName)
         {
@@ -32,9 +31,23 @@ namespace Assets.Scripts.Datas
         private Dictionary<string, float> InitializeUniqueParameters()
         {
             var parameters = new Dictionary<string, float>();
-            for(int i = 0; i < uniqueParametersList.Count; i++)
-                parameters.Add(uniqueParametersList[i].ParameterName, uniqueParametersList[i].Value);
+            for (int i = 0; i < uniqueParameterList.Count; i++)
+                parameters.Add(uniqueParameterList[i].ParameterName, uniqueParameterList[i].Value);
             return parameters;
+        }
+
+        public GameObject GetAttackPrefab(string attackName)
+        {
+            attackPrefabs ??= InitializeAttackPrefabs();
+            return attackPrefabs[attackName];
+        }
+
+        private Dictionary<string, GameObject> InitializeAttackPrefabs()
+        {
+            var prefabs = new Dictionary<string, GameObject>();
+            for (int i = 0; i < attackPrefabList.Count; i++)
+                prefabs.Add(attackPrefabList[i].name, attackPrefabList[i]);
+            return prefabs;
         }
     }
 }

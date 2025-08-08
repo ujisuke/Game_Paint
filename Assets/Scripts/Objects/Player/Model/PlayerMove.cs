@@ -1,4 +1,4 @@
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.StageTiles.Model;
 using Unity.Mathematics;
 using UnityEngine;

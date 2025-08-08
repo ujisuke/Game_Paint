@@ -1,5 +1,6 @@
 using UnityEngine;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
+using Assets.Scripts.Objects.Common.Model.View;
 
 namespace Assets.Scripts.Objects.EnemyAttacks.Base.View
 {
@@ -7,6 +8,9 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.View
     {
         [SerializeField] private GameObject hitBoxPrefab;
         private GameObject hitBoxObject;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Animator animator;
+        private ObjectAnimation objectAnimation;
 
         public void SetPA(PA pA) => transform.SetPositionAndRotation(pA.Pos, Quaternion.Euler(0f, 0f, pA.Angle));
 
@@ -16,11 +20,25 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.View
         {
             hitBoxObject = Instantiate(hitBoxPrefab, hitBox.Pos, Quaternion.identity);
             hitBoxObject.transform.localScale = hitBox.Size;
+            hitBoxObject.SetActive(hitBox.IsActive);
         }
 
         public void SetPHitBox(HitBox hitBox)
         {
             hitBoxObject.transform.position = hitBox.Pos;
+            hitBoxObject.SetActive(hitBox.IsActive);
+        }
+
+        public void PlayAnim(string animName, float playSeconds)
+        {
+            objectAnimation ??= new ObjectAnimation(animator, spriteRenderer);
+            objectAnimation.Play(animName, playSeconds);
+        }
+
+        public void FlipX(bool isLeft)
+        {
+            objectAnimation ??= new ObjectAnimation(animator, spriteRenderer);
+            objectAnimation.FlipX(isLeft);
         }
 
         public void OnDestroy()

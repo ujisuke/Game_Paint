@@ -5,6 +5,8 @@ using Assets.Scripts.Objects.Player.Model;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
+using Assets.Scripts.Datas;
+using Assets.Scripts.Objects.Common.Model;
 
 namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
 {
@@ -64,8 +66,8 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
             if (!DoesEnemyExist())
                 return;
             for (int i = 0; i < pFamiliarAttacks.Count; i++)
-                if (ObjectsHitDetector.IsAttacking(pFamiliarAttacks[i].HitBox, enemy.HurtBox))
-                    enemy.TakeDamageFromFamiliar(pFamiliarAttacks[i]).Forget();
+                if (ObjectsHitDetector.IsAttacking(pFamiliarAttacks[i].HitBox, enemy.HurtBox) && pFamiliarAttacks[i].ColorName != ColorName.blue)
+                    enemy.TakeDamage(pFamiliarAttacks[i].Power).Forget();
         }
 
         private void DetectHitEAToP()
@@ -74,7 +76,7 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                 return;
             for (int i = 0; i < enemyAttacks.Count; i++)
                 if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, player.HurtBox))
-                    player.TakeDamage(enemyAttacks[i].Power).Forget();
+                    player.TakeDamage(enemyAttacks[i].Power);
         }
 
         private void DetectHitEFAToP()
@@ -83,14 +85,14 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                 return;
             for (int i = 0; i < eFamiliarAttacks.Count; i++)
                 if (ObjectsHitDetector.IsAttacking(eFamiliarAttacks[i].HitBox, player.HurtBox))
-                    player.TakeDamage(eFamiliarAttacks[i].Power).Forget();
+                    player.TakeDamage(eFamiliarAttacks[i].Power);
         }
 
         private void DetectHitPFAToEA()
         {
             for (int i = 0; i < pFamiliarAttacks.Count; i++)
                 for (int j = 0; j < enemyAttacks.Count; j++)
-                    if (ObjectsHitDetector.IsHitting(pFamiliarAttacks[i].HitBox, enemyAttacks[j].HitBox))
+                    if (ObjectsHitDetector.IsHitting(pFamiliarAttacks[i].HitBox, enemyAttacks[j].HitBox) && pFamiliarAttacks[i].ColorName == ColorName.blue)
                         enemyAttacks[j].Break(pFamiliarAttacks[i]);
         }
 
@@ -113,10 +115,38 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
             return player != null;
         }
 
-        public void HealPlayer(float healRate)
+        public bool IsPlayerTakingDamage()
         {
-            if (DoesPlayerExist())
-                player.Heal(healRate);
+            if (!DoesPlayerExist())
+                return false;
+
+            for (int i = 0; i < enemyAttacks.Count; i++)
+                if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, player.HurtBox))
+                    return true;
+            for (int i = 0; i < eFamiliarAttacks.Count; i++)
+                if (ObjectsHitDetector.IsAttacking(eFamiliarAttacks[i].HitBox, player.HurtBox))
+                    return true;
+
+            return false;
+        }
+
+        public void TakeDamagePlayer()
+        {
+            if (!DoesPlayerExist())
+                return;
+
+            for (int i = 0; i < enemyAttacks.Count; i++)
+                if (ObjectsHitDetector.IsAttacking(enemyAttacks[i].HitBox, player.HurtBox))
+                {
+                    player.TakeDamage(enemyAttacks[i].Power);
+                    return;
+                }
+            for (int i = 0; i < eFamiliarAttacks.Count; i++)
+                if (ObjectsHitDetector.IsAttacking(eFamiliarAttacks[i].HitBox, player.HurtBox))
+                {
+                    player.TakeDamage(eFamiliarAttacks[i].Power);
+                    return;
+                }
         }
     }
 }

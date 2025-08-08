@@ -1,9 +1,8 @@
 using System.Threading;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.Player.Controller;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.Player.Model
@@ -21,11 +20,13 @@ namespace Assets.Scripts.Objects.Player.Model
         public PA PA => playerMove.PA;
         public HurtBox HurtBox => hurtBox;
         public ColorName ColorNameCurrent => playerColor.ColorNameCurrent;
+        public PlayerData PlayerData => playerData;
+        public CancellationToken Token => token;
 
         public PlayerModel(PlayerData playerData, Vector2 pos, PlayerController playerController, ColorDataList colorDataList)
         {
             this.playerData = playerData;
-            hP = playerData.MaxHP;
+            hP = new HP(playerData.MaxHP);
             this.playerController = playerController;
             playerMove = new PlayerMove(playerData.MoveSpeed, playerData.Scale, pos, 0f);
             hurtBox = new HurtBox(playerMove.PA.Pos, playerData.HurtBoxScale, true);
@@ -39,21 +40,21 @@ namespace Assets.Scripts.Objects.Player.Model
         
         public void MoveInput(bool isUp, bool isDown, bool isLeft, bool isRight)
         {
+            Vector2 posPrev = playerMove.PA.Pos;
             playerMove.Move(isUp, isDown, isLeft, isRight);
-            hurtBox = hurtBox.Move(playerMove.PA.Pos);
+            hurtBox = hurtBox.Move(playerMove.PA.Pos - posPrev);
         }
 
-        public async UniTask TakeDamage(float damageValue)
+        public void TakeDamage(float damageValue)
         {
             hP = hP.TakeDamage(damageValue);
-            hurtBox = hurtBox.Inactivate();
-            await UniTask.Delay(playerData.InvincibleSecond, cancellationToken: token);
-            hurtBox = hurtBox.Activate();
         }
 
         public void Heal(float healRate) => hP = hP.Heal(healRate);
 
         public bool IsDead() => hP.IsDead();
+
+        public void SetActiveHurtBox(bool isactive) => hurtBox = hurtBox.SetActive(isactive);
 
         public void Destroy()
         {

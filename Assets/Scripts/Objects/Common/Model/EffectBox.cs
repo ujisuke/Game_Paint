@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Objects.Common
+namespace Assets.Scripts.Objects.Common.Model
 {
     public class EffectBox
     {

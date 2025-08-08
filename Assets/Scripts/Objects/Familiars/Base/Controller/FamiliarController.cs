@@ -32,7 +32,7 @@ namespace Assets.Scripts.Objects.Familiars.Base.Controller
             familiarView.SetColor(familiarModel.ColorName);
         }
 
-        public void PlayAnim(string animName, float playSeconds = 1f)
+        public void PlayAnim(string animName, float playSeconds = 0f)
         {
             familiarView.PlayAnim(animName, playSeconds);
         }

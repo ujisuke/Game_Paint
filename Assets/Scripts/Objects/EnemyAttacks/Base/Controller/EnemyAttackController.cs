@@ -9,15 +9,15 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
     {
         [SerializeField] private EnemyAttackData enemyAttackData;
         private EnemyAttackModel enemyAttackModel;
-        public EnemyAttackModel EnemyAttackModel => enemyAttackModel;
         [SerializeField] private EnemyAttackView enemyAttackView;
         [SerializeField] private ColorEffectData colorEffectData;
+        public EnemyAttackModel EnemyAttackModel => enemyAttackModel;
 
-        public void Initialize(bool isSpeedDecreased)
+        protected void Initialize(IEnemyAttackMove enemyAttackMove)
         {
-            enemyAttackModel = new EnemyAttackModel(enemyAttackData, transform.position, this, isSpeedDecreased, colorEffectData);
+            enemyAttackModel = new EnemyAttackModel(enemyAttackData, transform.position, this, enemyAttackMove);
             enemyAttackView.SetPA(enemyAttackModel.PA);
-            enemyAttackView.SetViewScale(enemyAttackData.HitBoxScale);
+            enemyAttackView.SetViewScale(enemyAttackData.ViewScale);
             enemyAttackView.InstantiateHitBox(enemyAttackModel.HitBox);
         }
 
@@ -32,7 +32,17 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
 
         public void OnDestroy()
         {
-            enemyAttackModel.Destroy();
+            enemyAttackView.OnDestroy();
+        }
+
+        public void PlayAnim(string animName, float playSeconds = 1f)
+        {
+            enemyAttackView.PlayAnim(animName, playSeconds);
+        }
+
+        public void FlipX(bool isLeft)
+        {
+            enemyAttackView.FlipX(isLeft);
         }
     }
 }

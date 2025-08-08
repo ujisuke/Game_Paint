@@ -24,7 +24,6 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Controller
         {
             if (familiarAttackModel == null)
                 return;
-            familiarAttackModel.OnUpdate();
             familiarAttackView.SetPA(familiarAttackModel.PA);
             familiarAttackView.SetPHitBox(familiarAttackModel.HitBox);
         }

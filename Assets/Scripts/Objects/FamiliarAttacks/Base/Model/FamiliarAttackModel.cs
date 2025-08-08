@@ -1,6 +1,6 @@
 using Assets.Scripts.Datas;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Controller;
 using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
@@ -14,8 +14,8 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
         private readonly FamiliarData familiarData;
         private readonly FamiliarAttackController familiarAttackController;
         private readonly ColorName colorName;
-        public ColorEffectData colorEffectData;
-        public float Power => familiarData.Power;
+        private readonly float power;
+        public float Power => power;
         public PA PA => pA;
         public HitBox HitBox => hitBox;
         public FamiliarData FamiliarData => familiarData;
@@ -25,27 +25,17 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
         {
             this.familiarData = familiarData;
             pA = new PA(pos, 0f);
-            hitBox = new(pA.Pos, familiarData.HitBoxScale);
+            hitBox = new(pA.Pos, familiarData.HitBoxScale, true);
             this.familiarAttackController = familiarAttackController;
             this.colorName = colorName;
-            this.colorEffectData = colorEffectData;
+            power = familiarData.Power * (colorName == ColorName.red ? colorEffectData.PowerMultiplier : 1f);
             ObjectsStorageModel.Instance.AddFamiliarAttack(this, isEnemy);
         }
 
         public void Move(Vector2 dir)
         {
             pA = pA.Move(dir);
-        }
-
-        public void OnUpdate()
-        {
-            hitBox = hitBox.Move(pA.Pos);
-        }
-
-        public void Break(FamiliarAttackModel familiarAttackModel)
-        {
-            if (familiarAttackModel.ColorName == ColorName.yellow)
-                Destroy();
+            hitBox = hitBox.Move(dir);
         }
 
         public float GetUniqueParameter(string key) => familiarData.GetUniqueParameter(key);

@@ -1,13 +1,13 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Objects.Enemies.Base.View
+namespace Assets.Scripts.Objects.Common.Model.View
 {
-    public class EnemyAnimation
+    public class ObjectAnimation
     {
         private readonly Animator animator;
         private readonly SpriteRenderer spriteRenderer;
 
-        public EnemyAnimation(Animator animator, SpriteRenderer spriteRenderer)
+        public ObjectAnimation(Animator animator, SpriteRenderer spriteRenderer)
         {
             this.animator = animator;
             this.spriteRenderer = spriteRenderer;

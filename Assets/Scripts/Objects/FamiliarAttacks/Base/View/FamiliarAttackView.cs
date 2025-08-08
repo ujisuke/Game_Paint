@@ -1,4 +1,4 @@
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.FamiliarAttacks.Base.View

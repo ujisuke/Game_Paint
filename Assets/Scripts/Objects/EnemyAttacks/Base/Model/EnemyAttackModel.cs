@@ -1,4 +1,4 @@
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Controller;
@@ -13,40 +13,43 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
         private HitBox hitBox;
         private readonly EnemyAttackData enemyAttackData;
         private readonly EnemyAttackController enemyAttackController;
-        private readonly ColorEffectData colorEffectData;
-        private readonly bool isSpeedDecreased;
+        private readonly IEnemyAttackMove enemyAttackMove;
         public PA PA => pA;
         public int Power => enemyAttackData.Power;
         public HitBox HitBox => hitBox;
 
-        public EnemyAttackModel(EnemyAttackData enemyAttackData, Vector2 pos, EnemyAttackController enemyAttackController, bool isSpeedDecreased, ColorEffectData colorEffectData)
+        public EnemyAttackModel(EnemyAttackData enemyAttackData, Vector2 pos, EnemyAttackController enemyAttackController, IEnemyAttackMove enemyAttackMove)
         {
             this.enemyAttackData = enemyAttackData;
             pA = new PA(pos, 0f);
-            hitBox = new(pA.Pos, enemyAttackData.HitBoxScale);
+            hitBox = new(pA.Pos, enemyAttackData.HitBoxScale, true);
             this.enemyAttackController = enemyAttackController;
-            this.colorEffectData = colorEffectData;
-            this.isSpeedDecreased = isSpeedDecreased;
+            this.enemyAttackMove = enemyAttackMove.Initialize(this, enemyAttackController);
             ObjectsStorageModel.Instance.AddEnemyAttack(this);
+            this.enemyAttackMove.OnAwake();
         }
 
         public void Move(Vector2 dir)
         {
-            if (isSpeedDecreased)
-                dir *= colorEffectData.AttackSpeedMultiplier;
             pA = pA.Move(dir);
+            hitBox = hitBox.Move(dir);
+        }
+
+        public void Rotate(float angle)
+        {
+            pA = pA.Rotate(angle);
         }
 
         public void OnUpdate()
         {
-            hitBox = hitBox.Move(pA.Pos);
+            enemyAttackMove.OnUpdate();
         }
 
         public float GetUniqueParameter(string key) => enemyAttackData.GetUniqueParameter(key);
 
         public void Break(FamiliarAttackModel familiarAttackModel)
         {
-            if (familiarAttackModel.ColorName == ColorName.yellow)
+            if (familiarAttackModel.ColorName == ColorName.blue)
                 Destroy();
         }
 
@@ -57,6 +60,11 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
             ObjectsStorageModel.Instance.RemoveEnemyAttack(this);
             GameObject.Destroy(enemyAttackController.gameObject);
             enemyAttackController.OnDestroy();
+        }
+
+        public void SetActiveHitBox(bool isActive)
+        {
+            hitBox = hitBox.SetActive(isActive);
         }
     }
 }

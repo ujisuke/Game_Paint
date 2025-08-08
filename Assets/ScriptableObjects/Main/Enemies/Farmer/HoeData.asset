@@ -14,4 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power: 1
   hitBoxScale: {x: 0.5, y: 0.5}
-  uniqueParametersList: []
+  viewScale: {x: 0.5, y: 0.5}
+  uniqueParametersList:
+  - parameterName: MoveSpeed
+    value: 6
+  - parameterName: RandomRange
+    value: 2

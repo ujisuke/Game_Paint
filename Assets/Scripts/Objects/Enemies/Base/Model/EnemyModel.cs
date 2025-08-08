@@ -1,18 +1,17 @@
 using Cysharp.Threading.Tasks;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
 using Assets.Scripts.Objects.Enemies.Base.Controller;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using UnityEngine;
 using System.Threading;
-using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
 
 namespace Assets.Scripts.Objects.Enemies.Base.Model
 {
     public class EnemyModel
     {
         private PA pA;
-        private Status status;
+        private HP hp;
         private HurtBox hurtBox;
         private readonly EStateMachine eStateMachine;
         private readonly EnemyData enemyData;
@@ -22,13 +21,13 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         public PA PA => pA;
         public HurtBox HurtBox => hurtBox;
         public EnemyData EnemyData => enemyData;
-        public bool IsAttackSpeedDecreased => status.IsAttackSpeedDecreased;
+        public CancellationToken Token => token;
 
         public EnemyModel(EnemyData enemyData, IEStateAfterBorn eStateAfterBorn, Vector2 pos, EnemyController enemyController, ColorEffectData colorEffectData)
         {
             this.enemyData = enemyData;
             pA = new PA(pos, 0f);
-            status = new Status(new HP(enemyData.MaxHP), 0f, 0f, 0f, 0f, colorEffectData);
+            hp = new HP(enemyData.MaxHP);
             hurtBox = new HurtBox(pA.Pos, enemyData.HurtBoxScale, true);
             eStateMachine = new EStateMachine(this, eStateAfterBorn, enemyController);
             this.enemyController = enemyController;
@@ -40,28 +39,27 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         public void OnUpdate()
         {
             eStateMachine.OnUpdate();
-            status = status.CountDown();
         }
         
         public void Move(Vector2 dir)
         {
             pA = pA.Move(dir);
-            hurtBox = hurtBox.Move(pA.Pos);
+            hurtBox = hurtBox.Move(dir);
         }
 
         public void ChangeState(IEState state) => eStateMachine.ChangeState(state);
 
         public float GetUP(string key) => enemyData.GetUP(key);
 
-        public async UniTask TakeDamageFromFamiliar(FamiliarAttackModel familiarAttackModel)
+        public async UniTask TakeDamage(float damageValue)
         {
-            status = status.TakeDamageFromFamiliar(familiarAttackModel);
-            hurtBox = hurtBox.Inactivate();
+            hp = hp.TakeDamage(damageValue);
+            hurtBox = hurtBox.SetActive(false);
             await UniTask.Delay(enemyData.InvincibleSecond, cancellationToken: token);
-            hurtBox = hurtBox.Activate();
+            hurtBox = hurtBox.SetActive(true);
         }
 
-        public bool IsDead() => status.HP.IsDead();
+        public bool IsDead() => hp.IsDead();
 
         public void Destroy()
         {
