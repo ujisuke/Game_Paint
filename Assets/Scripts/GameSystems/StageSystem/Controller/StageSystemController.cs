@@ -7,7 +7,7 @@ namespace Assets.Scripts.GameSystems.StageSystem.Controller
     public class StageSystemController : MonoBehaviour
     {
         [SerializeField] private StagePEDataList stagePEDataList;
-        [SerializeField] private SignDataList signDataList;
+        [SerializeField] private SummonDataList signDataList;
         [SerializeField] private StageData stageData;
         private StageSystemModel stageSystemModel;
 

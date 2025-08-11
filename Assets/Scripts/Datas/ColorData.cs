@@ -17,11 +17,8 @@ namespace Assets.Scripts.Datas
     {
         red,
         blue,
-        yellow,
-        purple,
-        green,
-        orange,
         wallColor,
-        defaultColor,
+        defaultTileColor,
+        enemyColor
     }
 }

@@ -124,7 +124,7 @@ namespace Assets.Scripts.Objects.Player.Model
 
         private static bool IsWall(Vector2Int pos)
         {
-            return StageTilesModel.Instance.StageTiles[pos.x, pos.y].IsWall();
+            return StageTilesModel.Instance.StageTiles[pos.x, pos.y].IsWall;
         }
 
         private static float ClampDirectionVector(float startPosXorY, float directionVectorXorY)

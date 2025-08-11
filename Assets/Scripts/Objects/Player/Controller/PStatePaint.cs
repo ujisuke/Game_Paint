@@ -1,5 +1,7 @@
+using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.Player.Model;
 using Assets.Scripts.StageTiles.Model;
+using Assets.Scripts.UI.PlayerStatus.View;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.Player.Controller
@@ -27,16 +29,20 @@ namespace Assets.Scripts.Objects.Player.Controller
             pM.MoveInput(Input.GetKey(KeyCode.W), Input.GetKey(KeyCode.S), Input.GetKey(KeyCode.A), Input.GetKey(KeyCode.D));
             pC.PlayerView.SetPA(pM.PA);
             pC.PlayerView.SetPHurtBox(pM.HurtBox);
-            StageTilesModel.Instance.PaintTile(pM.PA.Pos, pM.ColorNameCurrent);
+            StageTilesModel.Instance.PaintTile(pM.PA.Pos, pM.ColorNameCurrent, false);
+            pM.ReduceInk();
+            PlayerStatusView.Instance.SetInkBar(pM.InkRatio);
             if (pM.IsDead())
                 pSM.ChangeState(new PStateDead(pM, pSM, pC));
-            else if (!Input.GetMouseButton(0))
+            else if (ObjectsStorageModel.Instance.IsPlayerTakingDamage())
+                pSM.ChangeState(new PStateTakeDamage(pM, pSM, pC));
+            else if (!Input.GetMouseButton(0) || pM.IsInkEmpty)
                 pSM.ChangeState(new PStateMove(pM, pSM, pC));
         }
 
         public void OnStateExit()
         {
-            StageTilesModel.Instance.CompletePaint(pM.ColorNameCurrent);
+            StageTilesModel.Instance.CompletePaint(false);
         }
     }
 }

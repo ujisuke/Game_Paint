@@ -10,6 +10,7 @@ namespace Assets.Scripts.Objects.Player.Model
     public class PlayerModel
     {
         private HP hP;
+        private Ink ink;
         private HurtBox hurtBox;
         private readonly PlayerData playerData;
         private readonly PlayerController playerController;
@@ -22,11 +23,15 @@ namespace Assets.Scripts.Objects.Player.Model
         public ColorName ColorNameCurrent => playerColor.ColorNameCurrent;
         public PlayerData PlayerData => playerData;
         public CancellationToken Token => token;
+        public float HPRatio => hP.Ratio;
+        public float InkRatio => ink.Ratio;
+        public bool IsInkEmpty => ink.IsEmpty;
 
         public PlayerModel(PlayerData playerData, Vector2 pos, PlayerController playerController, ColorDataList colorDataList)
         {
             this.playerData = playerData;
             hP = new HP(playerData.MaxHP);
+            ink = new Ink();
             this.playerController = playerController;
             playerMove = new PlayerMove(playerData.MoveSpeed, playerData.Scale, pos, 0f);
             hurtBox = new HurtBox(playerMove.PA.Pos, playerData.HurtBoxScale, true);
@@ -45,14 +50,17 @@ namespace Assets.Scripts.Objects.Player.Model
             hurtBox = hurtBox.Move(playerMove.PA.Pos - posPrev);
         }
 
-        public void TakeDamage(float damageValue)
-        {
-            hP = hP.TakeDamage(damageValue);
-        }
+        public void TakeDamage(float damageValue) => hP = hP.TakeDamage(damageValue);
+
+        public void ReduceInk() => ink = ink.Reduce(playerData.ReduceInkPerSecond * Time.deltaTime);
+
+        public void AddInk() => ink = ink.Add(playerData.AddInkPerSecond * Time.deltaTime);
 
         public void Heal(float healRate) => hP = hP.Heal(healRate);
 
         public bool IsDead() => hP.IsDead();
+        
+        public bool IsLessThanHalfHP() => hP.IsLessThanHalf();
 
         public void SetActiveHurtBox(bool isactive) => hurtBox = hurtBox.SetActive(isactive);
 

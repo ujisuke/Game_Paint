@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4719501435335199521}
   animator: {fileID: -7087614443209376934}
-  hurtBoxPrefab: {fileID: 3515165110105616261, guid: 495913d86899ba6449fd1bb39984e769, type: 3}
+  hurtBoxPrefab: {fileID: 3515165110105616261, guid: b76afdf379171fe41be3def4a882e1e6, type: 3}
 --- !u!95 &-7087614443209376934
 Animator:
   serializedVersion: 7

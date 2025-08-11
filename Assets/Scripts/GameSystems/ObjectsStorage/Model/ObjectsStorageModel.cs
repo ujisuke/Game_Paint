@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
 using Assets.Scripts.Datas;
-using Assets.Scripts.Objects.Common.Model;
+using System.Linq;
 
 namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
 {
@@ -51,6 +51,18 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                 eFamiliarAttacks.Remove(familiarAttack);
             else if (pFamiliarAttacks.Contains(familiarAttack))
                 pFamiliarAttacks.Remove(familiarAttack);
+        }
+
+        public void Clear()
+        {
+            enemy?.Destroy();
+            player?.Destroy();
+            for (int i = enemyAttacks.Count - 1; i >= 0; i--)
+                enemyAttacks[i].Destroy();
+            for (int i = eFamiliarAttacks.Count - 1; i >= 0; i--)
+                eFamiliarAttacks[i].Destroy();
+            for (int i = pFamiliarAttacks.Count - 1; i >= 0; i--)
+                pFamiliarAttacks[i].Destroy();
         }
 
         public void DetectHit()
@@ -147,6 +159,13 @@ namespace Assets.Scripts.GameSystems.ObjectsStorage.Model
                     player.TakeDamage(eFamiliarAttacks[i].Power);
                     return;
                 }
+        }
+
+        public Vector2 GetPlayerPos(Vector2 pos)
+        {
+            if (!DoesPlayerExist())
+                return pos;
+            return player.PA.Pos;
         }
     }
 }

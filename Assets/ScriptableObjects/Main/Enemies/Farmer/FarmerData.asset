@@ -30,6 +30,34 @@ MonoBehaviour:
     value: 2
   - parameterName: NearDistance
     value: 2
+  - parameterName: SwingScytheDelaySeconds
+    value: 0.5
+  - parameterName: SwingScytheSeconds
+    value: 0.3
+  - parameterName: SwingScytheCoolDownSeconds
+    value: 1
+  - parameterName: ThrowScoopDelayFirstSeconds
+    value: 1.5
+  - parameterName: ThrowScoopDelaySecondSeconds
+    value: 0.3
+  - parameterName: ThrowScoopDelayThirdSeconds
+    value: 1
+  - parameterName: ThrowScoopCoolDownSeconds
+    value: 1
+  - parameterName: ThrowScoopIntervalSeconds
+    value: 0.1
+  - parameterName: ThrowScoopCount
+    value: 6
+  - parameterName: ThrowScoopSet
+    value: 3
+  - parameterName: AttackCountMax
+    value: 10
+  - parameterName: SummonCountMax
+    value: 4
+  - parameterName: SummonSeconds
+    value: 1
   attackPrefabList:
   - {fileID: 3515165110105616261, guid: 19303ef061648e846aa641703f6fabfb, type: 3}
   - {fileID: 3515165110105616261, guid: bad0c9c3568256947a80e6b4d3a41736, type: 3}
+  - {fileID: 3515165110105616261, guid: 5619ab06902050d43b78295f8130f29b, type: 3}
+  - {fileID: 3515165110105616261, guid: 18beb7882eb08a046a844f3e8f552b38, type: 3}

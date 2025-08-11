@@ -11,6 +11,8 @@ namespace Assets.Scripts.Datas
         public static Vector2 StageEdgePosMin => new(1f, 1f);
         public Vector2 StageEdgePosMax => new(tileNumber.x - 1f, tileNumber.y - 1f);
         public Vector2 StageCenterPos => new(tileNumber.x * 0.5f, tileNumber.y * 0.5f);
+        public int Width => tileNumber.x;
+        public int Height => tileNumber.y;
         public static StageData Instance => instance;
 
         public void SetInstance() => instance = this;

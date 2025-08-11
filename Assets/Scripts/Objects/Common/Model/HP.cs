@@ -8,6 +8,7 @@ namespace Assets.Scripts.Objects.Common.Model
         private readonly int maxHP;
         public int CurrentHP => currentHP;
         public int MaxHP => maxHP;
+        public float Ratio => (float)currentHP / maxHP;
 
         public HP(int currentHP, int maxHP)
         {
@@ -35,6 +36,11 @@ namespace Assets.Scripts.Objects.Common.Model
         public bool IsDead()
         {
             return currentHP == 0;
+        }
+
+        public bool IsLessThanHalf()
+        {
+            return currentHP <= maxHP / 2;
         }
     }
 }

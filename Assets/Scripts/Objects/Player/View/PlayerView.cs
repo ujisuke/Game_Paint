@@ -3,6 +3,7 @@ using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
 using System;
 using Assets.Scripts.Objects.Common.Model.View;
+using Assets.Scripts.UI.PlayerStatus.View;
 
 namespace Assets.Scripts.Objects.Player.View
 {
@@ -26,7 +27,7 @@ namespace Assets.Scripts.Objects.Player.View
         public void SetColor(ColorName colorNameInput)
         {
             spriteRenderer.color = ColorDataList.GetColor(colorNameInput);
-            PlayerColorIndicator.Instance?.SetColor(colorNameInput);
+            PlayerStatusView.Instance?.SetColor(colorNameInput);
         }
 
         public void PlayAnim(string animName, float animSeconds)

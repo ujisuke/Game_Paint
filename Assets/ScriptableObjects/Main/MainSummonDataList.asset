@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 115a3362ced311d4f8857d4558e1dd09, type: 3}
+  m_Name: MainSummonDataList
+  m_EditorClassIdentifier: 
+  signDataListGeneral:
+  - signShape: '^^
+
+      ^^'
+    familiar: {fileID: 3515165110105616261, guid: 0db9b97f8f2013f4bb86b2fa785e40fc, type: 3}
+  - signShape: ^^
+    familiar: {fileID: 3515165110105616261, guid: 669470a7f94fa684d8a7b8f3a7e25c11, type: 3}
+  - signShape: '^^-
+
+      ^^^'
+    familiar: {fileID: 3515165110105616261, guid: 016ff37a204df0c4a87c7e6c41ded31a, type: 3}
+  - signShape: '--^^
+
+      ^^^-'
+    familiar: {fileID: 3515165110105616261, guid: 9c85e096e82e0d348b2bfb8c0f4f7ef7, type: 3}
+  - signShape: '^^^
+
+      -^-
+
+      -^-'
+    familiar: {fileID: 3515165110105616261, guid: 128058c9296b7c34592b63aa6b1aa6e7, type: 3}
+  - signShape: '-^^-
+
+      ^^^^
+
+      ^--^'
+    familiar: {fileID: 3515165110105616261, guid: 939c2f6c5e457b84d899fa408216f8ed, type: 3}
+  - signShape: '--^
+
+      --^
+
+      ^^^'
+    familiar: {fileID: 3515165110105616261, guid: d7fe9cc55d49e204b9b87d1c631ce125, type: 3}
+  signDataListUnique:
+  - signShape: '-^-
+
+      ^^^
+
+      ^^^'
+    familiar: {fileID: 3515165110105616261, guid: 1f45ca0c17ed92c448836b267c96d600, type: 3}
+  summonByEnemyDelaySeconds: 0.2

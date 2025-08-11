@@ -27,8 +27,8 @@ namespace Assets.Scripts.Objects.Familiars.Human.Model
             fC.FlipX(targetPos.x - fM.PA.Pos.x < 0f);
             fC.PlayAnim("Paint");
 
-            SignDataList.Instance.SummonAtRandom(Vector2Int.RoundToInt(fM.PA.Pos + Vector2.left), fM.ColorName);
-            SignDataList.Instance.SummonAtRandom(Vector2Int.RoundToInt(fM.PA.Pos + Vector2.right), fM.ColorName);
+            SummonDataList.Instance.SummonAtRandom(fM.PA.Pos + Vector2.left, fM.ColorName, fM.IsEnemy);
+            SummonDataList.Instance.SummonAtRandom(fM.PA.Pos + Vector2.right, fM.ColorName, fM.IsEnemy);
         }
 
         public void OnUpdate()

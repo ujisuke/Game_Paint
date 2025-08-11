@@ -22,6 +22,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         public HurtBox HurtBox => hurtBox;
         public EnemyData EnemyData => enemyData;
         public CancellationToken Token => token;
+        public float HPRatio => hp.Ratio;
 
         public EnemyModel(EnemyData enemyData, IEStateAfterBorn eStateAfterBorn, Vector2 pos, EnemyController enemyController, ColorEffectData colorEffectData)
         {
@@ -40,7 +41,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         {
             eStateMachine.OnUpdate();
         }
-        
+
         public void Move(Vector2 dir)
         {
             pA = pA.Move(dir);
@@ -54,12 +55,15 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         public async UniTask TakeDamage(float damageValue)
         {
             hp = hp.TakeDamage(damageValue);
+            enemyController.OnTakeDamage();
             hurtBox = hurtBox.SetActive(false);
             await UniTask.Delay(enemyData.InvincibleSecond, cancellationToken: token);
             hurtBox = hurtBox.SetActive(true);
         }
 
         public bool IsDead() => hp.IsDead();
+        
+        public bool IsLessThanHalfHP() => hp.IsLessThanHalf();
 
         public void Destroy()
         {

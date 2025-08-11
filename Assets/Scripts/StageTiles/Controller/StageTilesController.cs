@@ -12,12 +12,12 @@ namespace Assets.Scripts.StageTiles.Controller
         [SerializeField] private Tilemap tilemap;
         private StageTilesView stageTilesView;
         public static StageTilesController Instance;
-        [SerializeField] private SignDataList signDataList;
+        [SerializeField] private SummonDataList signDataList;
 
         private void Awake()
         {
             Instance = this;
-            stageTilesView = new StageTilesView(tilemap, StageTilesData.TilesWidth, StageTilesData.TilesHeight);
+            stageTilesView = new StageTilesView(tilemap, StageData.Instance.Width, StageData.Instance.Height);
             stageTilesModel = new StageTilesModel(stageTilesView.StageTileViews, signDataList);
         }
 

@@ -1,6 +1,7 @@
 using Assets.Scripts.Datas;
 using Assets.Scripts.Objects.Enemies.Base.Model;
 using Assets.Scripts.Objects.Enemies.Base.View;
+using Assets.Scripts.UI.EnemyStatus.View;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.Enemies.Base.Controller
@@ -39,6 +40,11 @@ namespace Assets.Scripts.Objects.Enemies.Base.Controller
         public void FlipX(bool isLeft)
         {
             enemyView.FlipX(isLeft);
+        }
+
+        public void OnTakeDamage()
+        {
+            EnemyStatusView.Instance.SetHPBar(enemyModel.HPRatio);
         }
 
         public void OnDestroy()

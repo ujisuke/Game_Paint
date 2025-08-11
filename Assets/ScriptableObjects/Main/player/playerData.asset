@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: playerData
   m_EditorClassIdentifier: 
   maxHP: 3
+  reduceInkPerSecond: 1
+  addInkPerSecond: 1
   hurtBoxScale: {x: 0.5, y: 0.5}
   viewScale: {x: 1, y: 1}
   scale: {x: 0.5, y: 0.5}
-  invincibleSecond: 0.3
+  downSeconds: 1
+  invincibleSeconds: 1
   moveSpeed: 5

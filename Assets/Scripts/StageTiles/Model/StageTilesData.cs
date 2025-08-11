@@ -8,36 +8,38 @@ namespace Assets.Scripts.StageTiles.Model
 {
     public class StageTilesData
     {
-        private const int tilesWidth = 18;
-        public static int TilesWidth => tilesWidth;
-        private const int tilesHeight = 10;
-        public static int TilesHeight => tilesHeight;
         private readonly StageTile[,] stageTiles;
         public StageTile[,] StageTiles => stageTiles;
-        private readonly List<Vector2Int> paintedPosInts;
-        private readonly SignDataList signDataList;
+        private readonly List<Vector2Int> paintedPosIntByPlayerList;
+        private readonly List<Vector2Int> paintedPosIntByEnemyList;
+        private readonly SummonDataList signDataList;
+        private ColorName colorNamePlayer;
+        private ColorName colorNameEnemy;
 
-        public StageTilesData(StageTileView[,] stageTileViews, SignDataList signDataList)
+        public StageTilesData(StageTileView[,] stageTileViews, SummonDataList signDataList)
         {
             this.signDataList = signDataList;
             stageTiles = InitializeTiles(stageTileViews);
-            paintedPosInts = new();
+            paintedPosIntByPlayerList = new();
+            paintedPosIntByEnemyList = new();
         }
 
         private static StageTile[,] InitializeTiles(StageTileView[,] stageTileViews)
         {
+            int tilesWidth = StageData.Instance.Width;
+            int tilesHeight = StageData.Instance.Height;
             StageTile[,] newStageTiles = new StageTile[tilesWidth, tilesHeight];
 
             for (int x = 0; x < tilesWidth; x++)
                 for (int y = 0; y < tilesHeight; y++)
                     if (stageTileViews[x, y].ColorNameCorrect == ColorName.wallColor)
-                        newStageTiles[x, y] = StageTile.Initialize(ColorName.wallColor);
+                        newStageTiles[x, y] = StageTile.Initialize(ColorName.wallColor, true);
                     else
-                        newStageTiles[x, y] = StageTile.Initialize(ColorName.defaultColor);
+                        newStageTiles[x, y] = StageTile.Initialize(ColorName.defaultTileColor, false);
             return newStageTiles;
         }
 
-        public void PaintTile(Vector2 pos, ColorName colorNameInput)
+        public void PaintTile(Vector2 pos, ColorName colorNameInput, bool isByEnemy)
         {
             Vector2Int posInt = Vector2Int.FloorToInt(pos);
             StageTile targetStageTile = stageTiles[posInt.x, posInt.y];
@@ -46,19 +48,32 @@ namespace Assets.Scripts.StageTiles.Model
                 return;
             stageTiles[posInt.x, posInt.y] = newTargetStageTile;
             StageTilesController.Instance.PaintTileView(posInt, newTargetStageTile.ColorNameCurrent);
-            paintedPosInts.Add(posInt);
+            if (isByEnemy)
+            {
+                paintedPosIntByEnemyList.Add(posInt);
+                colorNameEnemy = colorNameInput;
+            }
+            else
+            {
+                paintedPosIntByPlayerList.Add(posInt);
+                colorNamePlayer = colorNameInput;
+            }
         }
 
-        public void CompletePaint(ColorName colorNameInput)
+        public void CompletePaint(bool isByEnemy)
         {
-            signDataList.Summon(paintedPosInts, colorNameInput);
-            for (int i = 0; i < paintedPosInts.Count; i++)
+            List<Vector2Int> paintedPosIntList = isByEnemy ? paintedPosIntByEnemyList : paintedPosIntByPlayerList;
+            signDataList.Summon(paintedPosIntList, isByEnemy ? colorNameEnemy : colorNamePlayer, isByEnemy);
+            for (int i = 0; i < paintedPosIntList.Count; i++)
             {
-                StageTilesController.Instance.ResetTileView(paintedPosInts[i]);
-                StageTile targetStageTile = stageTiles[paintedPosInts[i].x, paintedPosInts[i].y];
-                stageTiles[paintedPosInts[i].x, paintedPosInts[i].y] = targetStageTile.ResetColor();
+                StageTilesController.Instance.ResetTileView(paintedPosIntList[i]);
+                StageTile targetStageTile = stageTiles[paintedPosIntList[i].x, paintedPosIntList[i].y];
+                stageTiles[paintedPosIntList[i].x, paintedPosIntList[i].y] = targetStageTile.ResetColor();
             }
-            paintedPosInts.Clear();
+            if (isByEnemy)
+                paintedPosIntByEnemyList.Clear();
+            else
+                paintedPosIntByPlayerList.Clear();
         }
     }
 }

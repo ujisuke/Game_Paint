@@ -15,9 +15,13 @@ namespace Assets.Scripts.Objects.Common.Model.View
 
         public void Play(string animName, float animSeconds)
         {
+            if (animator == null)
+                return;
             animator.Play(animName);
             if (animSeconds > 0f)
                 animator.speed = 1f / animSeconds;
+            else
+                animator.speed = 1f;
         }
 
         public void FlipX(bool isLeft)

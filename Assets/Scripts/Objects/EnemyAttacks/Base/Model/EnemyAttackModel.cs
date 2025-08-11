@@ -4,6 +4,7 @@ using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Controller;
 using UnityEngine;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
+using System.Threading;
 
 namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
 {
@@ -14,9 +15,12 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
         private readonly EnemyAttackData enemyAttackData;
         private readonly EnemyAttackController enemyAttackController;
         private readonly IEnemyAttackMove enemyAttackMove;
+        private readonly CancellationTokenSource cts;
+        private readonly CancellationToken token;
         public PA PA => pA;
         public int Power => enemyAttackData.Power;
         public HitBox HitBox => hitBox;
+        public CancellationToken Token => token;
 
         public EnemyAttackModel(EnemyAttackData enemyAttackData, Vector2 pos, EnemyAttackController enemyAttackController, IEnemyAttackMove enemyAttackMove)
         {
@@ -24,6 +28,8 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
             pA = new PA(pos, 0f);
             hitBox = new(pA.Pos, enemyAttackData.HitBoxScale, true);
             this.enemyAttackController = enemyAttackController;
+            cts = new CancellationTokenSource();
+            token = cts.Token;
             this.enemyAttackMove = enemyAttackMove.Initialize(this, enemyAttackController);
             ObjectsStorageModel.Instance.AddEnemyAttack(this);
             this.enemyAttackMove.OnAwake();
@@ -57,6 +63,8 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
         {
             if (enemyAttackController == null)
                 return;
+            cts?.Cancel();
+            cts?.Dispose();
             ObjectsStorageModel.Instance.RemoveEnemyAttack(this);
             GameObject.Destroy(enemyAttackController.gameObject);
             enemyAttackController.OnDestroy();

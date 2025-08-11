@@ -6,6 +6,8 @@ namespace Assets.Scripts.Datas
     public class PlayerData : ScriptableObject
     {
         [SerializeField] private int maxHP;
+        [SerializeField] private float reduceInkPerSecond;
+        [SerializeField] private float addInkPerSecond;
         [SerializeField] private Vector2 hurtBoxScale;
         [SerializeField] private Vector2 viewScale;
         [SerializeField] private Vector2 scale;
@@ -13,6 +15,8 @@ namespace Assets.Scripts.Datas
         [SerializeField] private float invincibleSeconds;
         [SerializeField] private float moveSpeed;
         public int MaxHP => maxHP;
+        public float ReduceInkPerSecond => reduceInkPerSecond;
+        public float AddInkPerSecond => addInkPerSecond;
         public Vector2 HurtBoxScale => hurtBoxScale;
         public Vector2 ViewScale => viewScale;
         public Vector2 Scale => scale;
