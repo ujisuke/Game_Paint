@@ -26,7 +26,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Scythe.Model
             eAC.PlayAnim("Awake");
             eAM.Rotate(Vector2.SignedAngle(Vector2.right, new Vector2(1f, 1f)));
             pivotPos = eAM.PA.Pos;
-            eAM.Move(new Vector2(1f, 1f).normalized * eAM.GetUniqueParameter("Range"));
+            eAM.MoveIgnoringStage(new Vector2(1f, 1f).normalized * eAM.GetUniqueParameter("Range"));
             Rotate().Forget();
         }
 
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Scythe.Model
             for (int i = 0; i < 36; i++)
             {
                 eAM.Rotate(-10f);
-                eAM.Move(moveDir);
+                eAM.MoveIgnoringStage(moveDir);
                 moveDir = Quaternion.Euler(0f, 0f, -10f) * moveDir;
                 await UniTask.Delay(TimeSpan.FromSeconds(swingSecondsDelta), cancellationToken: eAM.Token);
             }

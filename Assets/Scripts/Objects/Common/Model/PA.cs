@@ -1,3 +1,4 @@
+using Assets.Scripts.Datas;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.Common.Model
@@ -17,7 +18,9 @@ namespace Assets.Scripts.Objects.Common.Model
             this.angle = angle;
         }
 
-        public PA Move(Vector2 directionVector) => new(pos + directionVector, angle);
+        public PA MoveIgnoringStage(Vector2 directionVector) => new(pos + directionVector, angle);
+
+        public PA MoveInStage(Vector2 directionVector) => new(StageData.Instance.ClampPos(pos + directionVector), angle);
 
         public PA Rotate(float angle) => new(pos, this.angle + angle);
     }

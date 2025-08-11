@@ -35,7 +35,7 @@ namespace Assets.Scripts.Objects.Familiars.Bird.Model
         public void OnUpdate()
         {
             fM.Move(fM.FamiliarData.GetUniqueParameter("Speed") * Time.deltaTime * (targetPos - fM.PA.Pos).normalized);
-            attack.Move(fM.PA.Pos - attack.PA.Pos);
+            attack.MoveIgnoringStage(fM.PA.Pos - attack.PA.Pos);
             if ((targetPos - fM.PA.Pos).magnitude <= 0.6f)
                 fM.ChangeState(new FStateDead(fM));
         }

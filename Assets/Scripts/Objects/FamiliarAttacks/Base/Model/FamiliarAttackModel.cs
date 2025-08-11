@@ -32,10 +32,16 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
             ObjectsStorageModel.Instance.AddFamiliarAttack(this, isEnemy);
         }
 
-        public void Move(Vector2 dir)
+        public void MoveIgnoringStage(Vector2 dir)
         {
-            pA = pA.Move(dir);
-            hitBox = hitBox.Move(dir);
+            pA = pA.MoveIgnoringStage(dir);
+            hitBox = hitBox.SetPos(pA.Pos);
+        }
+
+        public void MoveInStage(Vector2 dir)
+        {
+            pA = pA.MoveInStage(dir);
+            hitBox = hitBox.SetPos(pA.Pos);
         }
 
         public float GetUniqueParameter(string key) => familiarData.GetUniqueParameter(key);

@@ -38,7 +38,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             await UniTask.Delay(TimeSpan.FromSeconds(summonSeconds), cancellationToken: eM.Token);
             if (attackCount >= eM.GetUP("AttackCountMax"))
                 eM.ChangeState(new FarmerStateThrowScoop(eM, eC, attackCount, summonCount));
-            else if (StageData.Instance.IsOutOfStage(eM.PA.Pos))
+            else if (StageData.Instance.IsOnEdgeOfStage(eM.PA.Pos))
                 eM.ChangeState(new FarmerStateJump(eM, eC, attackCount, summonCount));
             else if (Vector2.Distance(eM.PA.Pos, ObjectsStorageModel.Instance.GetHostilePos(eM.PA.Pos, true)) <= eM.GetUP("NearDistance"))
                 if (UnityEngine.Random.Range(0, 2) == 0)

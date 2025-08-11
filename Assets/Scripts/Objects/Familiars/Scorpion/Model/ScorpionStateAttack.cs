@@ -35,7 +35,7 @@ namespace Assets.Scripts.Objects.Familiars.Scorpion.Model
         {
             var targetPos = ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
             fM.Move(fM.FamiliarData.GetUniqueParameter("Speed") * Time.deltaTime * (targetPos - fM.PA.Pos).normalized);
-            attack.Move(fM.PA.Pos - attack.PA.Pos);
+            attack.MoveIgnoringStage(fM.PA.Pos - attack.PA.Pos);
             fC.FlipX(targetPos.x - fM.PA.Pos.x < 0f);
             if ((targetPos - fM.PA.Pos).magnitude <= 0.6f)
                 fM.ChangeState(new FStateDead(fM));

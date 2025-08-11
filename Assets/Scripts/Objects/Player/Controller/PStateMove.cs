@@ -1,6 +1,7 @@
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.Player.Model;
 using Assets.Scripts.UI.PlayerStatus.View;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.Player.Controller
@@ -34,7 +35,8 @@ namespace Assets.Scripts.Objects.Player.Controller
             pC.PlayerView.SetPHurtBox(pM.HurtBox);
             pM.SetColor(Input.mouseScrollDelta.y);
             pC.PlayerView.SetColor(pM.ColorNameCurrent);
-            pM.AddInk();
+            if (Input.GetMouseButton(1))
+                pM.ReloadInk().Forget();
             PlayerStatusView.Instance.SetInkBar(pM.InkRatio);
             if (Input.GetKey(KeyCode.A))
                 pC.FlipX(true);
@@ -45,7 +47,7 @@ namespace Assets.Scripts.Objects.Player.Controller
                 pSM.ChangeState(new PStateDead(pM, pSM, pC));
             else if (ObjectsStorageModel.Instance.IsPlayerTakingDamage())
                 pSM.ChangeState(new PStateTakeDamage(pM, pSM, pC));
-            else if (Input.GetMouseButton(0) && !isTryingPaint)
+            else if (Input.GetMouseButton(0) && !isTryingPaint && !pM.IsInkEmpty && !pM.IsInkReloading)
                 pSM.ChangeState(new PStatePaint(pM, pSM, pC));
             else if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
                 pSM.ChangeState(new PStateIdle(pM, pSM, pC));

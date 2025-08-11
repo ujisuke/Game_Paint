@@ -41,7 +41,7 @@ namespace Assets.Scripts.Objects.Player.Model
                 ApplyCollisionToDirectionVectorY(playerVertexPoses, directionVector.y));
 
             directionVectorPrev = AdjustDiagonalDirectionVector(playerVertexPoses, minimalDirectionVector);
-            pA = pA.Move(directionVectorPrev);
+            pA = pA.MoveIgnoringStage(directionVectorPrev);
         }
 
         private Vector2 ApplyInputToDirectionVector(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)

@@ -14,6 +14,7 @@ namespace Assets.Scripts.Datas
         [SerializeField] private float downSeconds;
         [SerializeField] private float invincibleSeconds;
         [SerializeField] private float moveSpeed;
+        [SerializeField] private float reloadInkSeconds;
         public int MaxHP => maxHP;
         public float ReduceInkPerSecond => reduceInkPerSecond;
         public float AddInkPerSecond => addInkPerSecond;
@@ -23,5 +24,6 @@ namespace Assets.Scripts.Datas
         public float DownSeconds => downSeconds;
         public float InvincibleSeconds => invincibleSeconds;
         public float MoveSpeed => moveSpeed;
+        public float ReloadInkSeconds => reloadInkSeconds;
     }
 }

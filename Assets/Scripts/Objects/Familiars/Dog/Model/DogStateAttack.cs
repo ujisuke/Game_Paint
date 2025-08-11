@@ -41,7 +41,7 @@ namespace Assets.Scripts.Objects.Familiars.Dog.Model
             if (seconds < attackSeconds * 0.25f)
             {
                 fM.Move(8f * Time.deltaTime * (targetPos - fM.PA.Pos) / attackSeconds / 3f);
-                attack.Move(fM.PA.Pos - attack.PA.Pos);
+                attack.MoveIgnoringStage(fM.PA.Pos - attack.PA.Pos);
             }
             seconds += Time.deltaTime;
             if (seconds >= attackSeconds)

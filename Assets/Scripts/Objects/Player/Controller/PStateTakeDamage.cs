@@ -3,6 +3,7 @@ using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.Player.Model;
 using Assets.Scripts.UI.PlayerStatus.View;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Objects.Player.Controller
 {
@@ -42,7 +43,8 @@ namespace Assets.Scripts.Objects.Player.Controller
         {
             pC.PlayerView.SetPA(pM.PA);
             pC.PlayerView.SetPHurtBox(pM.HurtBox);
-            pM.AddInk();
+            if (Input.GetMouseButton(1))
+                pM.ReloadInk().Forget();
             PlayerStatusView.Instance.SetInkBar(pM.InkRatio);
             if (!isDown)
                 pSM.ChangeState(new PStateIdle(pM, pSM, pC));

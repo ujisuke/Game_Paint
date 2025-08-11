@@ -35,7 +35,7 @@ namespace Assets.Scripts.Objects.Familiars.Squid.Model
                 var fAC = newAttack.GetComponent<FamiliarAttackController>();
                 fAC.Initialize(fM.FamiliarData, fM.IsEnemy, fM.ColorName);
                 var attack = fAC.FamiliarAttackModel;
-                attack.Move(attackDir * i);
+                attack.MoveIgnoringStage(attackDir * i);
                 attackList.Add(attack);
             }
             fC.PlayAnim("Attack");

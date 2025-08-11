@@ -32,7 +32,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Scoop.Model
 
         public void OnUpdate()
         {
-            eAM.Move(moveSpeed * Time.deltaTime * moveDir);
+            eAM.MoveIgnoringStage(moveSpeed * Time.deltaTime * moveDir);
             if (StageData.Instance.IsOutOfStage(eAM.PA.Pos))
                 eAM.Destroy();
         }

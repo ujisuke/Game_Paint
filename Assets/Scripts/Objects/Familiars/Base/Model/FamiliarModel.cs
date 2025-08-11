@@ -44,7 +44,7 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
 
         public void Move(Vector2 dir)
         {
-            pA = pA.Move(dir);
+            pA = pA.MoveIgnoringStage(dir);
         }
         
         public void ChangeState(IFState state) => fStateMachine.ChangeState(state);

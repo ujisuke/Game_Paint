@@ -45,7 +45,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Plant.Model
             float secondsPrev = seconds;
             seconds += Time.deltaTime;
             Vector2 moveDirNext = Vector2.up * (math.sin(seconds / airborneSeconds * math.PI) - math.sin(secondsPrev / airborneSeconds * math.PI)) + moveDist * Time.deltaTime * moveDir / airborneSeconds;
-            eAM.Move(moveDirNext);
+            eAM.MoveIgnoringStage(moveDirNext);
             if (seconds < airborneSeconds)
                 return;
             eAC.PlayAnim("Grow");

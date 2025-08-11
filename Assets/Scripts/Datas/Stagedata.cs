@@ -20,24 +20,23 @@ namespace Assets.Scripts.Datas
         public Vector2 CalcRandomPosFarFrom(Vector2 posTarget)
         {
             List<Vector2> edgePosMinList = new()
-            { StageEdgePosMin, new Vector2(StageEdgePosMin.x, StageCenterPos.y), new Vector2(StageCenterPos.x, StageEdgePosMin.y), StageCenterPos };
+            { new Vector2(StageEdgePosMin.x + 1f, StageEdgePosMin.y + 1f), new Vector2(StageEdgePosMin.x + 1f, StageCenterPos.y), new Vector2(StageCenterPos.x, StageEdgePosMin.y + 1f), StageCenterPos };
             for (int i = edgePosMinList.Count - 1; i >= 0; i--)
             {
-                if (posTarget.x < edgePosMinList[i].x || posTarget.x >= edgePosMinList[i].x + tileNumber.x * 0.5f ||
-                   posTarget.y < edgePosMinList[i].y || posTarget.y >= edgePosMinList[i].y + tileNumber.y * 0.5f)
+                if (IsOnEdgeOfStage(edgePosMinList[i]))
                     continue;
                 edgePosMinList.RemoveAt(i);
             }
             if (edgePosMinList.Count == 0)
                 return StageCenterPos;
             int randomIndex = Random.Range(0, edgePosMinList.Count);
-            Vector2 offsetPos = new(Random.Range(0f, tileNumber.x * 0.5f), Random.Range(0f, tileNumber.y * 0.5f));
+            Vector2 offsetPos = new(Random.Range(0f, tileNumber.x * 0.5f - 1f), Random.Range(0f, tileNumber.y * 0.5f - 1f));
             return edgePosMinList[randomIndex] + offsetPos;
         }
 
-        public bool IsOutOfStage(Vector2 pos)
-        {
-            return pos.x < StageEdgePosMin.x || pos.x > StageEdgePosMax.x || pos.y < StageEdgePosMin.y || pos.y > StageEdgePosMax.y;
-        }
+        public bool IsOnEdgeOfStage(Vector2 pos) => pos.x <= StageEdgePosMin.x + 1f || pos.x >= StageEdgePosMax.x - 1f || pos.y <= StageEdgePosMin.y + 1f || pos.y >= StageEdgePosMax.y - 1f;
+        public bool IsOutOfStage(Vector2 pos) => pos.x < StageEdgePosMin.x || pos.x > StageEdgePosMax.x || pos.y < StageEdgePosMin.y || pos.y > StageEdgePosMax.y;
+
+        public Vector2 ClampPos(Vector2 pos) => new(Mathf.Clamp(pos.x, StageEdgePosMin.x, StageEdgePosMax.x), Mathf.Clamp(pos.y, StageEdgePosMin.y, StageEdgePosMax.y));
     }
 }

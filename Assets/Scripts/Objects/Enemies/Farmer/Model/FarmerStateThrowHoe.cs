@@ -45,7 +45,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             }
             if (attackCount >= eM.GetUP("AttackCountMax"))
                 eM.ChangeState(new FarmerStateThrowScoop(eM, eC, attackCount, summonCount));
-            else if (StageData.Instance.IsOutOfStage(eM.PA.Pos))
+            else if (StageData.Instance.IsOnEdgeOfStage(eM.PA.Pos))
                 eM.ChangeState(new FarmerStateJump(eM, eC, attackCount, summonCount));
             else if (summonCount >= eM.GetUP("SummonCountMax"))
                 eM.ChangeState(new FarmerStateSummon(eM, eC, attackCount, summonCount));
@@ -69,7 +69,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             
             Vector2 playerPos = ObjectsStorageModel.Instance.GetHostilePos(eM.PA.Pos, true);
             eC.FlipX(playerPos.x < eM.PA.Pos.x);
-            eM.Move((eM.PA.Pos - playerPos).normalized * Time.deltaTime);
+            eM.MoveInStage((eM.PA.Pos - playerPos).normalized * Time.deltaTime);
         }
 
         public void OnStateExit()

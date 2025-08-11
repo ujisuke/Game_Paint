@@ -57,7 +57,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
                 await ThrowScoopOneSet(count * 2, throwScoopIntervalSeconds, angle / 2f, rotateOffset, i);
             await UniTask.Delay(TimeSpan.FromSeconds(eM.GetUP("ThrowScoopCoolDownSeconds")), cancellationToken: eM.Token);
 
-            if (StageData.Instance.IsOutOfStage(eM.PA.Pos))
+            if (StageData.Instance.IsOnEdgeOfStage(eM.PA.Pos))
                 eM.ChangeState(new FarmerStateJump(eM, eC, attackCount, summonCount));
             else if (summonCount >= eM.GetUP("SummonCountMax"))
                 eM.ChangeState(new FarmerStateSummon(eM, eC, attackCount, summonCount));
@@ -83,7 +83,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             float jumpSecondsDelta = eM.GetUP("JumpSeconds") / 100f;
             for (int i = 0; i < 100; i++)
             {
-                eM.Move(moveDir);
+                eM.MoveIgnoringStage(moveDir);
                 await UniTask.Delay(TimeSpan.FromSeconds(jumpSecondsDelta), cancellationToken: eM.Token);
             }
         }

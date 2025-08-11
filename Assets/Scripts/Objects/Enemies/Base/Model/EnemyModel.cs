@@ -42,10 +42,16 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
             eStateMachine.OnUpdate();
         }
 
-        public void Move(Vector2 dir)
+        public void MoveIgnoringStage(Vector2 dir)
         {
-            pA = pA.Move(dir);
-            hurtBox = hurtBox.Move(dir);
+            pA = pA.MoveIgnoringStage(dir);
+            hurtBox = hurtBox.SetPos(pA.Pos);
+        }
+
+        public void MoveInStage(Vector2 dir)
+        {
+            pA = pA.MoveInStage(dir);
+            hurtBox = hurtBox.SetPos(pA.Pos);
         }
 
         public void ChangeState(IEState state) => eStateMachine.ChangeState(state);

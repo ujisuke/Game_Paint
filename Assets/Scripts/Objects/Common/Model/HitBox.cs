@@ -23,9 +23,9 @@ namespace Assets.Scripts.Objects.Common.Model
             return new HitBox(pos, size, isActive);
         }
 
-        public HitBox Move(Vector2 dir)
+        public HitBox SetPos(Vector2 newPos)
         {
-            return new HitBox(pos + dir, size, isActive);
+            return new HitBox(newPos, size, isActive);
         }
     }
 }

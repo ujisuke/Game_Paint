@@ -35,10 +35,16 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
             this.enemyAttackMove.OnAwake();
         }
 
-        public void Move(Vector2 dir)
+        public void MoveIgnoringStage(Vector2 dir)
         {
-            pA = pA.Move(dir);
-            hitBox = hitBox.Move(dir);
+            pA = pA.MoveIgnoringStage(dir);
+            hitBox = hitBox.SetPos(pA.Pos);
+        }
+
+        public void MoveInStage(Vector2 dir)
+        {
+            pA = pA.MoveInStage(dir);
+            hitBox = hitBox.SetPos(pA.Pos);
         }
 
         public void Rotate(float angle)

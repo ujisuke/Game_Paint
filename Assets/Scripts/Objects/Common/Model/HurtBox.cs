@@ -23,9 +23,9 @@ namespace Assets.Scripts.Objects.Common.Model
             return new HurtBox(pos, size, isActive);
         }
         
-        public HurtBox Move(Vector2 dir)
+        public HurtBox SetPos(Vector2 newPos)
         {
-            return new HurtBox(pos + dir, size, isActive);
+            return new HurtBox(newPos, size, isActive);
         }
     }
 }

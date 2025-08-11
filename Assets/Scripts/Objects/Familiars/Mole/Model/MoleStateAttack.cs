@@ -4,6 +4,7 @@ using Assets.Scripts.Objects.FamiliarAttacks.Base.Controller;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
 using Assets.Scripts.GameSystems.ObjectsStorage.Model;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
+using Assets.Scripts.Datas;
 
 namespace Assets.Scripts.Objects.Familiars.Mole.Model
 {
@@ -30,15 +31,15 @@ namespace Assets.Scripts.Objects.Familiars.Mole.Model
             float hostilePosX = ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy).x;
             moveDir = (new Vector2(hostilePosX, fM.PA.Pos.y) - fM.PA.Pos).normalized * fM.FamiliarData.GetUniqueParameter("Speed") * Time.deltaTime;
             fC.FlipX(hostilePosX - fM.PA.Pos.x < 0f);
-            attack.Move(moveDir.normalized);
+            attack.MoveIgnoringStage(moveDir.normalized);
             fC.PlayAnim("Attack");
         }
 
         public void OnUpdate()
         {
             fM.Move(moveDir);
-            attack.Move(moveDir);
-            if (fM.PA.Pos.x < 0f || fM.PA.Pos.x > 18f)
+            attack.MoveIgnoringStage(moveDir);
+            if (StageData.Instance.IsOutOfStage(fM.PA.Pos))
                 fM.ChangeState(new FStateDead(fM));
         }
 
