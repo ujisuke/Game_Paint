@@ -1,5 +1,5 @@
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Controller;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Model;
 using UnityEngine;
@@ -23,9 +23,9 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Scoop.Model
 
         public void OnAwake()
         {
-            Vector2 enemyPos = ObjectsStorageModel.Instance.GetHostilePos(eAM.PA.Pos, false);
-            moveDir = (eAM.PA.Pos - enemyPos).normalized;
-            moveSpeed = eAM.GetUniqueParameter("MoveSpeed");
+            Vector2 enemyPos = ObjectStorageModel.Instance.GetHostilePos(eAM.Pos, false);
+            moveDir = (eAM.Pos - enemyPos).normalized;
+            moveSpeed = eAM.GetUP("MoveSpeed");
             eAC.PlayAnim("Awake");
             eAM.Rotate(Vector2.SignedAngle(Vector2.right, moveDir));
         }
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Scoop.Model
         public void OnUpdate()
         {
             eAM.MoveIgnoringStage(moveSpeed * Time.deltaTime * moveDir);
-            if (StageData.Instance.IsOutOfStage(eAM.PA.Pos))
+            if (StageData.Instance.IsOutOfStage(eAM.Pos))
                 eAM.Destroy();
         }
     }

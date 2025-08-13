@@ -13,25 +13,30 @@ MonoBehaviour:
   m_Name: FarmerData
   m_EditorClassIdentifier: 
   enemyName: Farmer
-  maxHP: 5
+  maxHP: 20
+  downSeconds: 1
   hurtBoxScale: {x: 1, y: 1}
   viewScale: {x: 1, y: 1}
-  invincibleSecond: 0.3
+  invincibleSecond: 0.5
   uniqueParameterList:
   - parameterName: ThrowHoeSeconds
-    value: 1
-  - parameterName: ThrowHoeCount
     value: 3
+  - parameterName: ThrowHoeSetCount
+    value: 4
+  - parameterName: ThrowHoeCountPerSet
+    value: 2
+  - parameterName: ThrowHoeDelaySeconds
+    value: 0.6
   - parameterName: ThrowHoeCoolDownSeconds
-    value: 1.5
+    value: 0
   - parameterName: JumpSeconds
     value: 0.7
   - parameterName: ThrowPlantSeconds
-    value: 2
+    value: 3
   - parameterName: NearDistance
-    value: 2
+    value: 4
   - parameterName: SwingScytheDelaySeconds
-    value: 0.5
+    value: 1
   - parameterName: SwingScytheSeconds
     value: 0.3
   - parameterName: SwingScytheCoolDownSeconds
@@ -39,11 +44,11 @@ MonoBehaviour:
   - parameterName: ThrowScoopDelayFirstSeconds
     value: 1.5
   - parameterName: ThrowScoopDelaySecondSeconds
-    value: 0.3
+    value: 0.5
   - parameterName: ThrowScoopDelayThirdSeconds
     value: 1
   - parameterName: ThrowScoopCoolDownSeconds
-    value: 1
+    value: 2
   - parameterName: ThrowScoopIntervalSeconds
     value: 0.1
   - parameterName: ThrowScoopCount
@@ -56,6 +61,8 @@ MonoBehaviour:
     value: 4
   - parameterName: SummonSeconds
     value: 1
+  - parameterName: BirdCount
+    value: 3
   attackPrefabList:
   - {fileID: 3515165110105616261, guid: 19303ef061648e846aa641703f6fabfb, type: 3}
   - {fileID: 3515165110105616261, guid: bad0c9c3568256947a80e6b4d3a41736, type: 3}

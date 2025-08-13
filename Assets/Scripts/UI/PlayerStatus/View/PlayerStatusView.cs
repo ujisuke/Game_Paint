@@ -15,8 +15,10 @@ namespace Assets.Scripts.UI.PlayerStatus.View
         private SpriteRenderer tankSR;
         private Dictionary<ColorName, Animator> animDictionary;
         private Animator currentColorIndicatorAnimator;
+        private Animator tankAnimator;
         private static PlayerStatusView instance;
         public static PlayerStatusView Instance => instance;
+        private bool isInkEmpty;
 
         private void Awake()
         {
@@ -26,8 +28,10 @@ namespace Assets.Scripts.UI.PlayerStatus.View
             ColorName initColorName = colorDataList.PaintColorNameList[1];
             currentColorIndicatorAnimator = animDictionary[initColorName];
             tankSR = tank.GetComponent<SpriteRenderer>();
+            tankAnimator = tank.GetComponent<Animator>();
             SetColor(colorDataList.PaintColorNameList[0]);
             SetHPBar(1f);
+            isInkEmpty = false;
             SetInkBar(1f);
         }
 
@@ -50,6 +54,16 @@ namespace Assets.Scripts.UI.PlayerStatus.View
         public void SetInkBar(float inkRatio)
         {
             inkBar.fillAmount = inkRatio;
+            if (inkRatio <= 0f && !isInkEmpty)
+            {
+                isInkEmpty = true;
+                tankAnimator.Play("Empty");
+            }
+            else if (inkRatio > 0f)
+            {
+                isInkEmpty = false;
+                tankAnimator.Play("Normal");
+            }
         }
     }
 }

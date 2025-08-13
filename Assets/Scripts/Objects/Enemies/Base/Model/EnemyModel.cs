@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
 using Assets.Scripts.Objects.Enemies.Base.Controller;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using UnityEngine;
 using System.Threading;
 
@@ -11,30 +11,34 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
     public class EnemyModel
     {
         private PA pA;
-        private HP hp;
+        private HP hP;
         private HurtBox hurtBox;
         private readonly EStateMachine eStateMachine;
         private readonly EnemyData enemyData;
         private readonly EnemyController enemyController;
-        private readonly CancellationTokenSource cts;
-        private readonly CancellationToken token;
+        private CancellationTokenSource cts;
+        private CancellationToken token;
+        private bool isLatter;
         public PA PA => pA;
         public HurtBox HurtBox => hurtBox;
         public EnemyData EnemyData => enemyData;
         public CancellationToken Token => token;
-        public float HPRatio => hp.Ratio;
+        public float HPRatio => hP.Ratio;
+        public bool DoesGetHPHalf => !isLatter && hP.IsLessThanHalf();
+        public bool IsLatter => isLatter;
 
         public EnemyModel(EnemyData enemyData, IEStateAfterBorn eStateAfterBorn, Vector2 pos, EnemyController enemyController, ColorEffectData colorEffectData)
         {
             this.enemyData = enemyData;
             pA = new PA(pos, 0f);
-            hp = new HP(enemyData.MaxHP);
+            hP = new HP(enemyData.MaxHP);
             hurtBox = new HurtBox(pA.Pos, enemyData.HurtBoxScale, true);
             eStateMachine = new EStateMachine(this, eStateAfterBorn, enemyController);
             this.enemyController = enemyController;
-            ObjectsStorageModel.Instance.AddEnemy(this);
+            ObjectStorageModel.Instance.AddEnemy(this);
             cts = new CancellationTokenSource();
             token = cts.Token;
+            isLatter = false;
         }
 
         public void OnUpdate()
@@ -54,28 +58,44 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
             hurtBox = hurtBox.SetPos(pA.Pos);
         }
 
+        public async UniTask OnDown()
+        {
+            cts?.Cancel();
+            cts?.Dispose();
+            await UniTask.DelayFrame(1);
+            cts = new CancellationTokenSource();
+            token = cts.Token;
+            Invinciblize().Forget();
+            isLatter = hP.IsLessThanHalf();
+        }
+
         public void ChangeState(IEState state) => eStateMachine.ChangeState(state);
 
         public float GetUP(string key) => enemyData.GetUP(key);
 
-        public async UniTask TakeDamage(float damageValue)
+        public void TakeDamage(float damageValue)
         {
-            hp = hp.TakeDamage(damageValue);
+            hP = hP.TakeDamage(damageValue);
             enemyController.OnTakeDamage();
+            Invinciblize().Forget();
+        }
+
+        private async UniTask Invinciblize()
+        {
             hurtBox = hurtBox.SetActive(false);
             await UniTask.Delay(enemyData.InvincibleSecond, cancellationToken: token);
             hurtBox = hurtBox.SetActive(true);
         }
 
-        public bool IsDead() => hp.IsDead();
-        
-        public bool IsLessThanHalfHP() => hp.IsLessThanHalf();
+        public void SetHurtBoxActive(bool isActive) => hurtBox = hurtBox.SetActive(isActive);
+
+        public bool IsDead() => hP.IsDead();
 
         public void Destroy()
         {
             cts?.Cancel();
             cts?.Dispose();
-            ObjectsStorageModel.Instance.RemoveEnemy();
+            ObjectStorageModel.Instance.RemoveEnemy();
             GameObject.Destroy(enemyController.gameObject);
             enemyController.OnDestroy();
         }

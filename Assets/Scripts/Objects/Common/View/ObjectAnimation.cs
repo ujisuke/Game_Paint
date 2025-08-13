@@ -28,5 +28,11 @@ namespace Assets.Scripts.Objects.Common.Model.View
         {
             spriteRenderer.flipX = isLeft;
         }
+
+        public void Stop()
+        {
+            if (animator != null)
+                animator.enabled = false;
+        }
     }
 }

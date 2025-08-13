@@ -5,7 +5,7 @@ namespace Assets.Scripts.Datas
     [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/PlayerData")]
     public class PlayerData : ScriptableObject
     {
-        [SerializeField] private int maxHP;
+        [SerializeField] private float maxHP;
         [SerializeField] private float reduceInkPerSecond;
         [SerializeField] private float addInkPerSecond;
         [SerializeField] private Vector2 hurtBoxScale;
@@ -15,7 +15,7 @@ namespace Assets.Scripts.Datas
         [SerializeField] private float invincibleSeconds;
         [SerializeField] private float moveSpeed;
         [SerializeField] private float reloadInkSeconds;
-        public int MaxHP => maxHP;
+        public float MaxHP => maxHP;
         public float ReduceInkPerSecond => reduceInkPerSecond;
         public float AddInkPerSecond => addInkPerSecond;
         public Vector2 HurtBoxScale => hurtBoxScale;

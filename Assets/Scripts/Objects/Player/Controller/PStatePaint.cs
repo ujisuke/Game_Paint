@@ -1,4 +1,4 @@
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Player.Model;
 using Assets.Scripts.StageTiles.Model;
 using Assets.Scripts.UI.PlayerStatus.View;
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Objects.Player.Controller
             PlayerStatusView.Instance.SetInkBar(pM.InkRatio);
             if (pM.IsDead())
                 pSM.ChangeState(new PStateDead(pM, pSM, pC));
-            else if (ObjectsStorageModel.Instance.IsPlayerTakingDamage())
+            else if (ObjectStorageModel.Instance.IsPlayerTakingDamage())
                 pSM.ChangeState(new PStateTakeDamage(pM, pSM, pC));
             else if (!Input.GetMouseButton(0) || pM.IsInkEmpty)
                 pSM.ChangeState(new PStateMove(pM, pSM, pC));

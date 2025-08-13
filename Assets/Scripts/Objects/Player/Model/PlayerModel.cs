@@ -1,7 +1,7 @@
 using System.Threading;
 using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Player.Controller;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Objects.Player.Model
             playerMove = new PlayerMove(playerData.MoveSpeed, playerData.Scale, pos, 0f);
             hurtBox = new HurtBox(playerMove.PA.Pos, playerData.HurtBoxScale, true);
             playerColor = new PlayerColor(colorDataList);
-            ObjectsStorageModel.Instance.AddPlayer(this);
+            ObjectStorageModel.Instance.AddPlayer(this);
             cts = new CancellationTokenSource();
             token = cts.Token;
             reloadInkSeconds = playerData.ReloadInkSeconds;
@@ -83,7 +83,7 @@ namespace Assets.Scripts.Objects.Player.Model
         {
             cts?.Cancel();
             cts?.Dispose();
-            ObjectsStorageModel.Instance.RemovePlayer();
+            ObjectStorageModel.Instance.RemovePlayer();
             GameObject.Destroy(playerController.gameObject);
         }
     }

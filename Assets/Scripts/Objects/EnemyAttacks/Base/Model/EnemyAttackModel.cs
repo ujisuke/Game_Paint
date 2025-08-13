@@ -1,10 +1,11 @@
 using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Controller;
 using UnityEngine;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 
 namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
 {
@@ -15,9 +16,11 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
         private readonly EnemyAttackData enemyAttackData;
         private readonly EnemyAttackController enemyAttackController;
         private readonly IEnemyAttackMove enemyAttackMove;
+        private bool isDisposed;
         private readonly CancellationTokenSource cts;
         private readonly CancellationToken token;
-        public PA PA => pA;
+        public Vector2 Pos => pA.Pos;
+        public float Angle => pA.Angle;
         public int Power => enemyAttackData.Power;
         public HitBox HitBox => hitBox;
         public CancellationToken Token => token;
@@ -31,25 +34,33 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
             cts = new CancellationTokenSource();
             token = cts.Token;
             this.enemyAttackMove = enemyAttackMove.Initialize(this, enemyAttackController);
-            ObjectsStorageModel.Instance.AddEnemyAttack(this);
+            ObjectStorageModel.Instance.AddEnemyAttack(this);
             this.enemyAttackMove.OnAwake();
+            isDisposed = false;
         }
 
         public void MoveIgnoringStage(Vector2 dir)
         {
+            if (isDisposed)
+                return;
             pA = pA.MoveIgnoringStage(dir);
             hitBox = hitBox.SetPos(pA.Pos);
         }
 
         public void MoveInStage(Vector2 dir)
         {
+            if (isDisposed)
+                return;
             pA = pA.MoveInStage(dir);
             hitBox = hitBox.SetPos(pA.Pos);
         }
 
         public void Rotate(float angle)
         {
+            if (isDisposed)
+                return;
             pA = pA.Rotate(angle);
+            hitBox = hitBox.SetAngle(angle);
         }
 
         public void OnUpdate()
@@ -57,23 +68,30 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
             enemyAttackMove.OnUpdate();
         }
 
-        public float GetUniqueParameter(string key) => enemyAttackData.GetUniqueParameter(key);
+        public float GetUP(string key) => enemyAttackData.GetUniqueParameter(key);
 
         public void Break(FamiliarAttackModel familiarAttackModel)
         {
-            if (familiarAttackModel.ColorName == ColorName.blue)
-                Destroy();
+            if (familiarAttackModel.ColorName != ColorName.blue)
+                return;
+            EndProcess();
+            enemyAttackController?.OnBreak().Forget();
+            isDisposed = true;
         }
 
         public void Destroy()
         {
-            if (enemyAttackController == null)
+            if (isDisposed)
                 return;
+            EndProcess();
+            enemyAttackController?.OnDestroy();
+        }
+
+        private void EndProcess()
+        {
             cts?.Cancel();
             cts?.Dispose();
-            ObjectsStorageModel.Instance.RemoveEnemyAttack(this);
-            GameObject.Destroy(enemyAttackController.gameObject);
-            enemyAttackController.OnDestroy();
+            ObjectStorageModel.Instance.RemoveEnemyAttack(this);    
         }
 
         public void SetActiveHitBox(bool isActive)

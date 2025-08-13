@@ -8,7 +8,8 @@ namespace Assets.Scripts.Datas
     public class EnemyData : ScriptableObject
     {
         [SerializeField] private string enemyName;
-        [SerializeField] private int maxHP;
+        [SerializeField] private float maxHP;
+        [SerializeField] private float downSeconds;
         [SerializeField] private Vector2 hurtBoxScale;
         [SerializeField] private Vector2 viewScale;
         [SerializeField] private float invincibleSecond;
@@ -16,7 +17,8 @@ namespace Assets.Scripts.Datas
         [SerializeField] private List<GameObject> attackPrefabList;
         private Dictionary<string, float> uniqueParameters;
         public string EnemyName => enemyName;
-        public int MaxHP => maxHP;
+        public float MaxHP => maxHP;
+        public float DownSeconds => downSeconds;
         public Vector2 HurtBoxScale => hurtBoxScale;
         public Vector2 ViewScale => viewScale;
         public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);

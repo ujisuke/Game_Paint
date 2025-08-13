@@ -1,5 +1,5 @@
 using System;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Player.Model;
 using Assets.Scripts.UI.PlayerStatus.View;
 using Cysharp.Threading.Tasks;
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Objects.Player.Controller
 
         public void OnStateEnter()
         {
-            ObjectsStorageModel.Instance.TakeDamagePlayer();
+            ObjectStorageModel.Instance.TakeDamagePlayer();
             PlayerStatusView.Instance.SetHPBar(pM.HPRatio);
             pC.PlayAnim("Damage");
             Invinciblize().Forget();

@@ -1,3 +1,4 @@
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Player.Model;
 using Assets.Scripts.UI.PlayerStatus.View;
 using Cysharp.Threading.Tasks;
@@ -36,6 +37,8 @@ namespace Assets.Scripts.Objects.Player.Controller
                 isTryingPaint = false;
             if (pM.IsDead())
                 pSM.ChangeState(new PStateDead(pM, pSM, pC));
+            else if (ObjectStorageModel.Instance.IsPlayerTakingDamage())
+                pSM.ChangeState(new PStateTakeDamage(pM, pSM, pC));
             else if (Input.GetMouseButton(0) && !isTryingPaint && !pM.IsInkEmpty && !pM.IsInkReloading)
                 pSM.ChangeState(new PStatePaint(pM, pSM, pC));
             else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))

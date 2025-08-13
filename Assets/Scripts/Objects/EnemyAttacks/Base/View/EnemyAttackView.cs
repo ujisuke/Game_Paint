@@ -1,6 +1,7 @@
 using UnityEngine;
 using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Objects.Common.Model.View;
+using Assets.Scripts.Datas;
 
 namespace Assets.Scripts.Objects.EnemyAttacks.Base.View
 {
@@ -12,7 +13,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.View
         [SerializeField] private Animator animator;
         private ObjectAnimation objectAnimation;
 
-        public void SetPA(PA pA) => transform.SetPositionAndRotation(pA.Pos, Quaternion.Euler(0f, 0f, pA.Angle));
+        public void SetPA(Vector2 pos, float angle) => transform.SetPositionAndRotation(pos, Quaternion.Euler(0f, 0f, angle));
 
         public void SetViewScale(Vector2 viewScale) => transform.localScale = viewScale;
 
@@ -44,6 +45,12 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.View
         public void OnDestroy()
         {
             Destroy(hitBoxObject);
+        }
+
+        public void OnBreak()
+        {
+            spriteRenderer.color = ColorDataList.Instance.GetColor(ColorName.blue);
+            objectAnimation.Stop();
         }
     }
 }

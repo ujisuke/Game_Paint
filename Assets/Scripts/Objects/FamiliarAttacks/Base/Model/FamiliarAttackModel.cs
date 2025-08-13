@@ -1,5 +1,5 @@
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Controller;
 using Cysharp.Threading.Tasks.Triggers;
@@ -28,8 +28,8 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
             hitBox = new(pA.Pos, familiarData.HitBoxScale, true);
             this.familiarAttackController = familiarAttackController;
             this.colorName = colorName;
-            power = familiarData.Power * (colorName == ColorName.red ? colorEffectData.PowerMultiplier : 1f);
-            ObjectsStorageModel.Instance.AddFamiliarAttack(this, isEnemy);
+            power = familiarData.Power;
+            ObjectStorageModel.Instance.AddFamiliarAttack(this, isEnemy);
         }
 
         public void MoveIgnoringStage(Vector2 dir)
@@ -44,13 +44,13 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
             hitBox = hitBox.SetPos(pA.Pos);
         }
 
-        public float GetUniqueParameter(string key) => familiarData.GetUniqueParameter(key);
+        public float GetUniqueParameter(string key) => familiarData.GetUP(key);
 
         public void Destroy()
         {
             if (familiarAttackController == null)
                 return;
-            ObjectsStorageModel.Instance.RemoveFamiliarAttack(this);
+            ObjectStorageModel.Instance.RemoveFamiliarAttack(this);
             Object.Destroy(familiarAttackController.gameObject);
             familiarAttackController.OnDestroy();
         }

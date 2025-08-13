@@ -1,5 +1,5 @@
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -21,7 +21,7 @@ namespace Assets.Scripts.GameSystems.Camera
         {
             if(!isInitialized)
                 Initialize();
-            Vector2 playerPos = ObjectsStorageModel.Instance.GetPlayerPos(transform.position);
+            Vector2 playerPos = ObjectStorageModel.Instance.GetPlayerPos(transform.position);
             Vector2 targetPos = new(math.clamp(playerPos.x, min.x, max.x), math.clamp(playerPos.y, min.y, max.y));
             transform.position = Vector2.Lerp(transform.position, targetPos, Time.deltaTime * 5f);
             transform.position = new Vector3(transform.position.x, transform.position.y, z);

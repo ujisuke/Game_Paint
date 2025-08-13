@@ -1,5 +1,5 @@
 using UnityEngine;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 
 namespace Assets.Scripts.GameSystems.StageSystem.Model
 {
@@ -19,9 +19,9 @@ namespace Assets.Scripts.GameSystems.StageSystem.Model
 
         public void OnUpdate()
         {
-            if (!ObjectsStorageModel.Instance.DoesEnemyExist() && ObjectsStorageModel.Instance.DoesPlayerExist())
+            if (!ObjectStorageModel.Instance.DoesEnemyExist() && ObjectStorageModel.Instance.DoesPlayerExist())
                 sSM.ChangeState(new SStateWin(sSM));
-            else if (!ObjectsStorageModel.Instance.DoesPlayerExist())
+            else if (!ObjectStorageModel.Instance.DoesPlayerExist())
                 sSM.ChangeState(new SStateLose(sSM));
         }
 

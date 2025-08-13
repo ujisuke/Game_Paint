@@ -1,6 +1,6 @@
 using System;
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Enemies.Base.Controller;
 using Assets.Scripts.Objects.Enemies.Base.Model;
 using Cysharp.Threading.Tasks;
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
         public void OnStateEnter()
         {
             attackCount = 0;
-            if(eM.IsLessThanHalfHP())
+            if(eM.IsLatter)
                 summonCount++;
             ThrowScoop().Forget();
         }
@@ -57,20 +57,12 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
                 await ThrowScoopOneSet(count * 2, throwScoopIntervalSeconds, angle / 2f, rotateOffset, i);
             await UniTask.Delay(TimeSpan.FromSeconds(eM.GetUP("ThrowScoopCoolDownSeconds")), cancellationToken: eM.Token);
 
-            if (StageData.Instance.IsOnEdgeOfStage(eM.PA.Pos))
-                eM.ChangeState(new FarmerStateJump(eM, eC, attackCount, summonCount));
-            else if (summonCount >= eM.GetUP("SummonCountMax"))
+            if (summonCount >= eM.GetUP("SummonCountMax"))
                 eM.ChangeState(new FarmerStateSummon(eM, eC, attackCount, summonCount));
-            else if (Vector2.Distance(eM.PA.Pos, ObjectsStorageModel.Instance.GetHostilePos(eM.PA.Pos, true)) <= eM.GetUP("NearDistance"))
-                if (UnityEngine.Random.Range(0, 2) == 0)
-                    eM.ChangeState(new FarmerStateJump(eM, eC, attackCount, summonCount));
-                else
-                    eM.ChangeState(new FarmerStateSwingScythe(eM, eC, attackCount, summonCount));
+            else if (Vector2.Distance(eM.PA.Pos, ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true)) <= eM.GetUP("NearDistance"))
+                eM.ChangeState(new FarmerStateSwingScythe(eM, eC, attackCount, summonCount));
             else
-                if (UnityEngine.Random.Range(0, 2) == 0)
-                    eM.ChangeState(new FarmerStateThrowPlant(eM, eC, attackCount, summonCount));
-                else
-                    eM.ChangeState(new FarmerStateThrowHoe(eM, eC, attackCount, summonCount));
+                eM.ChangeState(new FarmerStateThrowHoe(eM, eC, attackCount, summonCount));
         }
         
         private async UniTask Jump()
@@ -102,6 +94,8 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
         {
             if (eM.IsDead())
                 eM.ChangeState(new EStateDead(eM, eC));
+            else if (eM.DoesGetHPHalf)
+                eM.ChangeState(new FarmerStateDown(eM, eC, attackCount, summonCount));
         }
 
         public void OnStateExit()

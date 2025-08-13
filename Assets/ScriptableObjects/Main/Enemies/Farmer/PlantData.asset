@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlantData
   m_EditorClassIdentifier: 
   power: 1
-  hitBoxScale: {x: 1, y: 0.7}
-  viewScale: {x: 1, y: 1}
+  hitBoxScale: {x: 2, y: 1.4}
+  viewScale: {x: 2, y: 2}
   uniqueParametersList:
   - parameterName: AirborneSeconds
-    value: 1
+    value: 0.6

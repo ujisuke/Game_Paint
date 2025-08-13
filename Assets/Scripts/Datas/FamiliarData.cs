@@ -7,9 +7,6 @@ namespace Assets.Scripts.Datas
     public class FamiliarData : ScriptableObject
     {
         [SerializeField] private float power;
-        [SerializeField] private float defenseDecreaseSeconds;
-        [SerializeField] private float poisonSeconds;
-        [SerializeField] private float attackSpeedDecreaseSeconds;
         [SerializeField] private Vector2 hitBoxScale;
         [SerializeField] private Vector2 viewScale;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
@@ -17,11 +14,8 @@ namespace Assets.Scripts.Datas
         public Vector2 HitBoxScale => hitBoxScale;
         public Vector2 ViewScale => viewScale;
         public float Power => power;
-        public float DefenseDecreaseSeconds => defenseDecreaseSeconds;
-        public float PoisonSeconds => poisonSeconds;
-        public float AttackSpeedDecreaseSeconds => attackSpeedDecreaseSeconds;
 
-        public float GetUniqueParameter(string parameterName)
+        public float GetUP(string parameterName)
         {
             uniqueParameters ??= InitializeUniqueParameters();
             return uniqueParameters[parameterName];

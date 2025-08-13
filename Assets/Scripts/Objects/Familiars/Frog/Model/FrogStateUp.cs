@@ -1,7 +1,7 @@
 using Assets.Scripts.Objects.Familiars.Base.Model;
 using UnityEngine;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 
 namespace Assets.Scripts.Objects.Familiars.Frog.Model
 {
@@ -25,17 +25,17 @@ namespace Assets.Scripts.Objects.Familiars.Frog.Model
 
         public void OnStateEnter()
         {
-            upperPos = fM.PA.Pos + new Vector2(0f, fM.FamiliarData.GetUniqueParameter("JumpHeight"));
+            upperPos = fM.PA.Pos + new Vector2(0f, fM.FamiliarData.GetUP("JumpHeight"));
             lowerPos = fM.PA.Pos;
-            fC.FlipX(ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy).x - fM.PA.Pos.x < 0f);
-            fC.PlayAnim("Up", fM.FamiliarData.GetUniqueParameter("UpSeconds"));
+            fC.FlipX(ObjectStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy).x - fM.PA.Pos.x < 0f);
+            fC.PlayAnim("Up", fM.FamiliarData.GetUP("UpSeconds"));
         }
 
         public void OnUpdate()
         {
-            fM.Move((upperPos - fM.PA.Pos) * Time.deltaTime * 2f);
+            fM.MoveIgnoringStage((upperPos - fM.PA.Pos) * Time.deltaTime * 2f);
             seconds += Time.deltaTime;
-            if (seconds >= fM.FamiliarData.GetUniqueParameter("UpSeconds"))
+            if (seconds >= fM.FamiliarData.GetUP("UpSeconds"))
                 fM.ChangeState(new FrogStateDown(fM, fC, lowerPos));
         }
 

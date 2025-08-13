@@ -27,5 +27,18 @@ namespace Assets.Scripts.Objects.Common.Model
         {
             return new HitBox(newPos, size, isActive);
         }
+
+        public HitBox SetAngle(float angle)
+        {
+            if (angle < 0)
+                angle += 360;
+            Vector2 fixedSize = size;
+            if ((45 <= angle && angle <= 135) || (225 <= angle && angle <= 315))
+            {
+                fixedSize.x = size.y;
+                fixedSize.y = size.x;
+            }
+            return new HitBox(pos, fixedSize, isActive);
+        }
     }
 }

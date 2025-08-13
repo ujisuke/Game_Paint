@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683373c2792c3874aa5344d24bc201b6, type: 3}
   m_Name: BirdData
   m_EditorClassIdentifier: 
-  power: 1
-  defenseDecreaseSeconds: 0
-  poisonSeconds: 0
-  attackSpeedDecreaseSeconds: 0
+  power: 0.5
   hitBoxScale: {x: 1, y: 1}
   viewScale: {x: 1, y: 1}
   uniqueParametersList:
   - parameterName: Speed
-    value: 20
+    value: 25
+  - parameterName: Range
+    value: 6

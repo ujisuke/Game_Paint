@@ -1,4 +1,4 @@
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
 using UnityEngine;
 
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
         public void OnStateEnter()
         {
             fC.PlayAnim("Born", 0.3f);
-            Vector2 targetPos = ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
+            Vector2 targetPos = ObjectStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
             fC.FlipX(targetPos.x - fM.PA.Pos.x < 0f);
         }
 

@@ -17,8 +17,8 @@ MonoBehaviour:
   viewScale: {x: 1, y: 1}
   uniqueParametersList:
   - parameterName: SwingDelaySeconds
-    value: 0.5
-  - parameterName: SwingSeconds
-    value: 0.1
-  - parameterName: Range
     value: 1
+  - parameterName: SwingSeconds
+    value: 0.2
+  - parameterName: Range
+    value: 1.5

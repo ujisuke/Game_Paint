@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HoeData
   m_EditorClassIdentifier: 
   power: 1
-  hitBoxScale: {x: 0.5, y: 0.5}
-  viewScale: {x: 0.5, y: 0.5}
+  hitBoxScale: {x: 0.6, y: 0.6}
+  viewScale: {x: 1, y: 1}
   uniqueParametersList:
   - parameterName: MoveSpeed
-    value: 6
+    value: 4
   - parameterName: RandomRange
     value: 2

@@ -25,16 +25,16 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Scythe.Model
         {
             eAC.PlayAnim("Awake");
             eAM.Rotate(Vector2.SignedAngle(Vector2.right, new Vector2(1f, 1f)));
-            pivotPos = eAM.PA.Pos;
-            eAM.MoveIgnoringStage(new Vector2(1f, 1f).normalized * eAM.GetUniqueParameter("Range"));
+            pivotPos = eAM.Pos;
+            eAM.MoveIgnoringStage(new Vector2(1f, 1f).normalized * eAM.GetUP("Range"));
             Rotate().Forget();
         }
 
         private async UniTask Rotate()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(eAM.GetUniqueParameter("SwingDelaySeconds")), cancellationToken: eAM.Token);
-            float swingSecondsDelta = eAM.GetUniqueParameter("SwingSeconds") / 36f;
-            moveDir = (Vector2)(Quaternion.Euler(0f, 0f, -10f) * (eAM.PA.Pos - pivotPos)) - (eAM.PA.Pos - pivotPos);
+            await UniTask.Delay(TimeSpan.FromSeconds(eAM.GetUP("SwingDelaySeconds")), cancellationToken: eAM.Token);
+            float swingSecondsDelta = eAM.GetUP("SwingSeconds") / 36f;
+            moveDir = (Vector2)(Quaternion.Euler(0f, 0f, -10f) * (eAM.Pos - pivotPos)) - (eAM.Pos - pivotPos);
             for (int i = 0; i < 36; i++)
             {
                 eAM.Rotate(-10f);

@@ -1,6 +1,6 @@
 using Assets.Scripts.Objects.Familiars.Base.Model;
 using UnityEngine;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
 using Assets.Scripts.Datas;
 
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Objects.Familiars.Human.Model
 
         public void OnStateEnter()
         {
-            var targetPos = ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
+            var targetPos = ObjectStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
             fC.FlipX(targetPos.x - fM.PA.Pos.x < 0f);
             fC.PlayAnim("Paint");
 
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Objects.Familiars.Human.Model
         public void OnUpdate()
         {
             seconds += Time.deltaTime;
-            if (seconds >= fM.FamiliarData.GetUniqueParameter("Seconds"))
+            if (seconds >= fM.FamiliarData.GetUP("Seconds"))
                 fM.ChangeState(new FStateDead(fM));
         }
 

@@ -1,4 +1,4 @@
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Controller;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Model;
 using Unity.Mathematics;
@@ -29,12 +29,12 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Plant.Model
         {
             seconds = 0f;
             isGrowing = false;
-            Vector2 playerPos = ObjectsStorageModel.Instance.GetHostilePos(eAM.PA.Pos, true);
-            moveDir = (playerPos - eAM.PA.Pos).normalized;
-            moveDist = Vector2.Distance(playerPos, eAM.PA.Pos);
-            airborneSeconds = eAM.GetUniqueParameter("AirborneSeconds");
+            Vector2 playerPos = ObjectStorageModel.Instance.GetHostilePos(eAM.Pos, true);
+            moveDir = (playerPos - eAM.Pos).normalized;
+            moveDist = Vector2.Distance(playerPos, eAM.Pos);
+            airborneSeconds = eAM.GetUP("AirborneSeconds");
             eAC.PlayAnim("Awake");
-            eAC.FlipX(playerPos.x < eAM.PA.Pos.x);
+            eAC.FlipX(playerPos.x < eAM.Pos.x);
             eAM.SetActiveHitBox(false);
         }
 

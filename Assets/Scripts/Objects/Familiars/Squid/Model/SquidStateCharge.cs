@@ -1,7 +1,7 @@
 using Assets.Scripts.Objects.Familiars.Base.Model;
 using UnityEngine;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 
 namespace Assets.Scripts.Objects.Familiars.Squid.Model
 {
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Objects.Familiars.Squid.Model
 
         public void OnStateEnter()
         {
-            targetPos = ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
+            targetPos = ObjectStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
             fC.FlipX(targetPos.x - fM.PA.Pos.x < 0f);
             fC.PlayAnim("Charge");
         }
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Objects.Familiars.Squid.Model
         public void OnUpdate()
         {
             seconds += Time.deltaTime;
-            if (seconds >= fM.FamiliarData.GetUniqueParameter("ChargeSeconds"))
+            if (seconds >= fM.FamiliarData.GetUP("ChargeSeconds"))
                 fM.ChangeState(new SquidStateAttack(fM, fC, targetPos));
         }
 

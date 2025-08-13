@@ -10,8 +10,10 @@ namespace Assets.Scripts.Datas
         [SerializeField] private List<ColorData> stageColorDataList;
         [SerializeField] private ColorData enemyColorData;
         private Dictionary<ColorName, Color> colorDictionary;
+        private static ColorDataList instance;
 
         public List<ColorName> PaintColorNameList => paintColorDataList.ConvertAll(colorData => colorData.ColorName);
+        public static ColorDataList Instance => instance;
 
         private void Initialize()
         {
@@ -22,6 +24,7 @@ namespace Assets.Scripts.Datas
             for (int i = 0; i < stageColorDataList.Count; i++)
                 colorDictionary = AddDictionary(stageColorDataList[i], colorDictionary);
             colorDictionary = AddDictionary(enemyColorData, colorDictionary);
+            instance = this;
         }
 
         private static Dictionary<ColorName, Color> AddDictionary(ColorData colorData, Dictionary<ColorName, Color> colorDictionary)

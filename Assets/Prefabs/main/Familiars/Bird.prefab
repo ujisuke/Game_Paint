@@ -119,7 +119,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   familiarData: {fileID: 11400000, guid: dfc0439b18eccb145b5761de14d2dc1e, type: 2}
   attackPrefab: {fileID: 3515165110105616261, guid: ed913e40c446e1444804f7d299d679ad, type: 3}
-  healAreaPrefab: {fileID: 6412475687881785497, guid: 8cfac30812b5f444d846c2782cc34687, type: 3}
   familiarView: {fileID: 3002411519874170657}
   colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}
 --- !u!95 &6931685034236464370
@@ -132,7 +131,7 @@ Animator:
   m_GameObject: {fileID: 3515165110105616261}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 6004134463341497128, guid: 39970a3819802bf43bacc59c581fd1df, type: 3}
+  m_Controller: {fileID: 6838211828042870747, guid: 39970a3819802bf43bacc59c581fd1df, type: 3}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

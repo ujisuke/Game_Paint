@@ -2,7 +2,7 @@ using Assets.Scripts.Objects.Familiars.Base.Model;
 using UnityEngine;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Controller;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
 
 namespace Assets.Scripts.Objects.Familiars.Scorpion.Model
@@ -26,15 +26,15 @@ namespace Assets.Scripts.Objects.Familiars.Scorpion.Model
             var newAttack = GameObject.Instantiate(fM.AttackPrefab, fM.PA.Pos, Quaternion.identity);
             newAttack.GetComponent<FamiliarAttackController>().Initialize(fM.FamiliarData, fM.IsEnemy, fM.ColorName);
             attack = newAttack.GetComponent<FamiliarAttackController>().FamiliarAttackModel;
-            var targetPos = ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
+            var targetPos = ObjectStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
             fC.FlipX(targetPos.x - fM.PA.Pos.x < 0f);
             fC.PlayAnim("Attack");
         }
 
         public void OnUpdate()
         {
-            var targetPos = ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
-            fM.Move(fM.FamiliarData.GetUniqueParameter("Speed") * Time.deltaTime * (targetPos - fM.PA.Pos).normalized);
+            var targetPos = ObjectStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
+            fM.MoveIgnoringStage(fM.FamiliarData.GetUP("Speed") * Time.deltaTime * (targetPos - fM.PA.Pos).normalized);
             attack.MoveIgnoringStage(fM.PA.Pos - attack.PA.Pos);
             fC.FlipX(targetPos.x - fM.PA.Pos.x < 0f);
             if ((targetPos - fM.PA.Pos).magnitude <= 0.6f)

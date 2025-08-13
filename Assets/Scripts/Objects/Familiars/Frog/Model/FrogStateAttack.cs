@@ -31,7 +31,7 @@ namespace Assets.Scripts.Objects.Familiars.Frog.Model
         public void OnUpdate()
         {
             seconds += Time.deltaTime;
-            if (seconds >= fM.FamiliarData.GetUniqueParameter("AttackSeconds"))
+            if (seconds >= fM.FamiliarData.GetUP("AttackSeconds"))
                 fM.ChangeState(new FStateDead(fM));
         }
 

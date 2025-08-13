@@ -1,5 +1,5 @@
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Enemies.Base.Controller;
 using Assets.Scripts.Objects.Enemies.Base.Model;
 using Cysharp.Threading.Tasks;
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             eC.PlayAnim("JumpBegin");
             await UniTask.Delay(System.TimeSpan.FromSeconds(0.1f), cancellationToken: eM.Token);
             eC.PlayAnim("Jumping");
-            Vector2 playerPos = ObjectsStorageModel.Instance.GetHostilePos(eM.PA.Pos, true);
+            Vector2 playerPos = ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true);
             Vector2 targetPos = StageData.Instance.CalcRandomPosFarFrom(playerPos);
             Vector2 moveDir = (targetPos - eM.PA.Pos) / 100f;
             float jumpSecondsDelta = eM.GetUP("JumpSeconds") / 100f;
@@ -51,6 +51,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
                 eM.MoveIgnoringStage(moveDir);
                 await UniTask.Delay(System.TimeSpan.FromSeconds(jumpSecondsDelta), cancellationToken: eM.Token);
             }
+            
             if (attackCount >= eM.GetUP("AttackCountMax"))
                 eM.ChangeState(new FarmerStateThrowScoop(eM, eC, attackCount, summonCount));
             else if (StageData.Instance.IsOnEdgeOfStage(eM.PA.Pos))
@@ -58,17 +59,16 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             else if (summonCount >= eM.GetUP("SummonCountMax"))
                 eM.ChangeState(new FarmerStateSummon(eM, eC, attackCount, summonCount));
             else
-                if (Random.Range(0, 2) == 0)
-                    eM.ChangeState(new FarmerStateThrowPlant(eM, eC, attackCount, summonCount));
-                else
-                    eM.ChangeState(new FarmerStateThrowHoe(eM, eC, attackCount, summonCount));
+                eM.ChangeState(new FarmerStateThrowHoe(eM, eC, attackCount, summonCount));
         }
 
         public void OnUpdate()
         {
             if (eM.IsDead())
                 eM.ChangeState(new EStateDead(eM, eC));
-            eC.FlipX(ObjectsStorageModel.Instance.GetHostilePos(eM.PA.Pos, true).x < eM.PA.Pos.x);
+            else if (eM.DoesGetHPHalf)
+                eM.ChangeState(new FarmerStateDown(eM, eC, attackCount, summonCount));
+            eC.FlipX(ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true).x < eM.PA.Pos.x);
         }
 
         public void OnStateExit()
