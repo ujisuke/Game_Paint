@@ -19,7 +19,7 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
 
         public void OnStateEnter()
         {
-            var newAttack = GameObject.Instantiate(eM.EnemyData.GetAttackPrefab("Test"), eM.PA.Pos, Quaternion.identity);
+            var newAttack = GameObject.Instantiate(eM.EnemyData.GetAttackPrefab("Test"), eM.Pos, Quaternion.identity);
             eAM = newAttack.GetComponent<EnemyAttackController>().EnemyAttackModel;
         }
 

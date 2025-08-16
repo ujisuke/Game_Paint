@@ -31,7 +31,7 @@ namespace Assets.Scripts.Objects.Player.Controller
             if (isTryingPaint && !Input.GetMouseButton(0))
                 isTryingPaint = false;
             pM.MoveInput(Input.GetKey(KeyCode.W), Input.GetKey(KeyCode.S), Input.GetKey(KeyCode.A), Input.GetKey(KeyCode.D));
-            pC.PlayerView.SetPA(pM.PA);
+            pC.PlayerView.SetPA(pM.Pos, pM.Angle);
             pC.PlayerView.SetPHurtBox(pM.HurtBox);
             pM.SetColor(Input.mouseScrollDelta.y);
             pC.PlayerView.SetColor(pM.ColorNameCurrent);

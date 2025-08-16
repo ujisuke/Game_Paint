@@ -20,6 +20,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
             enemyAttackView.SetPA(enemyAttackModel.Pos, enemyAttackModel.Angle);
             enemyAttackView.SetViewScale(enemyAttackData.ViewScale);
             enemyAttackView.InstantiateHitBox(enemyAttackModel.HitBox);
+            enemyAttackView.InstantiateHurtBox(enemyAttackModel.HurtBox);
         }
 
         private void Update()
@@ -29,18 +30,11 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
             enemyAttackModel.OnUpdate();
             enemyAttackView.SetPA(enemyAttackModel.Pos, enemyAttackModel.Angle);
             enemyAttackView.SetPHitBox(enemyAttackModel.HitBox);
+            enemyAttackView.SetPHurtBox(enemyAttackModel.HurtBox);
         }
 
         public void OnDestroy()
         {
-            enemyAttackView.OnDestroy();
-            Destroy(gameObject);
-        }
-
-        public async UniTask OnBreak()
-        {
-            enemyAttackView.OnBreak();
-            await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
             enemyAttackView.OnDestroy();
             Destroy(gameObject);
         }

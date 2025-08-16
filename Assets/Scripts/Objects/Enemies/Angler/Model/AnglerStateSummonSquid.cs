@@ -35,7 +35,7 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
             float summonSeconds = eM.GetUP("SummonSquidSeconds");
             eC.PlayAnim("Summon");
             float squidCount = eM.GetUP("SquidCount");
-            Vector2 playerPos = ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true);
+            Vector2 playerPos = ObjectStorageModel.Instance.GetPlayerPos(eM.Pos);
             for (int i = 0; i < squidCount; i++)
             {
                 Vector2 randomPos = StageData.Instance.CalcRandomPosFarFrom(playerPos);

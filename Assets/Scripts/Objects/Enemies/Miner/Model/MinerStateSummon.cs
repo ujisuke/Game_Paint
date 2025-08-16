@@ -38,7 +38,7 @@ namespace Assets.Scripts.Objects.Enemies.Miner.Model
             float moleCount = eM.GetUP("MoleCount");
             for (int i = 0; i < moleCount; i++)
             {
-                await SummonDataList.Instance.SummonByEnemy("Mole", eM.PA.Pos, eM.Token);
+                await SummonDataList.Instance.SummonByEnemy("Mole", eM.Pos, eM.Token);
                 await UniTask.Delay(TimeSpan.FromSeconds(summonSeconds / moleCount), cancellationToken: eM.Token);
             }
             
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Objects.Enemies.Miner.Model
                 eM.ChangeState(new EStateDead(eM, eC));
             else if (eM.DoesGetHPHalf)
                 eM.ChangeState(new MinerStateDown(eM, eC, attackCount, summonCount));
-            eC.FlipX(ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true).x < eM.PA.Pos.x);
+            eC.FlipX(ObjectStorageModel.Instance.GetPlayerPos(eM.Pos).x < eM.Pos.x);
         }
 
         public void OnStateExit()

@@ -8,7 +8,9 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.View
     public class EnemyAttackView : MonoBehaviour
     {
         [SerializeField] private GameObject hitBoxPrefab;
+        [SerializeField] private GameObject hurtBoxPrefab;
         private GameObject hitBoxObject;
+        private GameObject hurtBoxObject;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Animator animator;
         private ObjectAnimation objectAnimation;
@@ -24,10 +26,23 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.View
             hitBoxObject.SetActive(hitBox.IsActive);
         }
 
+        public void InstantiateHurtBox(HurtBox hurtBox)
+        {
+            hurtBoxObject = Instantiate(hurtBoxPrefab, hurtBox.Pos, Quaternion.identity);
+            hurtBoxObject.transform.localScale = hurtBox.Size;
+            hurtBoxObject.SetActive(hurtBox.IsActive);
+        }
+
         public void SetPHitBox(HitBox hitBox)
         {
             hitBoxObject.transform.position = hitBox.Pos;
             hitBoxObject.SetActive(hitBox.IsActive);
+        }
+
+        public void SetPHurtBox(HurtBox hurtBox)
+        {
+            hurtBoxObject.transform.position = hurtBox.Pos;
+            hurtBoxObject.SetActive(hurtBox.IsActive);
         }
 
         public void PlayAnim(string animName, float playSeconds)
@@ -45,6 +60,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.View
         public void OnDestroy()
         {
             Destroy(hitBoxObject);
+            Destroy(hurtBoxObject);
         }
 
         public void OnBreak()

@@ -6,14 +6,20 @@ namespace Assets.Scripts.Datas
     [CreateAssetMenu(fileName = "EnemyAttackData", menuName = "ScriptableObjects/EnemyAttackData")]
     public class EnemyAttackData : ScriptableObject
     {
+        [SerializeField] private int maxHP;
         [SerializeField] private int power;
-        [SerializeField] private Vector2 hitBoxScale;
+        [SerializeField] private Vector2 hitAndHurtBoxScale;
         [SerializeField] private Vector2 viewScale;
+        [SerializeField] private bool isBreakable;
         [SerializeField] private List<UniqueParameter> uniqueParametersList;
         private Dictionary<string, float> uniqueParameters;
+
+        public int MaxHP => maxHP;
         public int Power => power;
-        public Vector2 HitBoxScale => hitBoxScale;
+        public Vector2 HitBoxScale => hitAndHurtBoxScale;
+        public Vector2 HurtBoxScale => hitAndHurtBoxScale;
         public Vector2 ViewScale => viewScale;
+        public bool IsBreakable => isBreakable;
 
         public float GetUniqueParameter(string parameterName)
         {

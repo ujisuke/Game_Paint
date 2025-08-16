@@ -67,7 +67,7 @@ namespace Assets.Scripts.Objects.Enemies.Miner.Model
                 eM.ChangeState(new EStateDead(eM, eC));
             else if (eM.DoesGetHPHalf)
                 eM.ChangeState(new MinerStateDown(eM, eC, attackCount, summonCount));
-            eC.FlipX(ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true).x < eM.PA.Pos.x);
+            eC.FlipX(ObjectStorageModel.Instance.GetPlayerPos(eM.Pos).x < eM.Pos.x);
         }
 
         public void OnStateExit()

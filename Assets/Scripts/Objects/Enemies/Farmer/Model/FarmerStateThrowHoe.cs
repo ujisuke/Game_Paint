@@ -42,19 +42,19 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             float coolDownSeconds = throwHoeSeconds / setCount - 0.2f * countPerSet;
             for (int i = 0; i < setCount; i++)
             {
-                Vector2 throwDir = (ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true) - eM.PA.Pos).normalized * 0.5f;
+                Vector2 throwDir = (ObjectStorageModel.Instance.GetPlayerPos(eM.Pos) - eM.Pos).normalized * 0.5f;
                 for (int j = 0; j < countPerSet; j++)
                 {
-                    await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Hoe"), eM.PA.Pos + (Vector2)(Quaternion.Euler(0, 0, 45) * throwDir), Quaternion.identity);
-                    await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Hoe"), eM.PA.Pos + throwDir, Quaternion.identity);
-                    await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Hoe"), eM.PA.Pos + (Vector2)(Quaternion.Euler(0, 0, -45) * throwDir), Quaternion.identity);
+                    await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Hoe"), eM.Pos + (Vector2)(Quaternion.Euler(0, 0, 45) * throwDir), Quaternion.identity);
+                    await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Hoe"), eM.Pos + throwDir, Quaternion.identity);
+                    await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Hoe"), eM.Pos + (Vector2)(Quaternion.Euler(0, 0, -45) * throwDir), Quaternion.identity);
                     await UniTask.Delay(100, cancellationToken: eM.Token);
                 }
 
                 for (int j = 0; j < countPerSet; j++)
                 {
-                    await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Hoe"), eM.PA.Pos + (Vector2)(Quaternion.Euler(0, 0, 30) * throwDir), Quaternion.identity);
-                    await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Hoe"), eM.PA.Pos + (Vector2)(Quaternion.Euler(0, 0, -30) * throwDir), Quaternion.identity);
+                    await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Hoe"), eM.Pos + (Vector2)(Quaternion.Euler(0, 0, 30) * throwDir), Quaternion.identity);
+                    await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Hoe"), eM.Pos + (Vector2)(Quaternion.Euler(0, 0, -30) * throwDir), Quaternion.identity);
                     await UniTask.Delay(100, cancellationToken: eM.Token);
                 }
 
@@ -75,9 +75,9 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
                 eM.ChangeState(new EStateDead(eM, eC));
             else if (eM.DoesGetHPHalf)
                 eM.ChangeState(new FarmerStateDown(eM, eC, attackCount, summonCount));            
-            Vector2 playerPos = ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true);
-            eC.FlipX(playerPos.x < eM.PA.Pos.x);
-            eM.MoveInStage((eM.PA.Pos - playerPos).normalized * Time.deltaTime * 0.5f);
+            Vector2 playerPos = ObjectStorageModel.Instance.GetPlayerPos(eM.Pos);
+            eC.FlipX(playerPos.x < eM.Pos.x);
+            eM.MoveInStage((eM.Pos - playerPos).normalized * Time.deltaTime * 0.5f);
         }
 
         public void OnStateExit()

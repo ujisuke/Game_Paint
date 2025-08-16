@@ -14,9 +14,10 @@ namespace Assets.Scripts.GameSystems.ObjectStorage.Model
     {
         private EnemyModel enemy;
         private PlayerModel player;
-        private readonly List<EnemyAttackModel> enemyAttacks;
-        private readonly List<FamiliarAttackModel> eFamiliarAttacks;
-        private readonly List<FamiliarAttackModel> pFamiliarAttacks;
+        private readonly List<EnemyAttackModel> enemyAttackList;
+        private readonly List<EnemyAttackModel> enemyAttackBreakableList;
+        private readonly List<FamiliarAttackModel> eFamiliarAttackList;
+        private readonly List<FamiliarAttackModel> pFamiliarAttackList;
         private static ObjectStorageModel instance = new();
         public static ObjectStorageModel Instance => instance;
 
@@ -24,9 +25,10 @@ namespace Assets.Scripts.GameSystems.ObjectStorage.Model
         {
             enemy = null;
             player = null;
-            enemyAttacks = new();
-            eFamiliarAttacks = new();
-            pFamiliarAttacks = new();
+            enemyAttackList = new();
+            enemyAttackBreakableList = new();
+            eFamiliarAttackList = new();
+            pFamiliarAttackList = new();
             instance = this;
         }
 
@@ -34,35 +36,48 @@ namespace Assets.Scripts.GameSystems.ObjectStorage.Model
         public void RemoveEnemy() => enemy = null;
         public void AddPlayer(PlayerModel player) => this.player = player;
         public void RemovePlayer() => player = null;
-        public void AddEnemyAttack(EnemyAttackModel enemyAttack) => enemyAttacks.Add(enemyAttack);
-        public void RemoveEnemyAttack(EnemyAttackModel enemyAttack) => enemyAttacks.Remove(enemyAttack);
+        public void AddEnemyAttack(EnemyAttackModel enemyAttack, bool isBreakable)
+        {
+            if(isBreakable)
+                enemyAttackBreakableList.Add(enemyAttack);
+            else
+                enemyAttackList.Add(enemyAttack);
+        }
+
+        public void RemoveEnemyAttack(EnemyAttackModel enemyAttack)
+        {
+            if (enemyAttackBreakableList.Contains(enemyAttack))
+                enemyAttackBreakableList.Remove(enemyAttack);
+            else if (enemyAttackList.Contains(enemyAttack))
+                enemyAttackList.Remove(enemyAttack);
+        }
 
         public void AddFamiliarAttack(FamiliarAttackModel familiarAttack, bool isEnemy)
         {
             if (isEnemy)
-                eFamiliarAttacks.Add(familiarAttack);
+                eFamiliarAttackList.Add(familiarAttack);
             else
-                pFamiliarAttacks.Add(familiarAttack);
+                pFamiliarAttackList.Add(familiarAttack);
         }
 
         public void RemoveFamiliarAttack(FamiliarAttackModel familiarAttack)
         {
-            if (eFamiliarAttacks.Contains(familiarAttack))
-                eFamiliarAttacks.Remove(familiarAttack);
-            else if (pFamiliarAttacks.Contains(familiarAttack))
-                pFamiliarAttacks.Remove(familiarAttack);
+            if (eFamiliarAttackList.Contains(familiarAttack))
+                eFamiliarAttackList.Remove(familiarAttack);
+            else if (pFamiliarAttackList.Contains(familiarAttack))
+                pFamiliarAttackList.Remove(familiarAttack);
         }
 
         public void Clear()
         {
             enemy?.Destroy();
             player?.Destroy();
-            for (int i = enemyAttacks.Count - 1; i >= 0; i--)
-                enemyAttacks[i].Destroy();
-            for (int i = eFamiliarAttacks.Count - 1; i >= 0; i--)
-                eFamiliarAttacks[i].Destroy();
-            for (int i = pFamiliarAttacks.Count - 1; i >= 0; i--)
-                pFamiliarAttacks[i].Destroy();
+            for (int i = enemyAttackList.Count - 1; i >= 0; i--)
+                enemyAttackList[i].Destroy();
+            for (int i = eFamiliarAttackList.Count - 1; i >= 0; i--)
+                eFamiliarAttackList[i].Destroy();
+            for (int i = pFamiliarAttackList.Count - 1; i >= 0; i--)
+                pFamiliarAttackList[i].Destroy();
         }
 
         public void DetectHit()
@@ -77,45 +92,49 @@ namespace Assets.Scripts.GameSystems.ObjectStorage.Model
         {
             if (!DoesEnemyExist())
                 return;
-            for (int i = 0; i < pFamiliarAttacks.Count; i++)
-                if (ObjectHitDetector.IsAttacking(pFamiliarAttacks[i].HitBox, enemy.HurtBox) && pFamiliarAttacks[i].ColorName != ColorName.blue)
-                    enemy.TakeDamage(pFamiliarAttacks[i].Power);
+            for (int i = 0; i < pFamiliarAttackList.Count; i++)
+                if (ObjectHitDetector.IsAttacking(pFamiliarAttackList[i].HitBox, enemy.HurtBox) && pFamiliarAttackList[i].ColorName != ColorName.blue)
+                    enemy.TakeDamage(pFamiliarAttackList[i].Power);
         }
 
         private void DetectHitEAToP()
         {
             if (!DoesPlayerExist())
                 return;
-            for (int i = 0; i < enemyAttacks.Count; i++)
-                if (ObjectHitDetector.IsAttacking(enemyAttacks[i].HitBox, player.HurtBox))
-                    player.TakeDamage(enemyAttacks[i].Power);
+            for (int i = 0; i < enemyAttackList.Count; i++)
+                if (ObjectHitDetector.IsAttacking(enemyAttackList[i].HitBox, player.HurtBox))
+                    player.TakeDamage(enemyAttackList[i].Power);
         }
 
         private void DetectHitEFAToP()
         {
             if (!DoesPlayerExist())
                 return;
-            for (int i = 0; i < eFamiliarAttacks.Count; i++)
-                if (ObjectHitDetector.IsAttacking(eFamiliarAttacks[i].HitBox, player.HurtBox))
-                    player.TakeDamage(eFamiliarAttacks[i].Power);
+            for (int i = 0; i < eFamiliarAttackList.Count; i++)
+                if (ObjectHitDetector.IsAttacking(eFamiliarAttackList[i].HitBox, player.HurtBox))
+                    player.TakeDamage(eFamiliarAttackList[i].Power);
         }
 
         private void DetectHitPFAToEA()
         {
-            for (int i = 0; i < pFamiliarAttacks.Count; i++)
-                for (int j = 0; j < enemyAttacks.Count; j++)
-                    if (ObjectHitDetector.IsHitting(pFamiliarAttacks[i].HitBox, enemyAttacks[j].HitBox) && pFamiliarAttacks[i].ColorName == ColorName.blue)
-                        enemyAttacks[j].Break(pFamiliarAttacks[i]);
+            for (int i = 0; i < pFamiliarAttackList.Count; i++)
+                for (int j = 0; j < enemyAttackBreakableList.Count; j++)
+                    if (ObjectHitDetector.IsAttacking(pFamiliarAttackList[i].HitBox, enemyAttackBreakableList[j].HurtBox))
+                        enemyAttackBreakableList[j].TakeDamage(pFamiliarAttackList[i].Power);
         }
 
         public Vector2 GetHostilePos(Vector2 pos, bool isEnemy)
         {
             if (isEnemy && DoesPlayerExist())
-                return player.PA.Pos;
+                return player.Pos;
             else if (!isEnemy && DoesEnemyExist())
-                return enemy.PA.Pos;
+                return enemy.Pos;
             return pos;
         }
+
+        public Vector2 GetPlayerPos(Vector2 pos) => DoesPlayerExist() ? player.Pos : pos;
+
+        public Vector2 GetEnemyPos(Vector2 pos) => DoesEnemyExist() ? enemy.Pos : pos;
 
         public bool DoesEnemyExist()
         {
@@ -132,11 +151,11 @@ namespace Assets.Scripts.GameSystems.ObjectStorage.Model
             if (!DoesPlayerExist())
                 return false;
 
-            for (int i = 0; i < enemyAttacks.Count; i++)
-                if (ObjectHitDetector.IsAttacking(enemyAttacks[i].HitBox, player.HurtBox))
+            for (int i = 0; i < enemyAttackList.Count; i++)
+                if (ObjectHitDetector.IsAttacking(enemyAttackList[i].HitBox, player.HurtBox))
                     return true;
-            for (int i = 0; i < eFamiliarAttacks.Count; i++)
-                if (ObjectHitDetector.IsAttacking(eFamiliarAttacks[i].HitBox, player.HurtBox))
+            for (int i = 0; i < eFamiliarAttackList.Count; i++)
+                if (ObjectHitDetector.IsAttacking(eFamiliarAttackList[i].HitBox, player.HurtBox))
                     return true;
 
             return false;
@@ -147,25 +166,18 @@ namespace Assets.Scripts.GameSystems.ObjectStorage.Model
             if (!DoesPlayerExist())
                 return;
 
-            for (int i = 0; i < enemyAttacks.Count; i++)
-                if (ObjectHitDetector.IsAttacking(enemyAttacks[i].HitBox, player.HurtBox))
+            for (int i = 0; i < enemyAttackList.Count; i++)
+                if (ObjectHitDetector.IsAttacking(enemyAttackList[i].HitBox, player.HurtBox))
                 {
-                    player.TakeDamage(enemyAttacks[i].Power);
+                    player.TakeDamage(enemyAttackList[i].Power);
                     return;
                 }
-            for (int i = 0; i < eFamiliarAttacks.Count; i++)
-                if (ObjectHitDetector.IsAttacking(eFamiliarAttacks[i].HitBox, player.HurtBox))
+            for (int i = 0; i < eFamiliarAttackList.Count; i++)
+                if (ObjectHitDetector.IsAttacking(eFamiliarAttackList[i].HitBox, player.HurtBox))
                 {
-                    player.TakeDamage(eFamiliarAttacks[i].Power);
+                    player.TakeDamage(eFamiliarAttackList[i].Power);
                     return;
                 }
-        }
-
-        public Vector2 GetPlayerPos(Vector2 pos)
-        {
-            if (!DoesPlayerExist())
-                return pos;
-            return player.PA.Pos;
         }
     }
 }

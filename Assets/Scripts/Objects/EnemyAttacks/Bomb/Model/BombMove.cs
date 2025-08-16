@@ -24,7 +24,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Bomb.Model
 
         public void OnAwake()
         {
-            Vector2 enemyPos = ObjectStorageModel.Instance.GetHostilePos(eAM.Pos, false);
+            Vector2 enemyPos = ObjectStorageModel.Instance.GetEnemyPos(eAM.Pos);
             Vector2 playerPos = ObjectStorageModel.Instance.GetHostilePos(eAM.Pos, true);
             moveDir = (playerPos - enemyPos) * 0.01f;
             Move().Forget();

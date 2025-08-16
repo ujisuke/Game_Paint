@@ -12,7 +12,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.View
         [SerializeField] private GameObject hurtBoxPrefab;
         private GameObject hurtBoxObject;
 
-        public void SetPA(PA pA) => transform.SetPositionAndRotation(pA.Pos, Quaternion.Euler(0f, 0f, pA.Angle));
+        public void SetPA(Vector2 pos, float angle) => transform.SetPositionAndRotation(pos, Quaternion.Euler(0f, 0f, angle));
 
         public void SetViewScale(Vector2 viewScale) => transform.localScale = viewScale;
 

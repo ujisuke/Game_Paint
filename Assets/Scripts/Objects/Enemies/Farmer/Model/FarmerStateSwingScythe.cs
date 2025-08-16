@@ -33,7 +33,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
 
         private async UniTask SwingScythe()
         {
-            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Scythe"), eM.PA.Pos, Quaternion.identity);
+            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Scythe"), eM.Pos, Quaternion.identity);
             eC.PlayAnim("SwingBegin");
             await UniTask.Delay(TimeSpan.FromSeconds(eM.GetUP("SwingScytheDelaySeconds")), cancellationToken: eM.Token);
             float swingScytheSeconds = eM.GetUP("SwingScytheSeconds");
@@ -43,7 +43,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
 
             if (attackCount >= eM.GetUP("AttackCountMax"))
                 eM.ChangeState(new FarmerStateThrowScoop(eM, eC, attackCount, summonCount));
-            else if (StageData.Instance.IsOnEdgeOfStage(eM.PA.Pos))
+            else if (StageData.Instance.IsOnEdgeOfStage(eM.Pos))
                 eM.ChangeState(new FarmerStateJump(eM, eC, attackCount, summonCount));
             else if (summonCount >= eM.GetUP("SummonCountMax"))
                 eM.ChangeState(new FarmerStateSummon(eM, eC, attackCount, summonCount));

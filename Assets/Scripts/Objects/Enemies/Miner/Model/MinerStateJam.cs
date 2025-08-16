@@ -48,10 +48,10 @@ namespace Assets.Scripts.Objects.Enemies.Miner.Model
             eM.SetHurtBoxActive(false);
             float hidecoolDownSeconds = eM.GetUP("JamCoolDownSeconds");
             await UniTask.Delay(System.TimeSpan.FromSeconds(hidecoolDownSeconds * 0.75f), cancellationToken: eM.Token);
-            Vector2 playerPos = ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true);
+            Vector2 playerPos = ObjectStorageModel.Instance.GetPlayerPos(eM.Pos);
             float targetPosY = playerPos.y > StageData.Instance.StageCenterPos.y ? 2f : StageData.Instance.StageEdgePosMax.y - 2f;
             Vector2 targetPos = new(playerPos.x, targetPosY);
-            eM.MoveIgnoringStage(targetPos - eM.PA.Pos);
+            eM.MoveIgnoringStage(targetPos - eM.Pos);
             eM.SetHurtBoxActive(true);
             eC.PlayAnim("HideEnd", hidecoolDownSeconds * 0.25f);
             await UniTask.Delay(System.TimeSpan.FromSeconds(hidecoolDownSeconds * 0.25f), cancellationToken: eM.Token);
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Objects.Enemies.Miner.Model
                 eM.ChangeState(new EStateDead(eM, eC));
             else if (eM.DoesGetHPHalf)
                 eM.ChangeState(new MinerStateDown(eM, eC, attackCount, summonCount));
-            eC.FlipX(ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true).x < eM.PA.Pos.x);
+            eC.FlipX(ObjectStorageModel.Instance.GetPlayerPos(eM.Pos).x < eM.Pos.x);
         }
 
         public void OnStateExit()

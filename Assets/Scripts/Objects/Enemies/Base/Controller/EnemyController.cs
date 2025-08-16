@@ -18,7 +18,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Controller
         {
             enemyModel = new EnemyModel(enemyData, eStateAfterBorn, pos, this);
             enemyView.SetViewScale(enemyData.ViewScale);
-            enemyView.SetPA(enemyModel.PA);
+            enemyView.SetPA(enemyModel.Pos, enemyModel.Angle);
             enemyView.InstantiateHurtBox(enemyModel.HurtBox);
         }
 
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Controller
             if (enemyModel == null)
                 return;
             enemyModel.OnUpdate();
-            enemyView.SetPA(enemyModel.PA);
+            enemyView.SetPA(enemyModel.Pos, enemyModel.Angle);
             enemyView.SetPHurtBox(enemyModel.HurtBox);
         }
 

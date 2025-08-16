@@ -44,11 +44,11 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
 
         private async UniTask MakeBarrier()
         {
-            eM.MoveIgnoringStage(StageData.Instance.StageCenterPos - eM.PA.Pos + Vector2.down * 2f);
-            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.PA.Pos + Vector2.up, Quaternion.identity);
-            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.PA.Pos + Vector2.right, Quaternion.identity);
-            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.PA.Pos + Vector2.down, Quaternion.identity);
-            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.PA.Pos + Vector2.left, Quaternion.identity);
+            eM.MoveIgnoringStage(StageData.Instance.StageCenterPos - eM.Pos + Vector2.down * 2f);
+            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.Pos + Vector2.up, Quaternion.identity);
+            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.Pos + Vector2.right, Quaternion.identity);
+            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.Pos + Vector2.down, Quaternion.identity);
+            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.Pos + Vector2.left, Quaternion.identity);
 
             await UniTask.Delay(TimeSpan.FromSeconds(eM.GetUP("MakeBarrierSeconds")), cancellationToken: eM.Token);
             Vector2 moveVector;

@@ -21,7 +21,8 @@ namespace Assets.Scripts.Objects.Player.Model
         private readonly PlayerMove playerMove;
         private readonly PlayerColor playerColor;
         private readonly float reloadInkSeconds;
-        public PA PA => playerMove.PA;
+        public Vector2 Pos => playerMove.Pos;
+        public float Angle => playerMove.Angle;
         public HurtBox HurtBox => hurtBox;
         public ColorName ColorNameCurrent => playerColor.ColorNameCurrent;
         public PlayerData PlayerData => playerData;
@@ -39,7 +40,7 @@ namespace Assets.Scripts.Objects.Player.Model
             ink = new Ink();
             this.playerController = playerController;
             playerMove = new PlayerMove(playerData.MoveSpeed, playerData.Scale, pos, 0f);
-            hurtBox = new HurtBox(playerMove.PA.Pos, playerData.HurtBoxScale, true);
+            hurtBox = new HurtBox(playerMove.Pos, playerData.HurtBoxScale, true);
             playerColor = new PlayerColor(colorDataList);
             ObjectStorageModel.Instance.AddPlayer(this);
             cts = new CancellationTokenSource();
@@ -52,7 +53,7 @@ namespace Assets.Scripts.Objects.Player.Model
         public void MoveInput(bool isUp, bool isDown, bool isLeft, bool isRight)
         {
             playerMove.Move(isUp, isDown, isLeft, isRight);
-            hurtBox = hurtBox.SetPos(playerMove.PA.Pos);
+            hurtBox = hurtBox.SetPos(playerMove.Pos);
         }
 
         public void TakeDamage(float damageValue) => hP = hP.TakeDamage(damageValue);

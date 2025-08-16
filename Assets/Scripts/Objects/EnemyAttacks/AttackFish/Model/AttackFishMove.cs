@@ -29,7 +29,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.AttackFish.Model
         public void OnAwake()
         {
             jumpSeconds = eAM.GetUP("JumpSeconds");
-            Vector2 enemyPos = ObjectStorageModel.Instance.GetHostilePos(eAM.Pos, false);
+            Vector2 enemyPos = ObjectStorageModel.Instance.GetEnemyPos(eAM.Pos);
             moveDir = (eAM.Pos - enemyPos).normalized * eAM.GetUP("MoveSpeed");
             eAC.PlayAnim("Awake", jumpSeconds * 2f);
             eAC.FlipX(moveDir.x < 0);

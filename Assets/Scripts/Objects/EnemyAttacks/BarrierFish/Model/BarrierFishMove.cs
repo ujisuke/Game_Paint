@@ -28,12 +28,12 @@ namespace Assets.Scripts.Objects.EnemyAttacks.AttackFish.Model
 
         private async UniTask Move()
         {
-            Vector2 enemyPosPrev = ObjectStorageModel.Instance.GetHostilePos(eAM.Pos, false);
+            Vector2 enemyPosPrev = ObjectStorageModel.Instance.GetEnemyPos(eAM.Pos);
             float aliveSeconds = eAM.GetUP("AliveSeconds");
             float patrolAngleDelta = 360 / eAM.GetUP("PatrolSeconds") * 0.01f;
             while (aliveSeconds > 0)
             {
-                Vector2 enemyPos = ObjectStorageModel.Instance.GetHostilePos(eAM.Pos, false);
+                Vector2 enemyPos = ObjectStorageModel.Instance.GetEnemyPos(eAM.Pos);
                 eAM.MoveIgnoringStage(enemyPos - enemyPosPrev);
                 Vector2 targetPos = Quaternion.Euler(0, 0, patrolAngleDelta) * (eAM.Pos - enemyPos);
                 eAM.MoveIgnoringStage(enemyPos + targetPos - eAM.Pos);

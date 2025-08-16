@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBoxPrefab: {fileID: 3515165110105616261, guid: 495913d86899ba6449fd1bb39984e769, type: 3}
+  hurtBoxPrefab: {fileID: 3515165110105616261, guid: b76afdf379171fe41be3def4a882e1e6, type: 3}
   spriteRenderer: {fileID: 4719501435335199521}
   animator: {fileID: -5957512772826661202}
 --- !u!95 &-5957512772826661202
@@ -141,4 +142,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackData: {fileID: 11400000, guid: a33f2277e0063014bb31e3e4f2ea6fac, type: 2}
   enemyAttackView: {fileID: 578378016815631566}
-  colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}

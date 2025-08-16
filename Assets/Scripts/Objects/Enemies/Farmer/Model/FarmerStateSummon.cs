@@ -37,14 +37,14 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             float birdCount = eM.GetUP("BirdCount");
             for (int i = 0; i < birdCount; i++)
             {
-                await SummonDataList.Instance.SummonByEnemy("Bird", eM.PA.Pos, eM.Token);
+                await SummonDataList.Instance.SummonByEnemy("Bird", eM.Pos, eM.Token);
                 await UniTask.Delay(TimeSpan.FromSeconds(summonSeconds / birdCount), cancellationToken: eM.Token);
             }
             if (attackCount >= eM.GetUP("AttackCountMax"))
                     eM.ChangeState(new FarmerStateThrowScoop(eM, eC, attackCount, summonCount));
-                else if (StageData.Instance.IsOnEdgeOfStage(eM.PA.Pos))
+                else if (StageData.Instance.IsOnEdgeOfStage(eM.Pos))
                     eM.ChangeState(new FarmerStateJump(eM, eC, attackCount, summonCount));
-                else if (Vector2.Distance(eM.PA.Pos, ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true)) <= eM.GetUP("NearDistance"))
+                else if (Vector2.Distance(eM.Pos, ObjectStorageModel.Instance.GetPlayerPos(eM.Pos)) <= eM.GetUP("NearDistance"))
                     if (UnityEngine.Random.Range(0, 2) == 0)
                         eM.ChangeState(new FarmerStateSwingScythe(eM, eC, attackCount, summonCount));
                     else

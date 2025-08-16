@@ -23,7 +23,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Scoop.Model
 
         public void OnAwake()
         {
-            Vector2 enemyPos = ObjectStorageModel.Instance.GetHostilePos(eAM.Pos, false);
+            Vector2 enemyPos = ObjectStorageModel.Instance.GetEnemyPos(eAM.Pos);
             moveDir = (eAM.Pos - enemyPos).normalized;
             moveSpeed = eAM.GetUP("MoveSpeed");
             eAC.PlayAnim("Awake");

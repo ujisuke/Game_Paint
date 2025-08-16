@@ -14,7 +14,8 @@ namespace Assets.Scripts.Objects.Player.Model
         private const float lerpFactor = 0.1f;
         private PA pA;
         public Vector2 DirectionVector => directionVectorPrev;
-        public PA PA => pA;
+        public Vector2 Pos => pA.Pos;
+        public float Angle => pA.Angle;
 
         public PlayerMove(float moveSpeed, Vector2 hurtBoxScale, Vector2 pos, float angle)
         {

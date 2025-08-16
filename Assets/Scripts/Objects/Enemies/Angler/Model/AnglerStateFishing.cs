@@ -37,7 +37,7 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
         private async UniTask Fishing()
         {
             Vector2 moveVector;
-            if (eM.PA.Pos.x < StageData.Instance.StageCenterPos.x)
+            if (eM.Pos.x < StageData.Instance.StageCenterPos.x)
                 moveVector = Vector2.left;
             else
                 moveVector = Vector2.right;
@@ -61,7 +61,7 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
         {
             Vector2 targetPos = StageData.Instance.CalcRandomPosInStage();
             float moveSecondsDelta = eM.GetUP("MoveStraightSeconds") * 0.005f;
-            float moveDirY = targetPos.y - eM.PA.Pos.y;
+            float moveDirY = targetPos.y - eM.Pos.y;
             for (int i = 0; i < 100; i++)
             {
                 Vector2 moveDir = new(moveVector.x * math.cos(i * 0.01f * math.PI) * 0.08f, moveDirY * 0.01f);
@@ -83,13 +83,13 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
 
         private async UniTask Instantiate()
         {
-            Vector2 dir = (ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true) - eM.PA.Pos).normalized * 0.5f;
+            Vector2 dir = (ObjectStorageModel.Instance.GetPlayerPos(eM.Pos) - eM.Pos).normalized * 0.5f;
             int attackFishCount = (int)eM.GetUP("AttackFishCount");
             await UniTask.Delay(TimeSpan.FromSeconds(eM.GetUP("FishingSeconds") - 0.1f * attackFishCount), cancellationToken: eM.Token);
             float angle = 360f / attackFishCount * 3f;
             for (int i = 0; i < attackFishCount; i++)
             {
-                await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("AttackFish"), eM.PA.Pos + (Vector2)(Quaternion.Euler(0, 0, angle * i) * dir), Quaternion.identity);
+                await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("AttackFish"), eM.Pos + (Vector2)(Quaternion.Euler(0, 0, angle * i) * dir), Quaternion.identity);
                 await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: eM.Token);
             }
         }

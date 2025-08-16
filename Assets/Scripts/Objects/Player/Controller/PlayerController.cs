@@ -19,7 +19,7 @@ namespace Assets.Scripts.Objects.Player.Controller
             playerModel = new(playerData, transform.position, this, colorDataList);
             playerView.ColorDataList = colorDataList;
             playerView.SetViewScale(playerData.ViewScale);
-            playerView.SetPA(playerModel.PA);
+            playerView.SetPA(playerModel.Pos, playerModel.Angle);
             playerView.InstantiateHurtBox(playerModel.HurtBox);
             pStateMachine = new PStateMachine(playerModel, this);
         }

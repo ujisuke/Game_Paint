@@ -42,9 +42,9 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             eC.PlayAnim("JumpBegin");
             await UniTask.Delay(System.TimeSpan.FromSeconds(0.1f), cancellationToken: eM.Token);
             eC.PlayAnim("Jumping");
-            Vector2 playerPos = ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true);
+            Vector2 playerPos = ObjectStorageModel.Instance.GetPlayerPos(eM.Pos);
             Vector2 targetPos = StageData.Instance.CalcRandomPosFarFrom(playerPos);
-            Vector2 moveDir = (targetPos - eM.PA.Pos) / 100f;
+            Vector2 moveDir = (targetPos - eM.Pos) / 100f;
             float jumpSecondsDelta = eM.GetUP("JumpSeconds") / 100f;
             for (int i = 0; i < 100; i++)
             {
@@ -54,7 +54,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             
             if (attackCount >= eM.GetUP("AttackCountMax"))
                 eM.ChangeState(new FarmerStateThrowScoop(eM, eC, attackCount, summonCount));
-            else if (StageData.Instance.IsOnEdgeOfStage(eM.PA.Pos))
+            else if (StageData.Instance.IsOnEdgeOfStage(eM.Pos))
                 eM.ChangeState(new FarmerStateJump(eM, eC, attackCount, summonCount));
             else if (summonCount >= eM.GetUP("SummonCountMax"))
                 eM.ChangeState(new FarmerStateSummon(eM, eC, attackCount, summonCount));
@@ -68,7 +68,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
                 eM.ChangeState(new EStateDead(eM, eC));
             else if (eM.DoesGetHPHalf)
                 eM.ChangeState(new FarmerStateDown(eM, eC, attackCount, summonCount));
-            eC.FlipX(ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true).x < eM.PA.Pos.x);
+            eC.FlipX(ObjectStorageModel.Instance.GetPlayerPos(eM.Pos).x < eM.Pos.x);
         }
 
         public void OnStateExit()

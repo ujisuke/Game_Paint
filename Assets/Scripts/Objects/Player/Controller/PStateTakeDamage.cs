@@ -41,7 +41,7 @@ namespace Assets.Scripts.Objects.Player.Controller
 
         public void HandleInput()
         {
-            pC.PlayerView.SetPA(pM.PA);
+            pC.PlayerView.SetPA(pM.Pos, pM.Angle);
             pC.PlayerView.SetPHurtBox(pM.HurtBox);
             if (Input.GetMouseButton(1))
                 pM.ReloadInk().Forget();

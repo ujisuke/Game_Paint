@@ -59,7 +59,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
 
             if (summonCount >= eM.GetUP("SummonCountMax"))
                 eM.ChangeState(new FarmerStateSummon(eM, eC, attackCount, summonCount));
-            else if (Vector2.Distance(eM.PA.Pos, ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true)) <= eM.GetUP("NearDistance"))
+            else if (Vector2.Distance(eM.Pos, ObjectStorageModel.Instance.GetPlayerPos(eM.Pos)) <= eM.GetUP("NearDistance"))
                 eM.ChangeState(new FarmerStateSwingScythe(eM, eC, attackCount, summonCount));
             else
                 eM.ChangeState(new FarmerStateThrowHoe(eM, eC, attackCount, summonCount));
@@ -71,7 +71,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: eM.Token);
             eC.PlayAnim("Jumping");
             Vector2 targetPos = StageData.Instance.StageCenterPos;
-            Vector2 moveDir = (targetPos - eM.PA.Pos) / 100f;
+            Vector2 moveDir = (targetPos - eM.Pos) / 100f;
             float jumpSecondsDelta = eM.GetUP("JumpSeconds") / 100f;
             for (int i = 0; i < 100; i++)
             {
@@ -85,7 +85,7 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
             for (int j = 0; j < count; j++)
             {
                 Vector2 offset = Quaternion.Euler(0, 0, j * angle + i * rotateOffset) * Vector2.right;
-                await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Scoop"), eM.PA.Pos + offset, Quaternion.identity);
+                await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Scoop"), eM.Pos + offset, Quaternion.identity);
             }
             await UniTask.Delay(TimeSpan.FromSeconds(throwScoopIntervalSeconds), cancellationToken: eM.Token);
         }

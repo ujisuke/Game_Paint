@@ -19,7 +19,8 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         private CancellationTokenSource cts;
         private CancellationToken token;
         private bool isLatter;
-        public PA PA => pA;
+        public float Angle => pA.Angle;
+        public Vector2 Pos => pA.Pos;
         public HurtBox HurtBox => hurtBox;
         public EnemyData EnemyData => enemyData;
         public CancellationToken Token => token;

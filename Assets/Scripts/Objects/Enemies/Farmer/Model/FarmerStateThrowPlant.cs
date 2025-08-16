@@ -35,18 +35,18 @@ namespace Assets.Scripts.Objects.Enemies.Farmer.Model
         {
             float throwPlantSecondsHalf = eM.GetUP("ThrowPlantSeconds") * 0.5f;
             eC.PlayAnim("Throw", throwPlantSecondsHalf);
-            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Plant"), eM.PA.Pos, Quaternion.identity);
+            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("Plant"), eM.Pos, Quaternion.identity);
             await UniTask.Delay(TimeSpan.FromSeconds(throwPlantSecondsHalf), cancellationToken: eM.Token);
             eC.PlayAnim("ThrowEnd");
             await UniTask.Delay(TimeSpan.FromSeconds(throwPlantSecondsHalf), cancellationToken: eM.Token);
 
             if (attackCount >= eM.GetUP("AttackCountMax"))
                 eM.ChangeState(new FarmerStateThrowScoop(eM, eC, attackCount, summonCount));
-            else if (StageData.Instance.IsOnEdgeOfStage(eM.PA.Pos))
+            else if (StageData.Instance.IsOnEdgeOfStage(eM.Pos))
                 eM.ChangeState(new FarmerStateJump(eM, eC, attackCount, summonCount));
             else if (summonCount >= eM.GetUP("SummonCountMax"))
                 eM.ChangeState(new FarmerStateSummon(eM, eC, attackCount, summonCount));
-            else if (Vector2.Distance(eM.PA.Pos, ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true)) <= eM.GetUP("NearDistance"))
+            else if (Vector2.Distance(eM.Pos, ObjectStorageModel.Instance.GetPlayerPos(eM.Pos)) <= eM.GetUP("NearDistance"))
                 eM.ChangeState(new FarmerStateSwingScythe(eM, eC, attackCount, summonCount));
             else
                 eM.ChangeState(new FarmerStateJump(eM, eC, attackCount, summonCount));

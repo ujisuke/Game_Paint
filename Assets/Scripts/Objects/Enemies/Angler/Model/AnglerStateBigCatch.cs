@@ -37,7 +37,7 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
         private async UniTask Fishing()
         {
             Vector2 moveVector;
-            if (eM.PA.Pos.x < StageData.Instance.StageCenterPos.x)
+            if (eM.Pos.x < StageData.Instance.StageCenterPos.x)
                 moveVector = Vector2.left;
             else
                 moveVector = Vector2.right;
@@ -69,7 +69,7 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
         {
             Vector2 targetPos = StageData.Instance.StageCenterPos;
             float moveSecondsDelta = eM.GetUP("MoveStraightSeconds") * 0.005f;
-            float moveDirY = targetPos.y - eM.PA.Pos.y;
+            float moveDirY = targetPos.y - eM.Pos.y;
             for (int i = 0; i < 100; i++)
             {
                 Vector2 moveDir = new(moveVector.x * math.cos(i * 0.01f * math.PI) * 0.08f, moveDirY * 0.01f);
@@ -83,7 +83,7 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
             float width = StageData.Instance.Width;
             float bigCatchSeconds = eM.GetUP("BigCatchSeconds");
             Vector2 leftPos, rightPos;
-            if (eM.PA.Pos.x < StageData.Instance.StageCenterPos.x)
+            if (eM.Pos.x < StageData.Instance.StageCenterPos.x)
             {
                 leftPos = StageData.StageEdgePosMin + Vector2.up;
                 rightPos = new(StageData.Instance.StageEdgePosMax.x, StageData.Instance.StageCenterPos.y);
@@ -100,8 +100,8 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
                 await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: eM.Token);
             }
             await UniTask.Delay(TimeSpan.FromSeconds(bigCatchSeconds - 0.1f * width - 2f), cancellationToken: eM.Token);
-            Vector2 dir = (ObjectStorageModel.Instance.GetHostilePos(eM.PA.Pos, true) - eM.PA.Pos).normalized * 0.5f;
-            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("SpecialFish"), eM.PA.Pos + dir, Quaternion.identity);
+            Vector2 dir = (ObjectStorageModel.Instance.GetPlayerPos(eM.Pos) - eM.Pos).normalized * 0.5f;
+            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("SpecialFish"), eM.Pos + dir, Quaternion.identity);
             await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: eM.Token);
         }
 

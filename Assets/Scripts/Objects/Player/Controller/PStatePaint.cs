@@ -27,9 +27,9 @@ namespace Assets.Scripts.Objects.Player.Controller
         public void HandleInput()
         {
             pM.MoveInput(Input.GetKey(KeyCode.W), Input.GetKey(KeyCode.S), Input.GetKey(KeyCode.A), Input.GetKey(KeyCode.D));
-            pC.PlayerView.SetPA(pM.PA);
+            pC.PlayerView.SetPA(pM.Pos, pM.Angle);
             pC.PlayerView.SetPHurtBox(pM.HurtBox);
-            StageTilesModel.Instance.PaintTile(pM.PA.Pos, pM.ColorNameCurrent, false);
+            StageTilesModel.Instance.PaintTile(pM.Pos, pM.ColorNameCurrent, false);
             pM.ReduceInk();
             PlayerStatusView.Instance.SetInkBar(pM.InkRatio);
             if (pM.IsDead())
