@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6950007517489721335}
   - component: {fileID: 4719501435335199521}
-  - component: {fileID: 6376128447179116879}
   - component: {fileID: -1365387567242008421}
   - component: {fileID: 4110357594616915783}
+  - component: {fileID: 7897128935389959422}
   m_Layer: 0
   m_Name: Angler
   m_TagString: Untagged
@@ -90,21 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6376128447179116879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3515165110105616261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c95e98a9fd6329e4a9eeb42ac3567408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 434b278cc297ca94f831547c84beb8fa, type: 2}
-  enemyView: {fileID: -1365387567242008421}
-  colorEffectData: {fileID: 11400000, guid: 5832635b557d22944903ce2a6d41febf, type: 2}
 --- !u!114 &-1365387567242008421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4719501435335199521}
   animator: {fileID: 4110357594616915783}
+  hurtBoxPrefab: {fileID: 3515165110105616261, guid: b76afdf379171fe41be3def4a882e1e6, type: 3}
 --- !u!95 &4110357594616915783
 Animator:
   serializedVersion: 7
@@ -129,7 +115,7 @@ Animator:
   m_GameObject: {fileID: 3515165110105616261}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: -3451874011260846643, guid: 4457abff24f200b48bb5f12c06cfbf33, type: 3}
+  m_Controller: {fileID: 4980266221448874561, guid: 4457abff24f200b48bb5f12c06cfbf33, type: 3}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -141,3 +127,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7897128935389959422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3515165110105616261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d60a7410a407364e8095e67db3ef519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: 434b278cc297ca94f831547c84beb8fa, type: 2}
+  enemyView: {fileID: -1365387567242008421}

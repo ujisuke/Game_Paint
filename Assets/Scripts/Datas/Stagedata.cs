@@ -48,6 +48,8 @@ namespace Assets.Scripts.Datas
 
         public bool IsOutOfStage(Vector2 pos) => pos.x < StageEdgePosMin.x || pos.x > StageEdgePosMax.x || pos.y < StageEdgePosMin.y || pos.y > StageEdgePosMax.y;
 
+        public bool IsOutOfStageX(Vector2 pos) => pos.x < StageEdgePosMin.x || pos.x > StageEdgePosMax.x;
+
         public bool IsUpperOfStage(Vector2 pos) => pos.y > StageCenterPos.y;
 
         public Vector2 ClampPos(Vector2 pos) => new(Mathf.Clamp(pos.x, StageEdgePosMin.x, StageEdgePosMax.x), Mathf.Clamp(pos.y, StageEdgePosMin.y, StageEdgePosMax.y));

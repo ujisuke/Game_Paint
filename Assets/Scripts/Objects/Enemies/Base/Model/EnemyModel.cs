@@ -27,7 +27,7 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
         public bool DoesGetHPHalf => !isLatter && hP.IsLessThanHalf();
         public bool IsLatter => isLatter;
 
-        public EnemyModel(EnemyData enemyData, IEStateAfterBorn eStateAfterBorn, Vector2 pos, EnemyController enemyController, ColorEffectData colorEffectData)
+        public EnemyModel(EnemyData enemyData, IEStateAfterBorn eStateAfterBorn, Vector2 pos, EnemyController enemyController)
         {
             this.enemyData = enemyData;
             pA = new PA(pos, 0f);
