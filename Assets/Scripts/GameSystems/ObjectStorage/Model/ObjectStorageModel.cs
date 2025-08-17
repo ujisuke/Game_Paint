@@ -36,20 +36,18 @@ namespace Assets.Scripts.GameSystems.ObjectStorage.Model
         public void RemoveEnemy() => enemy = null;
         public void AddPlayer(PlayerModel player) => this.player = player;
         public void RemovePlayer() => player = null;
-        public void AddEnemyAttack(EnemyAttackModel enemyAttack, bool isBreakable)
+        public void AddEnemyAttack(EnemyAttackModel enemyAttack)
         {
-            if(isBreakable)
+            enemyAttackList.Add(enemyAttack);
+            if (enemyAttack.IsBreakable)
                 enemyAttackBreakableList.Add(enemyAttack);
-            else
-                enemyAttackList.Add(enemyAttack);
         }
 
         public void RemoveEnemyAttack(EnemyAttackModel enemyAttack)
         {
-            if (enemyAttackBreakableList.Contains(enemyAttack))
+            enemyAttackList.Remove(enemyAttack);
+            if (enemyAttack.IsBreakable)
                 enemyAttackBreakableList.Remove(enemyAttack);
-            else if (enemyAttackList.Contains(enemyAttack))
-                enemyAttackList.Remove(enemyAttack);
         }
 
         public void AddFamiliarAttack(FamiliarAttackModel familiarAttack, bool isEnemy)
@@ -178,6 +176,14 @@ namespace Assets.Scripts.GameSystems.ObjectStorage.Model
                     player.TakeDamage(eFamiliarAttackList[i].Power);
                     return;
                 }
+        }
+
+        public bool IsHitPFAtoEA(EnemyAttackModel enemyAttack)
+        {
+            for (int i = 0; i < pFamiliarAttackList.Count; i++)
+                if (ObjectHitDetector.IsAttacking(pFamiliarAttackList[i].HitBox, enemyAttack.HurtBox))
+                    return true;
+            return false;
         }
     }
 }

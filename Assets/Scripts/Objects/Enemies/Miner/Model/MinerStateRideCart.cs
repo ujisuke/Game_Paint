@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Objects.Enemies.Miner.Model
 {
-    public class MinerStateRideCart : IEStateAfterBorn
+    public class MinerStateRideCart : IEState
     {
         private readonly EnemyModel eM;
         private readonly EnemyController eC;
@@ -26,16 +26,6 @@ namespace Assets.Scripts.Objects.Enemies.Miner.Model
             this.attackCount = attackCount;
             this.summonCount = summonCount;
         }
-
-        public MinerStateRideCart(EnemyController enemyController)
-        {
-            eM = null;
-            eC = enemyController;
-            attackCount = 0;
-            summonCount = 0;
-        }
-
-        public IEState Initialize(EnemyModel enemyModel, EnemyController enemyController) => new MinerStateRideCart(enemyModel, enemyController, 0, 0);
 
         public void OnStateEnter()
         {
@@ -72,8 +62,7 @@ namespace Assets.Scripts.Objects.Enemies.Miner.Model
                 eM.MoveIgnoringStage(moveDir);
                 await UniTask.Delay(TimeSpan.FromSeconds(moveSecondsDelta), cancellationToken: eM.Token);
                 if (bigCart[0] != null || i > 90)
-                    continue;
-                eM.ChangeState(new MinerStateDown(eM, eC, attackCount, summonCount));
+                    eM.ChangeState(new MinerStateDown(eM, eC, attackCount, summonCount));
             }
 
             eC.PlayAnim("HideEnd");

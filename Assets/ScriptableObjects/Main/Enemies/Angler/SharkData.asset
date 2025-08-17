@@ -12,11 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542be573a2e659b4cb22dcaee54d5cc9, type: 3}
   m_Name: SharkData
   m_EditorClassIdentifier: 
+  maxHP: 0
   power: 1
-  hitBoxScale: {x: 0.6, y: 0.6}
-  viewScale: {x: 1, y: 1}
+  hitAndHurtBoxScale: {x: 4.5, y: 4.5}
+  viewScale: {x: 4, y: 4}
+  isBreakable: 0
   uniqueParametersList:
   - parameterName: MoveLapSeconds
-    value: 4
+    value: 10
   - parameterName: MoveLapCount
     value: 3
+  - parameterName: AttackSpeed
+    value: 18
+  - parameterName: AttackHeight
+    value: 4
+  - parameterName: HideSeconds
+    value: 1

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542be573a2e659b4cb22dcaee54d5cc9, type: 3}
   m_Name: SpecialFishData
   m_EditorClassIdentifier: 
+  maxHP: 1
   power: 1
-  hitBoxScale: {x: 4, y: 3}
+  hitAndHurtBoxScale: {x: 1, y: 1}
   viewScale: {x: 5, y: 5}
+  isBreakable: 1
   uniqueParametersList:
   - parameterName: MoveSpeed
     value: 4

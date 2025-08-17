@@ -81,7 +81,8 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
         private async UniTask Instantiate()
         {
             float width = StageData.Instance.Width;
-            float bigCatchSeconds = eM.GetUP("BigCatchSeconds");
+            float bigCatchDownSeconds = eM.GetUP("BigCatchSeconds") - 0.1f * width - 2f;
+            eC.PlayAnim("BigCatchDown", bigCatchDownSeconds);
             Vector2 leftPos, rightPos;
             if (eM.Pos.x < StageData.Instance.StageCenterPos.x)
             {
@@ -99,10 +100,16 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
                 await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BigCatchFish"), rightPos + new Vector2(i, 0), Quaternion.identity);
                 await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: eM.Token);
             }
-            await UniTask.Delay(TimeSpan.FromSeconds(bigCatchSeconds - 0.1f * width - 2f), cancellationToken: eM.Token);
+            await UniTask.Delay(TimeSpan.FromSeconds(bigCatchDownSeconds), cancellationToken: eM.Token);
+            eC.PlayAnim("BigCatchUp");
             Vector2 dir = (ObjectStorageModel.Instance.GetPlayerPos(eM.Pos) - eM.Pos).normalized * 0.5f;
-            await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("SpecialFish"), eM.Pos + dir, Quaternion.identity);
-            await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: eM.Token);
+            GameObject[] specialFish = await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("SpecialFish"), eM.Pos + dir, Quaternion.identity);
+            for (int i = 0; i < 100; i++)
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(0.02f), cancellationToken: eM.Token);
+                if (specialFish[0] == null || i > 90)
+                    eM.ChangeState(new AnglerStateDown(eM, eC, attackCount, summonCount));
+            }
         }
 
         public void OnUpdate()

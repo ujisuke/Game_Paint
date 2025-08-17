@@ -46,7 +46,7 @@ namespace Assets.Scripts.Datas
 
         public bool IsOnEdgeOfStage(Vector2 pos) => pos.x <= StageEdgePosMin.x + 1f || pos.x >= StageEdgePosMax.x - 1f || pos.y <= StageEdgePosMin.y + 1f || pos.y >= StageEdgePosMax.y - 1f;
 
-        public bool IsOutOfStage(Vector2 pos) => pos.x < StageEdgePosMin.x || pos.x > StageEdgePosMax.x || pos.y < StageEdgePosMin.y || pos.y > StageEdgePosMax.y;
+        public bool IsOutOfStage(Vector2 pos, float margin = 0f) => pos.x < StageEdgePosMin.x - margin || pos.x > StageEdgePosMax.x + margin || pos.y < StageEdgePosMin.y - margin || pos.y > StageEdgePosMax.y + margin;
 
         public bool IsOutOfStageX(Vector2 pos) => pos.x < StageEdgePosMin.x || pos.x > StageEdgePosMax.x;
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AnglerData
   m_EditorClassIdentifier: 
   enemyName: Angler
-  maxHP: 5
+  maxHP: 40
   downSeconds: 1
   hurtBoxScale: {x: 1, y: 1}
   viewScale: {x: 1, y: 1}
@@ -22,19 +22,19 @@ MonoBehaviour:
   - parameterName: MoveStraightSeconds
     value: 1.5
   - parameterName: AttackFishCount
-    value: 11
+    value: 17
   - parameterName: FishingSeconds
-    value: 1.5
+    value: 3.5
   - parameterName: MakeWhirlpoolSeconds
     value: 1.5
   - parameterName: MakeBarrierSeconds
     value: 1.5
   - parameterName: BigCatchSeconds
-    value: 4
+    value: 6
   - parameterName: SummonFishSeconds
     value: 4
   - parameterName: FishCount
-    value: 3
+    value: 8
   - parameterName: SummonSquidSeconds
     value: 4
   - parameterName: SquidCount
@@ -45,6 +45,8 @@ MonoBehaviour:
     value: 3
   - parameterName: SummonCountOfSquid
     value: 6
+  - parameterName: MakeBarrierDelaySeconds
+    value: 1
   attackPrefabList:
   - {fileID: 3515165110105616261, guid: 3cde8808d713eb14ab5b03882e2dc38e, type: 3}
   - {fileID: 3515165110105616261, guid: 5f4ad7474b765bd40a70315f473bcfbc, type: 3}

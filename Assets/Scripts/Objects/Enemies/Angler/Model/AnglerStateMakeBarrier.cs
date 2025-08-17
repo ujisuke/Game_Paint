@@ -26,14 +26,6 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
             this.summonCount = summonCount;
         }
 
-        public AnglerStateMakeBarrier(EnemyController enemyController)
-        {
-            eM = null;
-            eC = enemyController;
-            attackCount = 0;
-            summonCount = 0;
-        }
-
         public void OnStateEnter()
         {
             attackCount++;
@@ -44,7 +36,11 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
 
         private async UniTask MakeBarrier()
         {
-            eM.MoveIgnoringStage(StageData.Instance.StageCenterPos - eM.Pos + Vector2.down * 2f);
+            await Jump();
+
+            eC.PlayAnim("ShakeHands");
+            await UniTask.Delay(TimeSpan.FromSeconds(eM.GetUP("MakeBarrierDelaySeconds")), cancellationToken: eM.Token);
+
             await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.Pos + Vector2.up, Quaternion.identity);
             await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.Pos + Vector2.right, Quaternion.identity);
             await GameObject.InstantiateAsync(eM.EnemyData.GetAttackPrefab("BarrierFish"), eM.Pos + Vector2.down, Quaternion.identity);
@@ -72,8 +68,20 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
                 eM.ChangeState(new AnglerStateFishing(eM, eC, attackCount, summonCount));
         }
 
+        private async UniTask Jump()
+        {
+            eC.PlayAnim("Hide");
+            eM.SetHurtBoxActive(false);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: eM.Token);
+            eC.PlayAnim("Appear");
+            eM.SetHurtBoxActive(true);
+            eM.MoveIgnoringStage(StageData.Instance.StageCenterPos - eM.Pos + Vector2.down * 2f);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: eM.Token);            
+        }
+
         private async UniTask MoveStraightFromCenter(Vector2 moveVector)
         {
+            eC.PlayAnim("Walk");
             float moveSecondsDelta = eM.GetUP("MoveStraightSeconds") * 0.005f;
             Vector2 moveDir = 0.01f * (StageData.Instance.Width * 0.5f - 3f) * moveVector;
             for (int i = 0; i < 100; i++)

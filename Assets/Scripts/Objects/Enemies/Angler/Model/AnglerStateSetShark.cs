@@ -14,8 +14,8 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
     {
         private readonly EnemyModel eM;
         private readonly EnemyController eC;
-        private int attackCount;
-        private int summonCount;
+        private readonly int attackCount;
+        private readonly int summonCount;
 
         public AnglerStateSetShark(EnemyModel enemyModel, EnemyController enemyController, int attackCount, int summonCount)
         {
@@ -37,19 +37,9 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
 
         public void OnStateEnter()
         {
-            attackCount++;
-            if(eM.IsLatter)
-                summonCount++;
             GameObject.Instantiate(eM.EnemyData.GetAttackPrefab("Shark"), StageData.StageEdgePosMin, Quaternion.identity);
 
-            if (attackCount >= eM.GetUP("AttackCountMax"))
-                eM.ChangeState(new AnglerStateBigCatch(eM, eC, attackCount, summonCount));
-            else if (summonCount == (int)eM.GetUP("SummonCountOfFish"))
-                eM.ChangeState(new AnglerStateSummonFish(eM, eC, attackCount, summonCount));
-            else if (summonCount >= eM.GetUP("SummonCountOfSquid"))
-                eM.ChangeState(new AnglerStateSummonSquid(eM, eC, attackCount, summonCount));
-            else
-                eM.ChangeState(new AnglerStateMakeBarrier(eM, eC, attackCount, summonCount));
+            eM.ChangeState(new AnglerStateMakeBarrier(eM, eC, attackCount, summonCount));
         }
 
         public void OnUpdate()

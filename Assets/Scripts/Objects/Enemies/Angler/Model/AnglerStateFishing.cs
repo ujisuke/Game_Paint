@@ -59,6 +59,7 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
 
         private async UniTask MoveTurn(Vector2 moveVector)
         {
+            eC.PlayAnim("Walk");
             Vector2 targetPos = StageData.Instance.CalcRandomPosInStage();
             float moveSecondsDelta = eM.GetUP("MoveStraightSeconds") * 0.005f;
             float moveDirY = targetPos.y - eM.Pos.y;
@@ -83,9 +84,12 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
 
         private async UniTask Instantiate()
         {
-            Vector2 dir = (ObjectStorageModel.Instance.GetPlayerPos(eM.Pos) - eM.Pos).normalized * 0.5f;
             int attackFishCount = (int)eM.GetUP("AttackFishCount");
-            await UniTask.Delay(TimeSpan.FromSeconds(eM.GetUP("FishingSeconds") - 0.1f * attackFishCount), cancellationToken: eM.Token);
+            float fishingDownSeconds = eM.GetUP("FishingSeconds") - 0.1f * attackFishCount;
+            eC.PlayAnim("FishingDown", fishingDownSeconds);
+            Vector2 dir = (ObjectStorageModel.Instance.GetPlayerPos(eM.Pos) - eM.Pos).normalized * 0.5f;
+            await UniTask.Delay(TimeSpan.FromSeconds(fishingDownSeconds), cancellationToken: eM.Token);
+            eC.PlayAnim("FishingUp");
             float angle = 360f / attackFishCount * 3f;
             for (int i = 0; i < attackFishCount; i++)
             {
@@ -96,6 +100,7 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
 
         private async UniTask MoveStraightAfterFishing(Vector2 moveVector)
         {
+            eC.PlayAnim("Walk");
             float moveSecondsDelta = eM.GetUP("MoveStraightSeconds") * 0.01f;
             Vector2 moveDir = new(0.01f * (StageData.Instance.Width - 6f) * moveVector.x, 0f);
             for (int i = 0; i < 75; i++)

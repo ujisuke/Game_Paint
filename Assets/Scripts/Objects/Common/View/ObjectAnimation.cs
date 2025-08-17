@@ -26,7 +26,8 @@ namespace Assets.Scripts.Objects.Common.Model.View
 
         public void FlipX(bool isLeft)
         {
-            spriteRenderer.flipX = isLeft;
+            if (spriteRenderer != null)
+                spriteRenderer.flipX = isLeft;
         }
 
         public void Stop()

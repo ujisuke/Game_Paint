@@ -27,6 +27,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
         public int Power => enemyAttackData.Power;
         public HitBox HitBox => hitBox;
         public HurtBox HurtBox => hurtBox;
+        public bool IsBreakable => enemyAttackData.IsBreakable;
         public CancellationToken Token => token;
 
         public EnemyAttackModel(EnemyAttackData enemyAttackData, Vector2 pos, EnemyAttackController enemyAttackController, IEnemyAttackMove enemyAttackMove)
@@ -40,7 +41,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
             cts = new CancellationTokenSource();
             token = cts.Token;
             this.enemyAttackMove = enemyAttackMove.Initialize(this, enemyAttackController);
-            ObjectStorageModel.Instance.AddEnemyAttack(this, enemyAttackData.IsBreakable);
+            ObjectStorageModel.Instance.AddEnemyAttack(this);
             this.enemyAttackMove.OnAwake();
             isDisposed = false;
         }
@@ -89,7 +90,6 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
             hurtBox = hurtBox.SetActive(false);
             if (hP.IsDead())
             {
-                isDisposed = true;
                 Destroy();
                 return;
             }
@@ -101,10 +101,12 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
         {
             if (isDisposed)
                 return;
+            isDisposed = true;
             cts?.Cancel();
             cts?.Dispose();
-            ObjectStorageModel.Instance.RemoveEnemyAttack(this);  
-            enemyAttackController?.OnDestroy();
+            ObjectStorageModel.Instance.RemoveEnemyAttack(this);
+            if(enemyAttackController != null)
+                enemyAttackController.OnDestroy();
         }
 
         public void SetActiveHitBox(bool isActive)

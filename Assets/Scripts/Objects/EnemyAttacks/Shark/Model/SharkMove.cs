@@ -24,12 +24,13 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Shark.Model
 
         public void OnAwake()
         {
-            eAC.PlayAnim("Move");
             Move().Forget();
         }
 
         private async UniTask Move()
         {
+            eAC.PlayAnim("Move");
+            eAM.SetActiveHitBox(false);
             List<Vector2> posList = new()
             {StageData.StageEdgePosMin, new Vector2(StageData.StageEdgePosMin.x, StageData.Instance.StageEdgePosMax.y),
                 StageData.Instance.StageEdgePosMax, new Vector2(StageData.Instance.StageEdgePosMax.x, StageData.StageEdgePosMin.y)};
@@ -45,11 +46,31 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Shark.Model
                 float moveSecondsDelta = 0.01f * moveLapSeconds * Vector2.Distance(eAM.Pos, targetPos) / moveLength;
                 for (int i = 0; i < 100; i++)
                 {
+                    if(ObjectStorageModel.Instance.IsHitPFAtoEA(eAM))
+                        await Attack();
+
                     eAM.MoveIgnoringStage(moveDir);
-                    eAC.FlipX(targetPos.y < eAM.Pos.y);
+                    eAC.FlipX(moveDir.x < 0);
                     await UniTask.Delay(TimeSpan.FromSeconds(moveSecondsDelta), cancellationToken: eAM.Token);
                 }
                 moveEdgeCount--;
+            }
+            eAM.Destroy();
+        }
+
+        private async UniTask Attack()
+        {
+            eAC.PlayAnim("Hide");
+            await UniTask.Delay(TimeSpan.FromSeconds(eAM.GetUP("HideSeconds")), cancellationToken: eAM.Token);
+            eAC.PlayAnim("Up");
+            eAM.SetActiveHitBox(true);
+            Vector2 playerPos = ObjectStorageModel.Instance.GetPlayerPos(eAM.Pos);
+            Vector2 attackDir = 0.01f * eAM.GetUP("AttackSpeed") * (playerPos - eAM.Pos).normalized;
+            eAC.FlipX(attackDir.x < 0);
+            while (!StageData.Instance.IsOutOfStage(eAM.Pos, 10f))
+            {
+                eAM.MoveIgnoringStage(attackDir);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.01f), cancellationToken: eAM.Token);
             }
             eAM.Destroy();
         }

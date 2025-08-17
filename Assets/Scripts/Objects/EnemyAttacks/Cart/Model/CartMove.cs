@@ -48,7 +48,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Cart.Model
         public void OnUpdate()
         {
             eAM.MoveIgnoringStage(Time.deltaTime * moveDir);
-            if (StageData.Instance.IsOutOfStage(eAM.Pos) && !isInvincible)
+            if (StageData.Instance.IsOutOfStage(eAM.Pos, 5f) && !isInvincible)
                 eAM.Destroy();
         }
     }

@@ -52,7 +52,7 @@ namespace Assets.Scripts.Objects.EnemyAttacks.BigCatchFish.Model
             seconds += Time.deltaTime;
             if(seconds > jumpSeconds)
                 seconds = 0f;
-            Vector2 offset = 0.01f * math.cos(math.PI * seconds / jumpSeconds) * Vector2.up * jumpHeight;
+            Vector2 offset = 0.01f * jumpHeight * math.cos(math.PI * seconds / jumpSeconds) * Vector2.up;
             eAM.MoveIgnoringStage(Time.deltaTime * moveDir + offset);
             if (StageData.Instance.IsOutOfStageX(eAM.Pos) && !isInvincible)
                 eAM.Destroy();

@@ -32,8 +32,9 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
 
         private async UniTask Summon()
         {
-            float summonSeconds = eM.GetUP("SummonSquidSeconds");
-            eC.PlayAnim("Summon");
+            float summonSeconds = eM.GetUP("SummonSquidSeconds") - 0.5f;
+            eC.PlayAnim("Hide");
+            eM.SetHurtBoxActive(false);
             float squidCount = eM.GetUP("SquidCount");
             Vector2 playerPos = ObjectStorageModel.Instance.GetPlayerPos(eM.Pos);
             for (int i = 0; i < squidCount; i++)
@@ -42,7 +43,10 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
                 await SummonDataList.Instance.SummonByEnemy("Squid", randomPos, eM.Token);
                 await UniTask.Delay(TimeSpan.FromSeconds(summonSeconds / squidCount), cancellationToken: eM.Token);
             }
-            
+            eC.PlayAnim("Appear");
+            eM.SetHurtBoxActive(true);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: eM.Token);
+
             if (attackCount >= eM.GetUP("AttackCountMax"))
                 eM.ChangeState(new AnglerStateBigCatch(eM, eC, attackCount, summonCount));
             else if (summonCount == (int)eM.GetUP("SummonCountOfFish"))

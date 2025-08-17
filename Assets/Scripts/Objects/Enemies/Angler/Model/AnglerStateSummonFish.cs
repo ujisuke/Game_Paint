@@ -32,8 +32,9 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
 
         private async UniTask Summon()
         {
-            float summonSeconds = eM.GetUP("SummonFishSeconds");
-            eC.PlayAnim("Summon", summonSeconds * 0.5f);
+            float summonSeconds = eM.GetUP("SummonFishSeconds") - 0.5f;
+            eC.PlayAnim("Hide");
+            eM.SetHurtBoxActive(false);
             float fishCount = eM.GetUP("FishCount");
             for (int i = 0; i < fishCount; i++)
             {
@@ -41,6 +42,9 @@ namespace Assets.Scripts.Objects.Enemies.Angler.Model
                 await SummonDataList.Instance.SummonByEnemy("Fish", randomPos, eM.Token);
                 await UniTask.Delay(TimeSpan.FromSeconds(summonSeconds / fishCount), cancellationToken: eM.Token);
             }
+            eC.PlayAnim("Appear");
+            eM.SetHurtBoxActive(true);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: eM.Token);
 
             if (attackCount >= eM.GetUP("AttackCountMax"))
                 eM.ChangeState(new AnglerStateBigCatch(eM, eC, attackCount, summonCount));
