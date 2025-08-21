@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c886000690a0af44a54dcc8ecff32ce, type: 3}
+  m_Name: NinjaData
+  m_EditorClassIdentifier: 
+  enemyName: Ninja
+  maxHP: 40
+  downSeconds: 1
+  hurtBoxScale: {x: 1, y: 1}
+  viewScale: {x: 1, y: 1}
+  invincibleSecond: 0.3
+  maxAttackCount: 1
+  uniqueParameterList:
+  - parameterName: MoveSpeed
+    value: 50
+  - parameterName: MoveIntervalSeconds
+    value: 0.3
+  - parameterName: CutCount
+    value: 3
+  - parameterName: CutDelaySeconds
+    value: 1
+  - parameterName: CutSeconds
+    value: 6
+  - parameterName: MakeMudWaveSeconds
+    value: 6
+  - parameterName: SlashCount
+    value: 5
+  - parameterName: SlashIntervalSeconds
+    value: 0.5
+  - parameterName: SlashHorizontalSeconds
+    value: 3
+  - parameterName: MakeMudSeconds
+    value: 3
+  - parameterName: MudCount
+    value: 20
+  - parameterName: SummonFrogSeconds
+    value: 3
+  - parameterName: SummonScorpionSeconds
+    value: 3
+  - parameterName: AttackCountMax
+    value: 1
+  - parameterName: SummonCountOfFrog
+    value: 5
+  - parameterName: SummonCountOfScorpion
+    value: 2
+  - parameterName: MultiSlashWaitSeconds
+    value: 0.5
+  - parameterName: SlashSpeed
+    value: 100
+  attackPrefabList:
+  - {fileID: 3515165110105616261, guid: 3ab974d47cb90274680d713667e65a98, type: 3}
+  - {fileID: 3515165110105616261, guid: 6a81af3f069c1064192c3618bfc100cc, type: 3}
+  - {fileID: 3515165110105616261, guid: d8bb705cdc3b2dd42b8aaa5476ca24c0, type: 3}
+  - {fileID: 3515165110105616261, guid: f2b4d9307c747d14081690c3c5ed5e28, type: 3}
+  - {fileID: 3515165110105616261, guid: 4650464c9087ec343b9c7bdbef1eb982, type: 3}
+  - {fileID: 3515165110105616261, guid: a49e525576ff43b4a929c33debea2c50, type: 3}
+  - {fileID: 3515165110105616261, guid: d6471ec85f660a342979418963d1295f, type: 3}
+  - {fileID: 3515165110105616261, guid: 0dbc8150d5d9f7f4282b9ea2d6c26558, type: 3}
+  - {fileID: 3515165110105616261, guid: 247241c76313e1748978f82939dff303, type: 3}

@@ -18,6 +18,7 @@ namespace Assets.Scripts.Objects.Player.Controller
         public void OnStateEnter()
         {
             pM.Destroy();
+            pC.OnDestroy();
         }
 
         public void HandleInput()

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Datas
 {
@@ -9,9 +8,12 @@ namespace Assets.Scripts.Datas
     {
         [SerializeField] private List<ColorData> paintColorDataList;
         [SerializeField] private List<ColorData> stageColorDataList;
+        [SerializeField] private ColorData enemyColorData;
         private Dictionary<ColorName, Color> colorDictionary;
+        private static ColorDataList instance;
 
         public List<ColorName> PaintColorNameList => paintColorDataList.ConvertAll(colorData => colorData.ColorName);
+        public static ColorDataList Instance => instance;
 
         private void Initialize()
         {
@@ -21,6 +23,8 @@ namespace Assets.Scripts.Datas
                 colorDictionary = AddDictionary(paintColorDataList[i], colorDictionary);
             for (int i = 0; i < stageColorDataList.Count; i++)
                 colorDictionary = AddDictionary(stageColorDataList[i], colorDictionary);
+            colorDictionary = AddDictionary(enemyColorData, colorDictionary);
+            instance = this;
         }
 
         private static Dictionary<ColorName, Color> AddDictionary(ColorData colorData, Dictionary<ColorName, Color> colorDictionary)
@@ -39,27 +43,21 @@ namespace Assets.Scripts.Datas
             return colorDictionary[colorName];
         }
 
-        public List<Image> SetImageColor(List<Image> imageList)
+        public void SetSpriteColor(List<GameObject> imageList)
         {
-            List<Image> newImageList = new(imageList);
-            
             for (int i = 0; i < paintColorDataList.Count; i++)
-            {
-                Color color = paintColorDataList[i].Color;
-                newImageList[i].color = i == 0 ? color : new Color(color.r, color.g, color.b, 0.5f);
-            }
-            return newImageList;
+                imageList[i].GetComponent<SpriteRenderer>().color = paintColorDataList[i].Color;
         }
 
-        public Dictionary<ColorName, Image> GetColorDictionary(List<Image> imageList)
+        public Dictionary<ColorName, Animator> GetAnimDictionary(List<GameObject> animatorList)
         {
-            Dictionary<ColorName, Image> dictionary = new();
+            Dictionary<ColorName, Animator> dictionary = new();
 
             for (int i = 0; i < paintColorDataList.Count; i++)
             {
                 ColorName colorName = paintColorDataList[i].ColorName;
                 if (!dictionary.ContainsKey(colorName))
-                    dictionary.Add(colorName, imageList[i]);
+                    dictionary.Add(colorName, animatorList[i].GetComponent<Animator>());
             }
             return dictionary;
         }

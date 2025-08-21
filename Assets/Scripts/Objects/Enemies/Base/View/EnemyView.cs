@@ -1,5 +1,6 @@
 using UnityEngine;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
+using Assets.Scripts.Objects.Common.Model.View;
 
 namespace Assets.Scripts.Objects.Enemies.Base.View
 {
@@ -7,20 +8,40 @@ namespace Assets.Scripts.Objects.Enemies.Base.View
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Animator animator;
-        private EnemyAnimation enemyAnimation;
+        private ObjectAnimation objectAnimation;
+        [SerializeField] private GameObject hurtBoxPrefab;
+        private GameObject hurtBoxObject;
 
-        public void SetPA(PA pA) => transform.SetPositionAndRotation(pA.Pos, Quaternion.Euler(0f, 0f, pA.Angle));
+        public void SetPA(Vector2 pos, float angle) => transform.SetPositionAndRotation(pos, Quaternion.Euler(0f, 0f, angle));
 
-        public void PlayAnim(string animName)
+        public void SetViewScale(Vector2 viewScale) => transform.localScale = viewScale;
+
+        public void PlayAnim(string animName, float animSeconds)
         {
-            enemyAnimation ??= new EnemyAnimation(animator, spriteRenderer);
-            enemyAnimation.Play(animName);
+            objectAnimation ??= new ObjectAnimation(animator, spriteRenderer);
+            objectAnimation.Play(animName, animSeconds);
         }
 
         public void FlipX(bool isLeft)
         {
-            enemyAnimation ??= new EnemyAnimation(animator, spriteRenderer);
-            enemyAnimation.FlipX(isLeft);
+            objectAnimation ??= new ObjectAnimation(animator, spriteRenderer);
+            objectAnimation.FlipX(isLeft);
+        }
+
+        public void InstantiateHurtBox(HurtBox hurtBox)
+        {
+            hurtBoxObject = Instantiate(hurtBoxPrefab, hurtBox.Pos, Quaternion.identity);
+            hurtBoxObject.transform.localScale = hurtBox.Size;
+        }
+
+        public void SetPHurtBox(HurtBox hurtBox)
+        {
+            hurtBoxObject.transform.position = hurtBox.Pos;
+        }
+
+        public void OnDestroy()
+        {
+            Destroy(hurtBoxObject);
         }
     }
 }

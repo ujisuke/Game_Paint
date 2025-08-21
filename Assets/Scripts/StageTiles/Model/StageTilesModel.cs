@@ -10,24 +10,16 @@ namespace Assets.Scripts.StageTiles.Model
         public static StageTilesModel Instance;
         private readonly StageTilesData stageTilesData;
         public StageTile[,] StageTiles => stageTilesData.StageTiles;
-        public static int TilesWidth => StageTilesData.TilesWidth;
-        public static int TilesHeight => StageTilesData.TilesHeight;
         
 
-        public StageTilesModel(StageTileView[,] stageTileViews, SignDataList signDataList)
+        public StageTilesModel(StageTileView[,] stageTileViews, SummonDataList signDataList)
         {
             stageTilesData = new StageTilesData(stageTileViews, signDataList);
             Instance = this;
         }
 
-        public void PaintTile(Vector2 pos, ColorName colorNameInput)
-        {
-            stageTilesData.PaintTile(pos, colorNameInput);
-        }
+        public void PaintTile(Vector2 pos, ColorName colorNameInput, bool isByEnemy) => stageTilesData.PaintTile(pos, colorNameInput, isByEnemy);
 
-        public void CompletePaint(ColorName colorNameInput)
-        {
-            stageTilesData.CompletePaint(colorNameInput);
-        }
+        public void CompletePaint(bool isByEnemy) => stageTilesData.CompletePaint(isByEnemy);
     }
 }

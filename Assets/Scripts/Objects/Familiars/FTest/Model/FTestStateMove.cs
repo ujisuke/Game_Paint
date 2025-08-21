@@ -1,5 +1,5 @@
 using Assets.Scripts.Objects.Familiars.Base.Model;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using UnityEngine;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
 
@@ -18,13 +18,13 @@ namespace Assets.Scripts.Objects.Familiars.FTest.Model
         public void OnStateEnter()
         {
             Debug.Log("FTestStateMove");
-            targetPos = ObjectsStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
+            targetPos = ObjectStorageModel.Instance.GetHostilePos(fM.PA.Pos, fM.IsEnemy);
             i = 0;
         }
 
         public void OnUpdate()
         {
-            fM.Move(fM.FamiliarData.GetUniqueParameter("Speed") * (targetPos - fM.PA.Pos).normalized);
+            fM.MoveIgnoringStage(fM.FamiliarData.GetUP("Speed") * (targetPos - fM.PA.Pos).normalized);
             i++;
             if (i >= 50)
                 fM.ChangeState(new FStateDead(fM));

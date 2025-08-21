@@ -1,6 +1,7 @@
 using UnityEngine;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
+using Assets.Scripts.Objects.Common.Model.View;
 
 namespace Assets.Scripts.Objects.Familiars.Base.View
 {
@@ -9,7 +10,7 @@ namespace Assets.Scripts.Objects.Familiars.Base.View
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private ColorDataList colorDataList;
         [SerializeField] private Animator animator;
-        private FamiliarAnimation familiarAnimation;
+        private ObjectAnimation objectAnimation;
 
         public void SetPA(PA pA)
         {
@@ -28,14 +29,14 @@ namespace Assets.Scripts.Objects.Familiars.Base.View
 
         public void PlayAnim(string animName, float playSeconds)
         {
-            familiarAnimation ??= new FamiliarAnimation(animator, spriteRenderer);
-            familiarAnimation.Play(animName, playSeconds);
+            objectAnimation ??= new ObjectAnimation(animator, spriteRenderer);
+            objectAnimation.Play(animName, playSeconds);
         }
 
         public void FlipX(bool isLeft)
         {
-            familiarAnimation ??= new FamiliarAnimation(animator, spriteRenderer);
-            familiarAnimation.FlipX(isLeft);
+            objectAnimation ??= new ObjectAnimation(animator, spriteRenderer);
+            objectAnimation.FlipX(isLeft);
         }
     }
 }

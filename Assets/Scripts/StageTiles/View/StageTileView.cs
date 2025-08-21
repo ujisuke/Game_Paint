@@ -28,7 +28,7 @@ namespace Assets.Scripts.StageTiles.View
         //仮設
         private void Awake()
         {
-            Paint(colorNameInitial == ColorName.wallColor ? ColorName.wallColor : ColorName.defaultColor);
+            Paint(colorNameInitial == ColorName.wallColor ? ColorName.wallColor : ColorName.defaultTileColor);
         }
     }
 }

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c886000690a0af44a54dcc8ecff32ce, type: 3}
+  m_Name: FarmerData
+  m_EditorClassIdentifier: 
+  enemyName: Farmer
+  maxHP: 20
+  downSeconds: 1
+  hurtBoxScale: {x: 1, y: 1}
+  viewScale: {x: 1, y: 1}
+  invincibleSecond: 0.5
+  uniqueParameterList:
+  - parameterName: ThrowHoeSeconds
+    value: 3
+  - parameterName: ThrowHoeSetCount
+    value: 4
+  - parameterName: ThrowHoeCountPerSet
+    value: 2
+  - parameterName: ThrowHoeDelaySeconds
+    value: 0.6
+  - parameterName: ThrowHoeCoolDownSeconds
+    value: 0
+  - parameterName: JumpSeconds
+    value: 0.7
+  - parameterName: ThrowPlantSeconds
+    value: 3
+  - parameterName: NearDistance
+    value: 4
+  - parameterName: SwingScytheDelaySeconds
+    value: 1
+  - parameterName: SwingScytheSeconds
+    value: 0.3
+  - parameterName: SwingScytheCoolDownSeconds
+    value: 1
+  - parameterName: ThrowScoopDelayFirstSeconds
+    value: 1.5
+  - parameterName: ThrowScoopDelaySecondSeconds
+    value: 0.5
+  - parameterName: ThrowScoopDelayThirdSeconds
+    value: 1
+  - parameterName: ThrowScoopCoolDownSeconds
+    value: 2
+  - parameterName: ThrowScoopIntervalSeconds
+    value: 0.1
+  - parameterName: ThrowScoopCount
+    value: 6
+  - parameterName: ThrowScoopSet
+    value: 3
+  - parameterName: AttackCountMax
+    value: 10
+  - parameterName: SummonCountMax
+    value: 4
+  - parameterName: SummonSeconds
+    value: 1
+  - parameterName: BirdCount
+    value: 3
+  attackPrefabList:
+  - {fileID: 3515165110105616261, guid: 19303ef061648e846aa641703f6fabfb, type: 3}
+  - {fileID: 3515165110105616261, guid: bad0c9c3568256947a80e6b4d3a41736, type: 3}
+  - {fileID: 3515165110105616261, guid: 5619ab06902050d43b78295f8130f29b, type: 3}
+  - {fileID: 3515165110105616261, guid: 18beb7882eb08a046a844f3e8f552b38, type: 3}

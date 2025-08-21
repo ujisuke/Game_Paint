@@ -15,15 +15,22 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Controller
         public void Initialize(FamiliarData familiarData, bool isEnemy, ColorName colorName)
         {
             familiarAttackModel = new FamiliarAttackModel(familiarData, transform.position, this, isEnemy, colorName, colorEffectData);
-            familiarAttackView.SetViewScale(familiarData.HitBoxScale);
+            familiarAttackView.SetViewScale(familiarData.ViewScale);
+            familiarAttackView.SetPA(familiarAttackModel.PA);
+            familiarAttackView.InstantiateHitBox(familiarAttackModel.HitBox);
         }
 
         private void Update()
         {
             if (familiarAttackModel == null)
                 return;
-            familiarAttackModel.OnUpdate();
             familiarAttackView.SetPA(familiarAttackModel.PA);
+            familiarAttackView.SetPHitBox(familiarAttackModel.HitBox);
+        }
+
+        public void OnDestroy()
+        {
+            familiarAttackView.OnDestroy();
         }
     }
 }

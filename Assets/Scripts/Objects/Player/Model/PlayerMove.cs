@@ -1,4 +1,4 @@
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.StageTiles.Model;
 using Unity.Mathematics;
 using UnityEngine;
@@ -14,7 +14,8 @@ namespace Assets.Scripts.Objects.Player.Model
         private const float lerpFactor = 0.1f;
         private PA pA;
         public Vector2 DirectionVector => directionVectorPrev;
-        public PA PA => pA;
+        public Vector2 Pos => pA.Pos;
+        public float Angle => pA.Angle;
 
         public PlayerMove(float moveSpeed, Vector2 hurtBoxScale, Vector2 pos, float angle)
         {
@@ -41,7 +42,7 @@ namespace Assets.Scripts.Objects.Player.Model
                 ApplyCollisionToDirectionVectorY(playerVertexPoses, directionVector.y));
 
             directionVectorPrev = AdjustDiagonalDirectionVector(playerVertexPoses, minimalDirectionVector);
-            pA = pA.Move(directionVectorPrev);
+            pA = pA.MoveIgnoringStage(directionVectorPrev);
         }
 
         private Vector2 ApplyInputToDirectionVector(bool isDirectingUp, bool isDirectingDown, bool isDirectingLeft, bool isDirectingRight)
@@ -124,7 +125,7 @@ namespace Assets.Scripts.Objects.Player.Model
 
         private static bool IsWall(Vector2Int pos)
         {
-            return StageTilesModel.Instance.StageTiles[pos.x, pos.y].IsWall();
+            return StageTilesModel.Instance.StageTiles[pos.x, pos.y].IsWall;
         }
 
         private static float ClampDirectionVector(float startPosXorY, float directionVectorXorY)

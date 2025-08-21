@@ -1,6 +1,7 @@
 using Assets.Scripts.Datas;
 using Assets.Scripts.Objects.Enemies.Base.Model;
 using Assets.Scripts.Objects.Enemies.Base.View;
+using Assets.Scripts.UI.EnemyStatus.View;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.Enemies.Base.Controller
@@ -10,14 +11,15 @@ namespace Assets.Scripts.Objects.Enemies.Base.Controller
         [SerializeField] private EnemyData enemyData;
         private EnemyModel enemyModel;
         [SerializeField] private EnemyView enemyView;
-        [SerializeField] private ColorEffectData colorEffectData;
 
         public abstract void OnSummon(Vector2 pos);
 
         protected void Initialize(IEStateAfterBorn eStateAfterBorn, Vector2 pos)
         {
-            enemyModel = new EnemyModel(enemyData, eStateAfterBorn, pos, this, colorEffectData);
-            enemyView.SetPA(enemyModel.PA);
+            enemyModel = new EnemyModel(enemyData, eStateAfterBorn, pos, this);
+            enemyView.SetViewScale(enemyData.ViewScale);
+            enemyView.SetPA(enemyModel.Pos, enemyModel.Angle);
+            enemyView.InstantiateHurtBox(enemyModel.HurtBox);
         }
 
         private void Update()
@@ -25,17 +27,28 @@ namespace Assets.Scripts.Objects.Enemies.Base.Controller
             if (enemyModel == null)
                 return;
             enemyModel.OnUpdate();
-            enemyView.SetPA(enemyModel.PA);
+            enemyView.SetPA(enemyModel.Pos, enemyModel.Angle);
+            enemyView.SetPHurtBox(enemyModel.HurtBox);
         }
 
-        public void PlayAnim(string animName)
+        public void PlayAnim(string animName, float animSeconds = 0f)
         {
-            enemyView.PlayAnim(animName);
+            enemyView.PlayAnim(animName, animSeconds);
         }
 
         public void FlipX(bool isLeft)
         {
             enemyView.FlipX(isLeft);
+        }
+
+        public void OnTakeDamage()
+        {
+            EnemyStatusView.Instance.SetHPBar(enemyModel.HPRatio);
+        }
+
+        public void OnDestroy()
+        {
+            enemyView.OnDestroy();
         }
     }
 

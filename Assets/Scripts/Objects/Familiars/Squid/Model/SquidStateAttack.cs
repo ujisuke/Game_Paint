@@ -2,7 +2,7 @@ using Assets.Scripts.Objects.Familiars.Base.Model;
 using UnityEngine;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Controller;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Objects.Familiars.Squid.Model
                 var fAC = newAttack.GetComponent<FamiliarAttackController>();
                 fAC.Initialize(fM.FamiliarData, fM.IsEnemy, fM.ColorName);
                 var attack = fAC.FamiliarAttackModel;
-                attack.Move(attackDir * i);
+                attack.MoveIgnoringStage(attackDir * i);
                 attackList.Add(attack);
             }
             fC.PlayAnim("Attack");
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Objects.Familiars.Squid.Model
         public void OnUpdate()
         {
             seconds += Time.deltaTime;
-            if (seconds >= fM.FamiliarData.GetUniqueParameter("AttackSeconds"))
+            if (seconds >= fM.FamiliarData.GetUP("AttackSeconds"))
                 fM.ChangeState(new FStateDead(fM));
         }
 

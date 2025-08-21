@@ -18,7 +18,9 @@ namespace Assets.Scripts.Objects.Player.Controller
         {
             playerModel = new(playerData, transform.position, this, colorDataList);
             playerView.ColorDataList = colorDataList;
-            playerView.SetPA(playerModel.PA);
+            playerView.SetViewScale(playerData.ViewScale);
+            playerView.SetPA(playerModel.Pos, playerModel.Angle);
+            playerView.InstantiateHurtBox(playerModel.HurtBox);
             pStateMachine = new PStateMachine(playerModel, this);
         }
 
@@ -27,14 +29,19 @@ namespace Assets.Scripts.Objects.Player.Controller
             pStateMachine.HandleInput();
         }
 
-        public void PlayAnim(string animName)
+        public void PlayAnim(string animName, float animSeconds = 0f)
         {
-            playerView.PlayAnim(animName);
+            playerView.PlayAnim(animName, animSeconds);
         }
 
         public void FlipX(bool isLeft)
         {
             playerView.FlipX(isLeft);
+        }
+
+        public void OnDestroy()
+        {
+            playerView.OnDestroy();
         }
     }
 }

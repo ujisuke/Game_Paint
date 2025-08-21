@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c886000690a0af44a54dcc8ecff32ce, type: 3}
+  m_Name: AnglerData
+  m_EditorClassIdentifier: 
+  enemyName: Angler
+  maxHP: 40
+  downSeconds: 1
+  hurtBoxScale: {x: 1, y: 1}
+  viewScale: {x: 1, y: 1}
+  invincibleSecond: 0.3
+  uniqueParameterList:
+  - parameterName: MoveStraightSeconds
+    value: 1.5
+  - parameterName: AttackFishCount
+    value: 17
+  - parameterName: FishingSeconds
+    value: 3.5
+  - parameterName: MakeWhirlpoolSeconds
+    value: 1.5
+  - parameterName: MakeBarrierSeconds
+    value: 1.5
+  - parameterName: BigCatchSeconds
+    value: 6
+  - parameterName: SummonFishSeconds
+    value: 4
+  - parameterName: FishCount
+    value: 8
+  - parameterName: SummonSquidSeconds
+    value: 4
+  - parameterName: SquidCount
+    value: 3
+  - parameterName: AttackCountMax
+    value: 7
+  - parameterName: SummonCountOfFish
+    value: 3
+  - parameterName: SummonCountOfSquid
+    value: 6
+  - parameterName: MakeBarrierDelaySeconds
+    value: 1
+  attackPrefabList:
+  - {fileID: 3515165110105616261, guid: 3cde8808d713eb14ab5b03882e2dc38e, type: 3}
+  - {fileID: 3515165110105616261, guid: 5f4ad7474b765bd40a70315f473bcfbc, type: 3}
+  - {fileID: 3515165110105616261, guid: 0cd7fca8a7b5124448335ab88e3a5b1c, type: 3}
+  - {fileID: 3515165110105616261, guid: 5e0532c813b0fe0499cc95e8df94e6b5, type: 3}
+  - {fileID: 3515165110105616261, guid: e30cea539ce340c4e87e72fa5f29a475, type: 3}

@@ -34,12 +34,12 @@ namespace Assets.Scripts.Objects.Familiars.Fish.Model
 
         public void OnUpdate()
         {
-            fM.Move(fM.FamiliarData.GetUniqueParameter("Speed") * Time.deltaTime * (targetPos - fM.PA.Pos).normalized);
-            attack.Move(fM.PA.Pos - attack.PA.Pos);
+            fM.MoveIgnoringStage(fM.FamiliarData.GetUP("Speed") * Time.deltaTime * (targetPos - fM.PA.Pos).normalized);
+            attack.MoveIgnoringStage(fM.PA.Pos - attack.PA.Pos);
             if ((targetPos - fM.PA.Pos).magnitude <= 0.6f)
                 ResetTargetPos();
             seconds += Time.deltaTime;
-            if (seconds >= fM.FamiliarData.GetUniqueParameter("Seconds"))
+            if (seconds >= fM.FamiliarData.GetUP("Seconds"))
                 fM.ChangeState(new FStateDead(fM));
         }
 
@@ -50,7 +50,7 @@ namespace Assets.Scripts.Objects.Familiars.Fish.Model
 
         private void ResetTargetPos()
         {
-            targetPos = fM.PA.Pos + new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * fM.FamiliarData.GetUniqueParameter("Range");
+            targetPos = fM.PA.Pos + new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * fM.FamiliarData.GetUP("Range");
             fC.FlipX(targetPos.x - fM.PA.Pos.x < 0f);
         }
     }

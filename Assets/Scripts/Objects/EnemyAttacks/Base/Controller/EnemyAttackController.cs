@@ -1,6 +1,8 @@
+using System;
 using Assets.Scripts.Datas;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.View;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
@@ -9,13 +11,16 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
     {
         [SerializeField] private EnemyAttackData enemyAttackData;
         private EnemyAttackModel enemyAttackModel;
-        public EnemyAttackModel EnemyAttackModel => enemyAttackModel;
         [SerializeField] private EnemyAttackView enemyAttackView;
-        [SerializeField] private ColorEffectData colorEffectData;
+        public EnemyAttackModel EnemyAttackModel => enemyAttackModel;
 
-        public void Initialize(bool isSpeedDecreased)
+        protected void Initialize(IEnemyAttackMove enemyAttackMove)
         {
-            enemyAttackModel = new EnemyAttackModel(enemyAttackData, transform.position, this, isSpeedDecreased, colorEffectData);
+            enemyAttackModel = new EnemyAttackModel(enemyAttackData, transform.position, this, enemyAttackMove);
+            enemyAttackView.SetPA(enemyAttackModel.Pos, enemyAttackModel.Angle);
+            enemyAttackView.SetViewScale(enemyAttackData.ViewScale);
+            enemyAttackView.InstantiateHitBox(enemyAttackModel.HitBox);
+            enemyAttackView.InstantiateHurtBox(enemyAttackModel.HurtBox);
         }
 
         private void Update()
@@ -23,7 +28,25 @@ namespace Assets.Scripts.Objects.EnemyAttacks.Base.Controller
             if (enemyAttackModel == null)
                 return;
             enemyAttackModel.OnUpdate();
-            enemyAttackView.SetPAS(enemyAttackModel.PA, enemyAttackData.HitBoxScale);
+            enemyAttackView.SetPA(enemyAttackModel.Pos, enemyAttackModel.Angle);
+            enemyAttackView.SetPHitBox(enemyAttackModel.HitBox);
+            enemyAttackView.SetPHurtBox(enemyAttackModel.HurtBox);
+        }
+
+        public void OnDestroy()
+        {
+            enemyAttackView.OnDestroy();
+            Destroy(gameObject);
+        }
+
+        public void PlayAnim(string animName, float playSeconds = 1f)
+        {
+            enemyAttackView.PlayAnim(animName, playSeconds);
+        }
+
+        public void FlipX(bool isLeft)
+        {
+            enemyAttackView.FlipX(isLeft);
         }
     }
 }

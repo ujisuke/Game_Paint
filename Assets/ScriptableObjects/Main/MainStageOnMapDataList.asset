@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageOnMapDataList:
   - stageSceneName: StageFarmer
-    moveDirsToNext: 0300000000000000
+    moveDirsToNext: 03000000
   - stageSceneName: StageMiner
     moveDirsToNext: 03000000
   - stageSceneName: StageAngler
-    moveDirsToNext: 030000000100000001000000
+    moveDirsToNext: 01000000
   - stageSceneName: StageNinja
     moveDirsToNext: 02000000
   - stageSceneName: StageHead

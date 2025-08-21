@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c886000690a0af44a54dcc8ecff32ce, type: 3}
+  m_Name: MinerData
+  m_EditorClassIdentifier: 
+  enemyName: Miner
+  maxHP: 20
+  downSeconds: 2
+  hurtBoxScale: {x: 1, y: 1}
+  viewScale: {x: 1, y: 1}
+  invincibleSecond: 0.3
+  uniqueParameterList:
+  - parameterName: CartCount
+    value: 6
+  - parameterName: JamSeconds
+    value: 3
+  - parameterName: JamCoolDownSeconds
+    value: 2
+  - parameterName: ThrowBombSeconds
+    value: 3
+  - parameterName: MakeWallSeconds
+    value: 3
+  - parameterName: MakeWallCoolDownSeconds
+    value: 3
+  - parameterName: RideCartHideSeconds
+    value: 1
+  - parameterName: RideCartIntervalSeconds
+    value: 1
+  - parameterName: RideCartAttackSeconds
+    value: 3
+  - parameterName: RideCartCoolDownSeconds
+    value: 1
+  - parameterName: SummonSeconds
+    value: 3
+  - parameterName: MoleCount
+    value: 1
+  - parameterName: AttackCountMax
+    value: 10
+  - parameterName: SummonCountMax
+    value: 4
+  attackPrefabList:
+  - {fileID: 3515165110105616261, guid: 8fca56032e177674bb1b8b2b8efdd2c4, type: 3}
+  - {fileID: 3515165110105616261, guid: 0efd554b39f26714cb5a8c2131c84078, type: 3}
+  - {fileID: 3515165110105616261, guid: 388496f4cc6b0b94f975305b43fade8c, type: 3}
+  - {fileID: 3515165110105616261, guid: 3cf6c1e1a85865e4eb9649354bd8686c, type: 3}

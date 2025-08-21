@@ -1,3 +1,4 @@
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.GameSystems.SceneChanger.Model;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Assets.Scripts.GameSystems.StageSystem.Model
         public void OnStateEnter()
         {
             Debug.Log("SStateLose");
+            ObjectStorageModel.Instance.Clear();
             SceneChangerModel.Instance.LoadSceneRetry();
         }
 

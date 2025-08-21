@@ -1,3 +1,4 @@
+using Assets.Scripts.Objects.Enemies.Base.Controller;
 using Assets.Scripts.Objects.Enemies.Base.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Controller;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Model;
@@ -9,19 +10,23 @@ namespace Assets.Scripts.Objects.Enemies.ETest.Model
     {
         private readonly EnemyModel eM;
         private EnemyAttackModel eAM;
-        public ETestStateAttack(EnemyModel eM) => this.eM = eM;
+        private EnemyController eC;
+        public ETestStateAttack(EnemyModel eM, EnemyController eC)
+        {
+            this.eM = eM;
+            this.eC = eC;
+        }
 
         public void OnStateEnter()
         {
-            var newAttack = GameObject.Instantiate(eM.EnemyData.AttackPrefab, eM.PA.Pos, Quaternion.identity);
-            newAttack.GetComponent<EnemyAttackController>().Initialize(eM.IsAttackSpeedDecreased);
+            var newAttack = GameObject.Instantiate(eM.EnemyData.GetAttackPrefab("Test"), eM.Pos, Quaternion.identity);
             eAM = newAttack.GetComponent<EnemyAttackController>().EnemyAttackModel;
         }
 
         public void OnUpdate()
         {
             if (eM.IsDead())
-                eM.ChangeState(new EStateDead(eM));
+                eM.ChangeState(new EStateDead(eM, eC));
         }
 
         public void OnStateExit()

@@ -1,5 +1,5 @@
 using System.Threading;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
 using Assets.Scripts.Objects.Familiars.Base.Controller;
 using UnityEngine;
@@ -23,6 +23,7 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
         public FamiliarData FamiliarData => familiarData;
         public bool IsEnemy => isEnemy;
         public GameObject AttackPrefab => attackPrefab;
+        public CancellationToken Token => token;
 
         public FamiliarModel(FamiliarData familiarData, IFStateAfterBorn fStateAfterBorn, Vector2 pos, FamiliarController familiarController, ColorName colorName, bool isEnemy, GameObject attackPrefab)
         {
@@ -42,9 +43,9 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
             fStateMachine.OnUpdate();
         }
 
-        public void Move(Vector2 dir)
+        public void MoveIgnoringStage(Vector2 dir)
         {
-            pA = pA.Move(dir);
+            pA = pA.MoveIgnoringStage(dir);
         }
         
         public void ChangeState(IFState state) => fStateMachine.ChangeState(state);
@@ -53,7 +54,8 @@ namespace Assets.Scripts.Objects.Familiars.Base.Model
         {
             cts?.Cancel();
             cts?.Dispose();
-            GameObject.Destroy(familiarController.gameObject);
+            if (familiarController != null)
+                GameObject.Destroy(familiarController.gameObject);
         }
     }
 }

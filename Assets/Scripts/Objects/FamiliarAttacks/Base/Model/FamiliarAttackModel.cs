@@ -1,7 +1,8 @@
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Controller;
+using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 
 namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
@@ -13,8 +14,8 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
         private readonly FamiliarData familiarData;
         private readonly FamiliarAttackController familiarAttackController;
         private readonly ColorName colorName;
-        public ColorEffectData colorEffectData;
-        public float Power => familiarData.Power;
+        private readonly float power;
+        public float Power => power;
         public PA PA => pA;
         public HitBox HitBox => hitBox;
         public FamiliarData FamiliarData => familiarData;
@@ -24,37 +25,34 @@ namespace Assets.Scripts.Objects.FamiliarAttacks.Base.Model
         {
             this.familiarData = familiarData;
             pA = new PA(pos, 0f);
-            hitBox = new(pA.Pos, familiarData.HitBoxScale);
+            hitBox = new(pA.Pos, familiarData.HitBoxScale, true);
             this.familiarAttackController = familiarAttackController;
             this.colorName = colorName;
-            this.colorEffectData = colorEffectData;
-            ObjectsStorageModel.Instance.AddFamiliarAttack(this, isEnemy);
+            power = familiarData.Power;
+            ObjectStorageModel.Instance.AddFamiliarAttack(this, isEnemy);
         }
 
-        public void Move(Vector2 dir)
+        public void MoveIgnoringStage(Vector2 dir)
         {
-            pA = pA.Move(dir);
+            pA = pA.MoveIgnoringStage(dir);
+            hitBox = hitBox.SetPos(pA.Pos);
         }
 
-        public void OnUpdate()
+        public void MoveInStage(Vector2 dir)
         {
-            hitBox = hitBox.Move(pA.Pos);
+            pA = pA.MoveInStage(dir);
+            hitBox = hitBox.SetPos(pA.Pos);
         }
 
-        public void Break(FamiliarAttackModel familiarAttackModel)
-        {
-            if (familiarAttackModel.ColorName == ColorName.yellow)
-                Destroy();
-        }
-
-        public float GetUniqueParameter(string key) => familiarData.GetUniqueParameter(key);
+        public float GetUniqueParameter(string key) => familiarData.GetUP(key);
 
         public void Destroy()
         {
             if (familiarAttackController == null)
                 return;
-            ObjectsStorageModel.Instance.RemoveFamiliarAttack(this);
+            ObjectStorageModel.Instance.RemoveFamiliarAttack(this);
             Object.Destroy(familiarAttackController.gameObject);
+            familiarAttackController.OnDestroy();
         }
     }
 }

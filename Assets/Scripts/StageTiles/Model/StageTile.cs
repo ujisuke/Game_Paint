@@ -6,41 +6,32 @@ namespace Assets.Scripts.StageTiles.Model
     public class StageTile
     {
         private readonly ColorName colorNameCurrent;
-        public ColorName ColorNameCurrent => colorNameCurrent;
         private readonly ColorName colorNameInitial;
+        private readonly bool isWall;
+        public ColorName ColorNameCurrent => colorNameCurrent;
         public ColorName ColorNameInitial => colorNameInitial;
+        public bool IsWall => isWall;
 
-        private StageTile(ColorName colorNameCurrent, ColorName colorNameInitial)
+        private StageTile(ColorName colorNameCurrent, ColorName colorNameInitial, bool isWall)
         {
             this.colorNameCurrent = colorNameCurrent;
             this.colorNameInitial = colorNameInitial;
+            this.isWall = isWall;
         }
 
-        public static StageTile Initialize(ColorName colorNameInitial)
+        public static StageTile Initialize(ColorName colorNameInitial, bool isWall)
         {
-            return new StageTile(colorNameInitial, colorNameInitial);
-        }
-
-        public bool IsWall()
-        {
-            return colorNameCurrent == ColorName.wallColor;
-        }
-
-        private bool IsDefaultColor()
-        {
-            return colorNameCurrent == ColorName.defaultColor;
+            return new StageTile(colorNameInitial, colorNameInitial, isWall);
         }
 
         public StageTile Paint(ColorName colorNameInput)
         {
-            if (!IsDefaultColor())
-                return this;
-            return new StageTile(colorNameInput, colorNameInitial);
+            return new StageTile(colorNameInput, colorNameInitial, isWall);
         }
 
         public StageTile ResetColor()
         {
-            return new StageTile(colorNameInitial, colorNameInitial);
+            return new StageTile(colorNameInitial, colorNameInitial, isWall);
         }
     }
 }

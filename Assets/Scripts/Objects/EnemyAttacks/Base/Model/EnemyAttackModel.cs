@@ -1,61 +1,117 @@
-using Assets.Scripts.Objects.Common;
+using Assets.Scripts.Objects.Common.Model;
 using Assets.Scripts.Datas;
-using Assets.Scripts.GameSystems.ObjectsStorage.Model;
+using Assets.Scripts.GameSystems.ObjectStorage.Model;
 using Assets.Scripts.Objects.EnemyAttacks.Base.Controller;
 using UnityEngine;
 using Assets.Scripts.Objects.FamiliarAttacks.Base.Model;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using System;
 
 namespace Assets.Scripts.Objects.EnemyAttacks.Base.Model
 {
     public class EnemyAttackModel
     {
+        private HP hP;
         private PA pA;
         private HitBox hitBox;
+        private HurtBox hurtBox;
         private readonly EnemyAttackData enemyAttackData;
         private readonly EnemyAttackController enemyAttackController;
-        private readonly ColorEffectData colorEffectData;
-        private readonly bool isSpeedDecreased;
-        public PA PA => pA;
+        private readonly IEnemyAttackMove enemyAttackMove;
+        private bool isDisposed;
+        private readonly CancellationTokenSource cts;
+        private readonly CancellationToken token;
+        public Vector2 Pos => pA.Pos;
+        public float Angle => pA.Angle;
         public int Power => enemyAttackData.Power;
         public HitBox HitBox => hitBox;
+        public HurtBox HurtBox => hurtBox;
+        public bool IsBreakable => enemyAttackData.IsBreakable;
+        public CancellationToken Token => token;
 
-        public EnemyAttackModel(EnemyAttackData enemyAttackData, Vector2 pos, EnemyAttackController enemyAttackController, bool isSpeedDecreased, ColorEffectData colorEffectData)
+        public EnemyAttackModel(EnemyAttackData enemyAttackData, Vector2 pos, EnemyAttackController enemyAttackController, IEnemyAttackMove enemyAttackMove)
         {
             this.enemyAttackData = enemyAttackData;
+            hP = new HP(enemyAttackData.MaxHP);
             pA = new PA(pos, 0f);
-            hitBox = new(pA.Pos, enemyAttackData.HitBoxScale);
+            hitBox = new(pA.Pos, enemyAttackData.HitBoxScale, true);
+            hurtBox = new(pA.Pos, enemyAttackData.HurtBoxScale, true);
             this.enemyAttackController = enemyAttackController;
-            this.colorEffectData = colorEffectData;
-            this.isSpeedDecreased = isSpeedDecreased;
-            ObjectsStorageModel.Instance.AddEnemyAttack(this);
+            cts = new CancellationTokenSource();
+            token = cts.Token;
+            this.enemyAttackMove = enemyAttackMove.Initialize(this, enemyAttackController);
+            ObjectStorageModel.Instance.AddEnemyAttack(this);
+            this.enemyAttackMove.OnAwake();
+            isDisposed = false;
         }
 
-        public void Move(Vector2 dir)
+        public void MoveIgnoringStage(Vector2 dir)
         {
-            if (isSpeedDecreased)
-                dir *= colorEffectData.AttackSpeedMultiplier;
-            pA = pA.Move(dir);
+            if (isDisposed)
+                return;
+            pA = pA.MoveIgnoringStage(dir);
+            hitBox = hitBox.SetPos(pA.Pos);
+            hurtBox = hurtBox.SetPos(pA.Pos);
+        }
+
+        public void MoveInStage(Vector2 dir)
+        {
+            if (isDisposed)
+                return;
+            pA = pA.MoveInStage(dir);
+            hitBox = hitBox.SetPos(pA.Pos);
+            hurtBox = hurtBox.SetPos(pA.Pos);
+        }
+
+        public void Rotate(float angle)
+        {
+            if (isDisposed)
+                return;
+            pA = pA.Rotate(angle);
+            hitBox = hitBox.SetAngle(angle);
         }
 
         public void OnUpdate()
         {
-            hitBox = hitBox.Move(pA.Pos);
+            enemyAttackMove.OnUpdate();
         }
 
-        public float GetUniqueParameter(string key) => enemyAttackData.GetUniqueParameter(key);
+        public float GetUP(string key) => enemyAttackData.GetUniqueParameter(key);
 
-        public void Break(FamiliarAttackModel familiarAttackModel)
+        public void TakeDamage(float damageValue)
         {
-            if (familiarAttackModel.ColorName == ColorName.yellow)
+            hP = hP.TakeDamage(damageValue);
+            Invinciblize().Forget();
+        }
+
+        private async UniTask Invinciblize()
+        {
+            hurtBox = hurtBox.SetActive(false);
+            if (hP.IsDead())
+            {
                 Destroy();
+                return;
+            }
+            await UniTask.Delay(TimeSpan.FromSeconds(0.3f), cancellationToken: token);
+            hurtBox = hurtBox.SetActive(true);
         }
 
         public void Destroy()
         {
-            if (enemyAttackController == null)
+            if (isDisposed)
                 return;
-            ObjectsStorageModel.Instance.RemoveEnemyAttack(this);
-            GameObject.Destroy(enemyAttackController.gameObject);
+            isDisposed = true;
+            cts?.Cancel();
+            cts?.Dispose();
+            ObjectStorageModel.Instance.RemoveEnemyAttack(this);
+            if(enemyAttackController != null)
+                enemyAttackController.OnDestroy();
+        }
+
+        public void SetActiveHitBox(bool isActive)
+        {
+            hitBox = hitBox.SetActive(isActive);
         }
     }
 }
