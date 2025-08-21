@@ -13,6 +13,7 @@ namespace Assets.Scripts.Datas
         [SerializeField] private Vector2 hurtBoxScale;
         [SerializeField] private Vector2 viewScale;
         [SerializeField] private float invincibleSecond;
+        [SerializeField] private int maxAttackCount;
         [SerializeField] private List<UniqueParameter> uniqueParameterList;
         [SerializeField] private List<GameObject> attackPrefabList;
         private Dictionary<string, float> uniqueParameters;
@@ -22,6 +23,8 @@ namespace Assets.Scripts.Datas
         public Vector2 HurtBoxScale => hurtBoxScale;
         public Vector2 ViewScale => viewScale;
         public TimeSpan InvincibleSecond => TimeSpan.FromSeconds(invincibleSecond);
+        public int MaxAttackCount => maxAttackCount;
+
         private Dictionary<string, GameObject> attackPrefabs;
 
         public float GetUP(string parameterName)

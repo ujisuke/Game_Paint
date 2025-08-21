@@ -74,6 +74,8 @@ namespace Assets.Scripts.Objects.Enemies.Base.Model
 
         public float GetUP(string key) => enemyData.GetUP(key);
 
+        public int MaxAttackCount => enemyData.MaxAttackCount;
+
         public void TakeDamage(float damageValue)
         {
             hP = hP.TakeDamage(damageValue);
